@@ -20,7 +20,6 @@ module load lang/Anaconda3/2024.02-1
 source activate "ADSAenv"
 module load tools/git/2.42.0-GCCcore-13.2.0
 
-git switch CustomLoss02
-python Model.py
+python dogcatcnn.py
 git add .
 git commit -m"Training complete"
