@@ -2,7 +2,7 @@
 #SBATCH --job-name=DogCatCNN        # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
-#SBATCH --time=0-02:00:00           # Max runtime (HH:MM:SS)
+#SBATCH --time=0-00:30:00           # Max runtime (HH:MM:SS)
 #SBATCH --cpus-per-task=2           # CPU cores for data loading
 
 #SBATCH --mem=32G ## max amount of memory per node you require
