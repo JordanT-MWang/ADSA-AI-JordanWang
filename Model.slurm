@@ -21,5 +21,6 @@ source activate "ADSAenv"
 module load tools/git/2.42.0-GCCcore-13.2.0
 
 python dogcatcnn.py
-git add .
-git commit -m"Training complete"
+git add results/*
+git commit -m "Predictions saved for job $SLURM_JOB_ID"
+git push origin
