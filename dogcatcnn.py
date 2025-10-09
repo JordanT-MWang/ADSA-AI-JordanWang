@@ -50,6 +50,32 @@ model.fit(x=train_batches, validation_data=valid_batches, epochs=10, verbose=2)
 #predictions
 test_imgs, test_labels = next(test_batches)
 predictions = model.predict(x=test_batches, verbose=0)
-for i in predictions:
-    if (np.round(predictions[i]) ==  test_labels[i]):
-        print( "correct: " + str(i))
+import pandas as pd
+
+# Get predicted class (0=cat, 1=dog)
+pred_classes = np.argmax(predictions, axis=1)
+
+# Get true class
+true_classes = test_batches.classes
+
+# Compare
+correct = pred_classes == true_classes
+accuracy = np.mean(correct)
+print("Test accuracy:", accuracy)
+
+# Save predictions to CSV
+results = pd.DataFrame({
+    "filename": test_batches.filenames,
+    "true_class": true_classes,
+    "pred_class": pred_classes,
+    "correct": correct
+})
+
+# Make a folder to save results if it doesn’t exist
+results_dir = os.path.join(base_path, "results")
+os.makedirs(results_dir, exist_ok=True)
+
+# Save CSV
+results_file = os.path.join(results_dir, "predictions.csv")
+results.to_csv(results_file, index=False)
+print("Predictions saved to:", results_file)
