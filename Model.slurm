@@ -19,6 +19,8 @@
 module load lang/Anaconda3/2024.02-1
 source activate "ADSAenv"
 module load tools/git/2.42.0-GCCcore-13.2.0
+module load lib/CUDA/12.2.2
+module load lib/cuDNN/8.9.4.25-CUDA-12.2.2
 
 python dogcatcnn.py
 git add results/*

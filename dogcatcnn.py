@@ -17,9 +17,17 @@ import matplotlib.pyplot as plt
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-physical_devices = tf.config.experimental.list_physical_devices('GPU')
-print("num pgu aval: ", len(physical_devices))
-tf.config.experimental.set_memory_growth(physical_devices[0], True)
+physical_devices = tf.config.list_physical_devices('GPU')
+if len(physical_devices) > 0:
+    print(f" {len(physical_devices)} GPU(s) available:")
+    for gpu in physical_devices:
+        print("   ", gpu)
+    try:
+        tf.config.experimental.set_memory_growth(physical_devices[0], True)
+    except:
+        pass
+else:
+    print(" No GPU detected — running on CPU.")
 # Define paths
 base_path = '/home/jordanw7/koa_scratch/dogcattest/catdog-data'
 train_path = os.path.join(base_path, 'train')
@@ -51,6 +59,8 @@ model.fit(x=train_batches, validation_data=valid_batches, epochs=10, verbose=2)
 test_imgs, test_labels = next(test_batches)
 predictions = model.predict(x=test_batches, verbose=0)
 import pandas as pd
+
+
 
 # Get predicted class (0=cat, 1=dog)
 pred_classes = np.argmax(predictions, axis=1)
