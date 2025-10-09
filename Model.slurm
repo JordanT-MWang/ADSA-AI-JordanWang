@@ -17,9 +17,10 @@
 ## All options and environment variables found on schedMD site: http://slurm.schedmd.com/sbatch.html
 
 module load lang/Anaconda3/2024.02-1
-source activate "ADSAenv"
 module load tools/git/2.42.0-GCCcore-13.2.0
 module load system/CUDA/12.2.0
+source activate "ADSAenv"
+
 
 
 python dogcatcnn.py
