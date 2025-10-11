@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
 
-
+from DataGenerator import ADSADataGenerator # your custom generator
 def run_inference(model_path, dataset_path, output_csv="predictions.csv", batch_size=16):
     # Load trained model
     # Explicitly provide custom_objects for standard loss/metrics if needed

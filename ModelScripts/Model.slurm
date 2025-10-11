@@ -7,8 +7,8 @@
 
 #SBATCH --mem=32G ## max amount of memory per node you require
 
-#SBATCH --output=dogcat-%A.out      # STDOUT log
-#SBATCH --error=dogcat-%A.err       # STDERR log
+#SBATCH --output=model-%A.out      # STDOUT log
+#SBATCH --error=model-%A.err       # STDERR log
 
 ## Useful for remote notification
 #SBATCH --mail-type=BEGIN,END,FAIL  # Email notifications
@@ -22,7 +22,7 @@ module load system/CUDA/12.2.0
 source activate "ADSAenv"
 
 
-
+git pull
 python ModelSurfaceTension.py
 python testmodel.py
 git commit -m "Predictions saved for job $SLURM_JOB_ID"

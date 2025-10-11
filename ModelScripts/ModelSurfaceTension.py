@@ -5,7 +5,7 @@ from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
 import os # Import os module
 
-
+from DataGenerator import ADSADataGenerator # your custom generator
 
 def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
     """
