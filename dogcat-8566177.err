@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/mnt/lustre/koa/scratch/jordanw7/dogcattest/ADSA-AI-JordanWang/dogcatcnn.py", line 2, in <module>
-    import numpy as np
-ModuleNotFoundError: No module named 'numpy'
