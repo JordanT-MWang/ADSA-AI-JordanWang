@@ -24,6 +24,5 @@ source activate "ADSAenv"
 
 git pull
 python ModelSurfaceTension.py
-python testmodel.py
 git commit -m "Predictions saved for job $SLURM_JOB_ID"
 git push origin
