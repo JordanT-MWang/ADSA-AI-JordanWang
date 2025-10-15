@@ -19,7 +19,10 @@
 module load lang/Anaconda3/2024.02-1
 module load tools/git/2.42.0-GCCcore-13.2.0
 module load system/CUDA/12.2.0
-source activate "ADSAenv"
+# Activate your environment the robust way
+eval "$(conda shell.bash hook)"
+conda activate ADSAenv
+
 
 
 git pull
