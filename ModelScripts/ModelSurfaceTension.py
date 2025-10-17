@@ -1,13 +1,71 @@
 import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate
+from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.models import load_model
+from tensorflow.keras.metrics import MeanAbsoluteError
+from tensorflow.keras.losses import MeanSquaredError
 import matplotlib.pyplot as plt
+import time
+import numpy as np
+import pandas as pd
 import os # Import os module
 
 from DataGenerator import ADSADataGenerator # your custom generator
+from CustomCNNDataGenerator import CustomCNNADSADataGenerator
+def create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2):
+    """
+    A deeper CNN for regression with numeric inputs.
+    """
+    img_input = Input(shape=input_image_shape, name="img_input")
+    param_input = Input(shape=(input_param_size,), name="param_input")
 
+    # --- Conv Block 1 ---
+    x = Conv2D(32, (3,3), activation='relu', padding='same')(img_input)
+    x = BatchNormalization()(x)
+    x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
+    x = MaxPooling2D((2,2))(x)
+    x = Dropout(0.2)(x)
+
+    # --- Conv Block 2 ---
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
+    x = MaxPooling2D((2,2))(x)
+    x = Dropout(0.3)(x)
+
+    # --- Conv Block 3 ---
+    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = MaxPooling2D((2,2))(x)
+    x = Dropout(0.3)(x)
+
+    # --- Conv Block 4 ---
+    x = Conv2D(256, (3,3), activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(256, (3,3), activation='relu', padding='same')(x)
+    x = MaxPooling2D((2,2))(x)
+    x = Dropout(0.4)(x)
+
+    # --- Flatten or Global Pooling ---
+    x = GlobalAveragePooling2D()(x)
+    x = Dense(256, activation='relu')(x)
+    x = Dropout(0.3)(x)
+    x = Dense(128, activation='relu')(x)
+
+    # --- Combine with numeric input ---
+    combined = Concatenate()([x, param_input])
+    z = Dense(64, activation='relu')(combined)
+    z = Dropout(0.2)(z)
+    z = Dense(32, activation='relu')(z)
+    output = Dense(1, activation='linear')(z)
+
+    model = Model(inputs=[img_input, param_input], outputs=output)
+    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
+
+    return model
 def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
     """
     MobileNetV2 for regression with numeric inputs.
@@ -53,21 +111,27 @@ def main():
 
     train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
                               image_size=image_size, output_type='Surface Tension (mN/m)')
+    
     val_gen = ADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
     test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
 
     # Model now expects 3 channels
-    model = create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100)
-
+    model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
+    # Save normalization statistics for future inference
+    if ADSADataGenerator.param_mean is not None:
+        model._metadata = {
+        "param_mean": ADSADataGenerator.param_mean.tolist() if ADSADataGenerator.param_mean is not None else None,
+        "param_std": ADSADataGenerator.param_std.tolist() if ADSADataGenerator.param_std is not None else None,
+    }
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
 
     # Save model
-    model.save("SurfaceTension_Model.h5")
+    model.save("SurfaceTension_Model.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -90,6 +154,71 @@ def main():
     plt.tight_layout()
     plt.savefig("training_curves.png")
     plt.show()
+
+    all_true = []
+    all_pred = []
+    all_times = []
+
+    print("[INFO] Running inference...")
+
+    start_total = time.time() # Start timing for the whole inference process
+
+    # Go through test batches and predict on the whole batch
+    for (X_batch, params_batch), y_batch in test_gen:
+        start_batch = time.time() # Start timing for the batch prediction
+        preds_batch = model.predict([X_batch, params_batch], verbose=0)
+        elapsed_batch = time.time() - start_batch # Time for the batch prediction
+
+        # Extend the lists with batch results
+        all_true.extend(y_batch)
+        all_pred.extend(preds_batch.flatten())
+        # For simplicity, we'll record the batch time for each sample in the batch
+        # A more precise timing would require predicting samples individually, which is slow
+        all_times.extend([elapsed_batch / len(y_batch)] * len(y_batch)) # Avg time per sample in this batch
+
+
+    end_total = time.time() # End timing for the whole inference process
+    total_elapsed_time = end_total - start_total
+
+    # Summary statistics
+    avg_time = np.mean(all_times) if all_times else 0 # Handle case with no predictions
+    total_samples = len(all_true)
+    print(f"[INFO] Inference complete.")
+    print(f"    Total samples predicted: {total_samples}")
+    print(f"    Total inference time: {total_elapsed_time:.3f} seconds")
+    if total_samples > 0:
+        print(f"    Avg prediction time per sample: {avg_time*1000:.3f} ms")
+
+
+    # Save results to CSV
+    if total_samples > 0:
+        results_df = pd.DataFrame({
+            "True_Value": all_true,
+            "Predicted_Value": all_pred,
+            "Prediction_Time_s": all_times
+        })
+        results_df.to_csv(output_csv, index=False)
+        print(f"[INFO] Results saved to {output_csv}")
+    else:
+        print("[INFO] No predictions were made, skipping CSV save.")
+
+
+    # Plot predicted vs true values
+    if total_samples > 0:
+        plt.figure(figsize=(6,6))
+        plt.scatter(all_true, all_pred, alpha=0.6)
+        # Ensure there are enough points for the line
+        if len(all_true) > 1:
+            plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], 'r--')
+        plt.xlabel("True Surface Tension (mN/m)")
+        plt.ylabel("Predicted Surface Tension (mN/m)")
+        plt.title("Predicted vs True Values")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("pred_vs_true.png")
+        plt.show()
+    else:
+        print("[INFO] No predictions were made, skipping plot generation.")
 
 
 if __name__ == "__main__":

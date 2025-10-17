@@ -7,7 +7,7 @@ def delete_bmp_files(root_folder):
     # Walk through all directories and subdirectories
     for dirpath, dirnames, filenames in os.walk(root_folder):
         for file in filenames:
-            if (file.lower().endswith(".bmp") or file.lower().endswith(".tif") ):
+            if (file.lower().endswith(".bmp") or file.lower().endswith(".tif") or file.lower().endswith(".tiff")):
                 file_path = os.path.join(dirpath, file)
                 try:
                     os.remove(file_path)

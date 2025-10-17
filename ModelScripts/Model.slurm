@@ -24,8 +24,10 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 
-
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
 git pull
 python ModelSurfaceTension.py
-git commit -m "Predictions saved for job $SLURM_JOB_ID"
+git add -A
+git commit -am "Predictions saved for job $SLURM_JOB_ID"
 git push origin
