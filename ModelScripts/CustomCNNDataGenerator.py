@@ -111,9 +111,9 @@ class CustomCNNADSADataGenerator(Sequence):
             np.random.shuffle(self.indexes)
 
     def _load_and_pad(self, path):
-        """Resize + pad image to target size without cropping and convert to 3 channels."""
+        """Resize + pad image to target size without cropping and keep 1-channel grayscale."""
         img = Image.open(path).convert("L")  # grayscale
-        img = img_to_array(img)
+        img = img_to_array(img)  # shape: (H, W, 1)
 
         target_h, target_w = self.image_size
         h, w = img.shape[:2]
@@ -130,7 +130,9 @@ class CustomCNNADSADataGenerator(Sequence):
                                   cv2.BORDER_CONSTANT, value=0)
         img = img / 255.0
 
-        # Convert 1-channel grayscale -> 3-channel
-        img = np.expand_dims(img, axis=-1)
-        img = np.repeat(img, 3, axis=-1)  # shape: (H, W, 3)
+        # Keep single channel, shape: (H, W, 1)
+        if img.ndim == 2:
+            img = np.expand_dims(img, axis=-1)
+
         return img
+

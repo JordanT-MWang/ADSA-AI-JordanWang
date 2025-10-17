@@ -14,7 +14,7 @@ import os # Import os module
 
 from DataGenerator import ADSADataGenerator # your custom generator
 from CustomCNNDataGenerator import CustomCNNADSADataGenerator
-def create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2):
+def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     """
     A deeper CNN for regression with numeric inputs.
     """
@@ -101,7 +101,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
-    batch_size = 64
+    batch_size = 16
     image_size = (512, 640)
 
     # Print paths for debugging
@@ -125,8 +125,8 @@ def main():
 
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Surface Tension (mN/m)')
-    # Model now expects 3 channels
-    model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
+    # Model now expects 1 for channel for custom and 3 for mobilenet
+    model = create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         model._metadata = {
