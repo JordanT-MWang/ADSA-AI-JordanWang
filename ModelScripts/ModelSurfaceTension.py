@@ -101,7 +101,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
-    batch_size = 16
+    batch_size = 64
     image_size = (512, 640)
 
     # Print paths for debugging
