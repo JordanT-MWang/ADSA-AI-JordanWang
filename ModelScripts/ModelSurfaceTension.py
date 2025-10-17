@@ -108,7 +108,7 @@ def main():
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
-
+    """
     train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
                               image_size=image_size, output_type='Surface Tension (mN/m)')
     
@@ -116,7 +116,15 @@ def main():
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
     test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
+    """
+    train_gen = CustomCNNADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
+                                    image_size=image_size, output_type='Surface Tension (mN/m)')
 
+    val_gen = CustomCNNADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
+                                  image_size=image_size, output_type='Surface Tension (mN/m)')
+
+    test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
+                                   image_size=image_size, output_type='Surface Tension (mN/m)')
     # Model now expects 3 channels
     model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference
