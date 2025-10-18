@@ -26,3 +26,19 @@ Test Loss: 178.2673, Test MAE: 9.7700
     Total samples predicted: 11616
     Total inference time: 161.453 seconds
     Avg prediction time per sample: 9.089 ms
+[main 1cf2cbc] Predictions saved for job 8690709
+ Committer: Jordan Wang <jordanw7@gn-16-26-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 7 files changed, 36 insertions(+), 2 deletions(-)
+ create mode 100644 SurfaceTension_Model.keras
