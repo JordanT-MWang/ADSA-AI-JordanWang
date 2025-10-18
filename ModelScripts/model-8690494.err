@@ -281,3 +281,5 @@ F0000 00:00:1760744607.283113  555334 bfc_allocator.cc:807] Check failed: c->in_
     @     0x14da587e5568  EagerTensor_dealloc
     @           0x5028db  tupledealloc
 /var/spool/slurm/d/job8690494/slurm_script: line 30: 555334 Aborted                 (core dumped) python ModelSurfaceTension.py
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   062002a..c41ebfd  main -> main
