@@ -16,3 +16,5 @@ Trying algorithm eng17{k25=1} for conv (f32[16,1,3,3]{3,2,1,0}, u8[0]{0}) custom
 2025-10-18 03:30:30.423801: E external/local_xla/xla/service/slow_operation_alarm.cc:140] The operation took 1.00840644s
 Trying algorithm eng23{k2=6,k13=0,k14=2,k18=1,k23=0} for conv (f32[16,16,3,3]{3,2,1,0}, u8[0]{0}) custom-call(f32[16,16,512,640]{3,2,1,0}, f32[16,16,512,640]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]} is taking a while...
 I0000 00:00:1760758234.758509 2246056 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   713d512..0fd662e  main -> main

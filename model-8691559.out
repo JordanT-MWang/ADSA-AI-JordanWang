@@ -23,3 +23,23 @@ Test Loss: 0.8163, Test MAE: 0.6340
     Total inference time: 111.908 seconds
     Avg prediction time per sample: 4.876 ms
 [INFO] Results saved to Curvature_Model_Predictions.csv
+[main 0fd662e] Predictions saved for job 8691559
+ Committer: Jordan Wang <jordanw7@gn-08-17-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 12 files changed, 11683 insertions(+), 4 deletions(-)
+ create mode 100644 Curvature_Model.keras
+ create mode 100644 Curvature_Model_Predictions.csv
+ create mode 100644 ModelScripts/SurfaceTension_Model.keras
+ create mode 100644 pred_vs_true.png
+ create mode 100644 training_curves.png
