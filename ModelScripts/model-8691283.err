@@ -16,3 +16,5 @@ I0000 00:00:1760750871.532595 2334312 device_compiler.h:196] Compiled cluster us
 
 2025-10-18 01:49:24.351593: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:310] Allocator (GPU_0_bfc) ran out of memory trying to allocate 9.09GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
 2025-10-18 01:49:25.441530: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:310] Allocator (GPU_0_bfc) ran out of memory trying to allocate 8.65GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   dac9cde..713d512  main -> main
