@@ -197,3 +197,11 @@ Trying algorithm eng19{k2=1} for conv (f16[64,3,3,64]{3,2,1,0}, u8[0]{0}) custom
 Trying algorithm eng19{k2=0} for conv (f16[64,3,3,64]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,128,160,64]{3,2,1,0}, f16[32,128,160,64]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]} is taking a while...
 I0000 00:00:1760758019.411802  516912 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
 2025-10-18 03:35:13.622937: I external/local_xla/xla/service/gpu/autotuning/dot_search_space.cc:208] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs? Working around this by using the full hints set instead.
+2025-10-18 06:26:45.317661: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelSurfaceTension.py", line 229, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelSurfaceTension.py", line 204, in main
+    results_df.to_csv(output_csv, index=False)
+                      ^^^^^^^^^^
+NameError: name 'output_csv' is not defined
