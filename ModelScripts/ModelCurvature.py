@@ -19,50 +19,43 @@ from DataGenerator import ADSADataGenerator # your custom generator
 from CustomCNNDataGenerator import CustomCNNADSADataGenerator
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     """
-    A deeper CNN for regression with numeric inputs.
+    A lighter CNN for regression with numeric inputs. 
+    Smaller and faster than the original, but still expressive.
     """
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
     # --- Conv Block 1 ---
-    x = Conv2D(32, (3,3), activation='relu', padding='same')(img_input)
+    x = Conv2D(16, (3,3), activation='relu', padding='same')(img_input)
+    x = BatchNormalization()(x)
+    x = Conv2D(16, (3,3), activation='relu', padding='same')(x)
+    x = MaxPooling2D((2,2))(x)
+    x = Dropout(0.1)(x)
+
+    # --- Conv Block 2 ---
+    x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
     x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
     x = MaxPooling2D((2,2))(x)
     x = Dropout(0.2)(x)
 
-    # --- Conv Block 2 ---
-    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.3)(x)
-
     # --- Conv Block 3 ---
-    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
-    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
     x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.2)(x)
 
-    # --- Conv Block 4 ---
-    x = Conv2D(256, (3,3), activation='relu', padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(256, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.4)(x)
-
-    # --- Flatten or Global Pooling ---
+    # --- Global Pooling ---
     x = GlobalAveragePooling2D()(x)
-    x = Dense(256, activation='relu')(x)
-    x = Dropout(0.3)(x)
     x = Dense(128, activation='relu')(x)
+    x = Dropout(0.2)(x)
+    x = Dense(64, activation='relu')(x)
 
     # --- Combine with numeric input ---
     combined = Concatenate()([x, param_input])
-    z = Dense(64, activation='relu')(combined)
-    z = Dropout(0.2)(z)
-    z = Dense(32, activation='relu')(z)
+    z = Dense(32, activation='relu')(combined)
+    z = Dropout(0.1)(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -137,23 +130,14 @@ def main():
         "param_mean": ADSADataGenerator.param_mean.tolist() if ADSADataGenerator.param_mean is not None else None,
         "param_std": ADSADataGenerator.param_std.tolist() if ADSADataGenerator.param_std is not None else None,
     }
-    # Callbacks for better monitoring
-    csv_logger = CSVLogger("training_log.csv", append=True)
-    early_stop = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
-
-    # Print progress nicely during training
-    def on_epoch_end(epoch, logs):
-        time_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[{time_str}] Epoch {epoch+1}: loss={logs['loss']:.4f}, val_loss={logs['val_loss']:.4f}, mae={logs['mae']:.4f}, val_mae={logs['val_mae']:.4f}")
-
-    progress_logger = LambdaCallback(on_epoch_end=on_epoch_end)
+    
 
     history = model.fit(
         train_gen,
         validation_data=val_gen,
         epochs=50,
-        callbacks=[early_stop, csv_logger, progress_logger],
-        verbose=0  # use custom print instead
+        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)],
+         # use custom print instead
     )
 
     # Save model
