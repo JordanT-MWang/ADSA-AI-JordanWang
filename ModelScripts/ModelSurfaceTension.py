@@ -6,6 +6,9 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
+from tensorflow.keras import mixed_precision
+mixed_precision.set_global_policy("mixed_float16")
+
 import matplotlib.pyplot as plt
 import time
 import numpy as np
@@ -16,50 +19,43 @@ from DataGenerator import ADSADataGenerator # your custom generator
 from CustomCNNDataGenerator import CustomCNNADSADataGenerator
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     """
-    A deeper CNN for regression with numeric inputs.
+    A lighter CNN for regression with numeric inputs. 
+    Smaller and faster than the original, but still expressive.
     """
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
     # --- Conv Block 1 ---
-    x = Conv2D(32, (3,3), activation='relu', padding='same')(img_input)
+    x = Conv2D(16, (3,3), activation='relu', padding='same')(img_input)
+    x = BatchNormalization()(x)
+    x = Conv2D(16, (3,3), activation='relu', padding='same')(x)
+    x = MaxPooling2D((2,2))(x)
+    x = Dropout(0.1)(x)
+
+    # --- Conv Block 2 ---
+    x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
     x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
     x = MaxPooling2D((2,2))(x)
     x = Dropout(0.2)(x)
 
-    # --- Conv Block 2 ---
-    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.3)(x)
-
     # --- Conv Block 3 ---
-    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
-    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
     x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.2)(x)
 
-    # --- Conv Block 4 ---
-    x = Conv2D(256, (3,3), activation='relu', padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(256, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.4)(x)
-
-    # --- Flatten or Global Pooling ---
+    # --- Global Pooling ---
     x = GlobalAveragePooling2D()(x)
-    x = Dense(256, activation='relu')(x)
-    x = Dropout(0.3)(x)
     x = Dense(128, activation='relu')(x)
+    x = Dropout(0.2)(x)
+    x = Dense(64, activation='relu')(x)
 
     # --- Combine with numeric input ---
     combined = Concatenate()([x, param_input])
-    z = Dense(64, activation='relu')(combined)
-    z = Dropout(0.2)(z)
-    z = Dense(32, activation='relu')(z)
+    z = Dense(32, activation='relu')(combined)
+    z = Dropout(0.1)(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -101,7 +97,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
-    batch_size = 16
+    batch_size = 32
     image_size = (512, 640)
 
     # Print paths for debugging
