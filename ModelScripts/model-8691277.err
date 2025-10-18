@@ -7,3 +7,5 @@ Traceback (most recent call last):
   File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelCurvature.py", line 4, in <module>
     from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten, EarlyStopping, CSVLogger, LambdaCallback
 ImportError: cannot import name 'EarlyStopping' from 'tensorflow.keras.layers' (/home/jordanw7/.local/lib/python3.11/site-packages/keras/_tf_keras/keras/layers/__init__.py)
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   fb4b8a2..d57e86e  main -> main
