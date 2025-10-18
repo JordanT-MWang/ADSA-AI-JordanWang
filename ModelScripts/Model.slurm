@@ -27,7 +27,7 @@ conda activate ADSAenv
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git pull
-python ModelSurfaceTension.py
+python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts
 git add -A
 git commit -am "Predictions saved for job $SLURM_JOB_ID"
 git push origin
