@@ -7,9 +7,13 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import mixed_precision
-import tensorflow as tf
 tf.config.optimizer.set_jit(False)
-
+gpus = tf.config.list_physical_devices('GPU')
+for g in gpus:
+    try: 
+        tf.config.experimental.set_memory_growth(g, True)
+    except Exception:
+        pass
 mixed_precision.set_global_policy("mixed_float16")
 
 import matplotlib.pyplot as plt
