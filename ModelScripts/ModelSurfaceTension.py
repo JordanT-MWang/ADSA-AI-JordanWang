@@ -97,7 +97,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
-    batch_size = 32
+    batch_size = 64
     image_size = (512, 640)
 
     # Print paths for debugging
@@ -122,7 +122,7 @@ def main():
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Surface Tension (mN/m)')
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2)
+    model = create_model(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         model._metadata = {
@@ -135,7 +135,7 @@ def main():
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
 
     # Save model
-    model.save("SurfaceTension_Model.keras")
+    model.save("SurfaceTension_Model_Large_Mobile_V1.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -156,7 +156,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves.png")
+    plt.savefig("training_curves_ST.png")
     plt.show()
 
     all_true = []
@@ -219,7 +219,7 @@ def main():
         plt.title("Predicted vs True Values")
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("pred_vs_true.png")
+        plt.savefig("pred_vs_true_ST.png")
         plt.show()
     else:
         print("[INFO] No predictions were made, skipping plot generation.")
