@@ -7,6 +7,9 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import mixed_precision
+import tensorflow as tf
+tf.config.optimizer.set_jit(False)
+
 mixed_precision.set_global_policy("mixed_float16")
 
 import matplotlib.pyplot as plt
@@ -98,7 +101,7 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions.csv"
-    batch_size = 64
+    batch_size = 32
     image_size = (512, 640)
 
     # Print paths for debugging
