@@ -105,7 +105,7 @@ def main():
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
-    """
+    
     train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
                               image_size=image_size, output_type='Surface Tension (mN/m)')
     
@@ -122,6 +122,7 @@ def main():
 
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Surface Tension (mN/m)')
+                                   """
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_model(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference
