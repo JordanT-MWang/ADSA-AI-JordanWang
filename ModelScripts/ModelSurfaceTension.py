@@ -97,6 +97,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
+    output_csv = "ST_Model_Predictions.csv"
     batch_size = 64
     image_size = (512, 640)
 
