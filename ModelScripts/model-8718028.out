@@ -25,3 +25,24 @@ Test Loss: 61.2881, Test MAE: 4.8163
     Total inference time: 156.331 seconds
     Avg prediction time per sample: 6.206 ms
 [INFO] Results saved to ST_Model_Predictions.csv
+[main 6cdc3eb] Predictions saved for job 8718028
+ Committer: Jordan Wang <jordanw7@gn-15-35-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 8 files changed, 11692 insertions(+), 1 deletion(-)
+ create mode 100644 ModelScripts/ST_Model_Predictions.csv
+ create mode 100644 ModelScripts/SurfaceTension_Model_Large_Mobile_V1.keras
+ create mode 100644 ModelScripts/model-8718028.err
+ create mode 100644 ModelScripts/model-8718028.out
+ create mode 100644 ModelScripts/pred_vs_true_ST.png
+ create mode 100644 ModelScripts/training_curves_ST.png
