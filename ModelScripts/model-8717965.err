@@ -106,3 +106,5 @@ F0000 00:00:1761011334.108782  670611 device_event_mgr.cc:226] Unexpected Event 
     @     0x150765e48def  tsl::(anonymous namespace)::PThread::ThreadFn()
     @     0x15076785119a  start_thread
 /var/spool/slurm/d/job8717965/slurm_script: line 30: 670451 Aborted                 (core dumped) python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelSurfaceTension.py
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   6d0ab0d..bb8ab36  main -> main
