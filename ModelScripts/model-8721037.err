@@ -18,3 +18,5 @@ I0000 00:00:1761077683.919361  603880 gpu_device.cc:2020] Created device /job:lo
 Trying algorithm eng49{k0=8,k2=0,k5=3,k14=3} for conv (f16[96,1,1,576]{3,2,1,0}, u8[0]{0}) custom-call(f16[16,32,40,576]{3,2,1,0}, f16[16,32,40,96]{3,2,1,0}), window={size=1x1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]} is taking a while...
 I0000 00:00:1761077735.114772  603986 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
 2025-10-22 00:25:27.296073: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   ff8003f..cc806ce  main -> main
