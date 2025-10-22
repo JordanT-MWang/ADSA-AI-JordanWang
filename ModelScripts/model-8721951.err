@@ -1,0 +1,22 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+From github.com:JordanT-MWang/ADSA-AI-JordanWang
+   07f4925..b1ea610  main       -> origin/main
+2025-10-22 19:51:35.684314: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-22 19:51:35.726940: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-22 19:51:42.159685: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelCurvature.py", line 235, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelCurvature.py", line 127, in main
+    model = create_model(input_image_shape=(512, 640, 1), input_param_size=2)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelCurvature.py", line 73, in create_model
+    base_model = MobileNetV2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/applications/mobilenet_v2.py", line 210, in MobileNetV2
+    input_shape = imagenet_utils.obtain_input_shape(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/applications/imagenet_utils.py", line 383, in obtain_input_shape
+    raise ValueError(
+ValueError: The input must have 3 channels; Received `input_shape=(512, 640, 1)`
