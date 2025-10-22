@@ -105,7 +105,7 @@ def main():
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
-    """
+    
     train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
                               image_size=image_size, output_type='Curvature (1/cm)')
     
@@ -122,8 +122,9 @@ def main():
 
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Curvature (1/cm)')
+                                   """
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2)
+    model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         model._metadata = {
@@ -132,13 +133,11 @@ def main():
     }
     
 
-    history = model.fit(
-        train_gen,
-        validation_data=val_gen,
-        epochs=50,
-        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)],
-         # use custom print instead
-    )
+    history = model.fit(train_gen,
+                        validation_data=val_gen,
+                        epochs=50,
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)])
+
 
     # Save model
     model.save("Curvature_Model.keras")
