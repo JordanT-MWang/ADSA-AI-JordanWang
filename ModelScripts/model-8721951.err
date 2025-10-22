@@ -20,3 +20,5 @@ Traceback (most recent call last):
   File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/applications/imagenet_utils.py", line 383, in obtain_input_shape
     raise ValueError(
 ValueError: The input must have 3 channels; Received `input_shape=(512, 640, 1)`
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   b1ea610..5ae6562  main -> main
