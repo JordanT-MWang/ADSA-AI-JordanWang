@@ -124,7 +124,7 @@ def main():
                                    image_size=image_size, output_type='Curvature (1/cm)')
                                    """
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(512, 640, 1), input_param_size=2)
+    model = create_model(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         model._metadata = {
