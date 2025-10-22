@@ -91,7 +91,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
@@ -124,7 +124,7 @@ def main():
                                    image_size=image_size, output_type='Curvature (1/cm)')
                                    """
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
+    model = create_model(input_image_shape=(512, 640, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         model._metadata = {
@@ -161,7 +161,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves.png")
+    plt.savefig("training_curves_curve.png")
     plt.show()
 
     all_true = []
