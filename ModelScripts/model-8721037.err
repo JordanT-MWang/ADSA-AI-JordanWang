@@ -1,0 +1,20 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+From github.com:JordanT-MWang/ADSA-AI-JordanWang
+   b75f211..ff8003f  main       -> origin/main
+2025-10-21 20:08:01.149602: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-21 20:08:06.050807: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-21 20:08:29.505183: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/ModelSurfaceTension.py:80: UserWarning: `input_shape` is undefined or non-square, or `rows` is not in [96, 128, 160, 192, 224]. Weights for input shape (224, 224) will be loaded as the default.
+  base_model = MobileNetV2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1761077683.919361  603880 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22395 MB memory:  -> device: 0, name: NVIDIA A30, pci bus id: 0000:b1:00.0, compute capability: 8.0
+2025-10-21 20:14:54.895437: I external/local_xla/xla/service/service.cc:163] XLA service 0x14759c003be0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2025-10-21 20:14:54.895528: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA A30, Compute Capability 8.0
+2025-10-21 20:14:55.070202: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2025-10-21 20:14:56.710535: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91301
+2025-10-21 20:15:20.655767: E external/local_xla/xla/service/slow_operation_alarm.cc:73] Trying algorithm eng49{k0=8,k2=0,k5=3,k14=3} for conv (f16[96,1,1,576]{3,2,1,0}, u8[0]{0}) custom-call(f16[16,32,40,576]{3,2,1,0}, f16[16,32,40,96]{3,2,1,0}), window={size=1x1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]} is taking a while...
+2025-10-21 20:15:21.962513: E external/local_xla/xla/service/slow_operation_alarm.cc:140] The operation took 2.30681798s
+Trying algorithm eng49{k0=8,k2=0,k5=3,k14=3} for conv (f16[96,1,1,576]{3,2,1,0}, u8[0]{0}) custom-call(f16[16,32,40,576]{3,2,1,0}, f16[16,32,40,96]{3,2,1,0}), window={size=1x1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]} is taking a while...
+I0000 00:00:1761077735.114772  603986 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+2025-10-22 00:25:27.296073: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
