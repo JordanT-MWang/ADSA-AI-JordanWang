@@ -1,34 +1,48 @@
-import tensorflow as tf
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten
-from tensorflow.keras.callbacks import EarlyStopping, CSVLogger, LambdaCallback
+import os
+import sys
 
+# === Must set BEFORE importing tensorflow ===
+os.environ["XLA_FLAGS"] = "--xla_gpu_strict_conv_algorithm_picker=false"
+os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
+
+# (optional) Disable mixed precision if it's unstable
+# os.environ["TF_ENABLE_AUTO_MIXED_PRECISION"] = "0"
+
+# === Now import tensorflow and keras ===
+import tensorflow as tf
+from tensorflow.keras import mixed_precision
+tf.config.optimizer.set_jit(False)
+
+# Set GPU memory growth
+gpus = tf.config.list_physical_devices('GPU')
+for g in gpus:
+    try:
+        tf.config.experimental.set_memory_growth(g, True)
+    except Exception:
+        pass
+
+# You can re-enable mixed precision if your model benefits from it
+mixed_precision.set_global_policy("mixed_float16")
+
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.layers import (
+    Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate,
+    Conv2D, BatchNormalization, MaxPooling2D, Flatten
+)
+from tensorflow.keras.callbacks import EarlyStopping, CSVLogger, LambdaCallback
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
-from tensorflow.keras import mixed_precision
+
 import matplotlib.pyplot as plt
 import time
 import datetime
 import numpy as np
 import pandas as pd
-import os # Import os module
-tf.config.optimizer.set_jit(False)
-gpus = tf.config.list_physical_devices('GPU')
-for g in gpus:
-    try: 
-        tf.config.experimental.set_memory_growth(g, True)
-    except Exception:
-        pass
-mixed_precision.set_global_policy("mixed_float16")
 
-import sys
-
-# Get the path to ModelScripts (2 levels up from current file)
+# === Path handling for DataGenerator ===
 script_dir = os.path.dirname(__file__)
-# Add parent directory (MobileNet) to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from CustomCNNDataGenerator import CustomCNNADSADataGenerator # your custom generator

@@ -10,6 +10,8 @@ os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 
 # === Now import tensorflow and keras ===
 import tensorflow as tf
+
+tf.keras.backend.clear_session()
 from tensorflow.keras import mixed_precision
 tf.config.optimizer.set_jit(False)
 
@@ -22,7 +24,7 @@ for g in gpus:
         pass
 
 # You can re-enable mixed precision if your model benefits from it
-mixed_precision.set_global_policy("mixed_float16")
+#mixed_precision.set_global_policy("mixed_float16")
 
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.models import Model, load_model
