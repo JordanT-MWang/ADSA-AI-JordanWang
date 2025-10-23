@@ -135,10 +135,7 @@ def main():
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
-                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)],
-                        workers=0,
-                        use_multiporcessing=False,
-                        max_queue_size=1)
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)])
 
     # Save model
     model.save("SurfaceTension_Model_Large_Cust_V1.keras")
