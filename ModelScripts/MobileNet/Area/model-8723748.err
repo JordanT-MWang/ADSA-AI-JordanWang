@@ -1,0 +1,27 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+From github.com:JordanT-MWang/ADSA-AI-JordanWang
+   290b147..1d25681  main       -> origin/main
+2025-10-23 20:56:32.579413: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-23 20:56:32.622841: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-23 20:56:39.236448: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/MobileNet/Area/ModelArea.py:103: UserWarning: `input_shape` is undefined or non-square, or `rows` is not in [96, 128, 160, 192, 224]. Weights for input shape (224, 224) will be loaded as the default.
+  base_model = MobileNetV2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1761253353.650768 2038861 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 10293 MB memory:  -> device: 0, name: NVIDIA A30 MIG 2g.12gb, pci bus id: 0000:98:00.0, compute capability: 8.0
+2025-10-23 21:02:42.583541: I external/local_xla/xla/service/service.cc:163] XLA service 0x1a0313a0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2025-10-23 21:02:42.583732: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA A30 MIG 2g.12gb, Compute Capability 8.0
+2025-10-23 21:02:42.780291: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2025-10-23 21:02:44.003686: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91301
+2025-10-23 21:02:52.866370: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:53.023798: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:54.040756: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:54.210163: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:55.664306: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:55.822664: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:57.148907: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:57.317603: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:57.674281: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2025-10-23 21:02:57.843051: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+I0000 00:00:1761253383.292759 2039013 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+slurmstepd: error: *** JOB 8723748 ON gn-09-17-00 CANCELLED AT 2025-10-23T21:39:45 ***
