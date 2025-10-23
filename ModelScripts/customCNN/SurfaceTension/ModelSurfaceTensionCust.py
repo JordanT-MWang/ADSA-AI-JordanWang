@@ -22,7 +22,7 @@ for g in gpus:
         pass
 
 # You can re-enable mixed precision if your model benefits from it
-mixed_precision.set_global_policy("mixed_float16")
+#mixed_precision.set_global_policy("mixed_float16")
 
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.models import Model, load_model
@@ -102,7 +102,7 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions_Cust.csv"
-    batch_size = 16
+    batch_size = 8
     image_size = (512, 640)
 
     # Print paths for debugging
