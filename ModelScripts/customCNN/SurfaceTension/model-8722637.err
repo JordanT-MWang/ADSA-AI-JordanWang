@@ -1,0 +1,388 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+From github.com:JordanT-MWang/ADSA-AI-JordanWang
+   fa201fd..9dff11a  main       -> origin/main
+2025-10-23 04:34:02.957845: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-23 04:34:03.005445: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-23 04:34:09.270859: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1761194420.577917 2803919 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 31134 MB memory:  -> device: 0, name: Tesla V100-SXM2-32GB, pci bus id: 0000:15:00.0, compute capability: 7.0
+2025-10-23 04:40:24.008468: I external/local_xla/xla/service/service.cc:163] XLA service 0x14b650018330 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2025-10-23 04:40:24.008537: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2025-10-23 04:40:24.076090: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2025-10-23 04:40:24.529365: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91301
+2025-10-23 04:40:25.056543: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:546] Omitted potentially buggy algorithm eng14{k25=2} for conv (f32[2,16,512,640]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,1,512,640]{3,2,1,0}, f32[16,1,3,3]{3,2,1,0}, f32[16]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.057228: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.057259: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bias-activation.12 = (f32[2,16,512,640]{3,2,1,0}, u8[0]{0}) custom-call(%bitcast.666, %bitcast.845, %arg4.5), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.062875: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.12 = (f32[2,16,512,640]{3,2,1,0}, u8[0]{0}) custom-call(%bitcast.666, %bitcast.845, %arg4.5), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,16,512,640]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,1,512,640]{3,2,1,0}, f32[16,1,3,3]{3,2,1,0}, f32[16]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng11{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Disqualified for being known-buggy.
+  Profiling failure on cuDNN engine eng11{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.064924: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.064953: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bias-activation.13 = (f32[2,32,256,320]{3,2,1,0}, u8[0]{0}) custom-call(%select.49, %bitcast.847, %arg11.12), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1_2/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.068164: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.13 = (f32[2,32,256,320]{3,2,1,0}, u8[0]{0}) custom-call(%select.49, %bitcast.847, %arg11.12), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1_2/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,32,256,320]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,16,256,320]{3,2,1,0}, f32[32,16,3,3]{3,2,1,0}, f32[32]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng11{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.070417: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:546] Omitted potentially buggy algorithm eng14{k25=2} for conv (f32[2,64,128,160]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,32,128,160]{3,2,1,0}, f32[64,32,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.086980: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.087053: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bias-activation.14 = (f32[2,64,128,160]{3,2,1,0}, u8[0]{0}) custom-call(%select.50, %bitcast.849, %arg18.19), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_2_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.091757: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.14 = (f32[2,64,128,160]{3,2,1,0}, u8[0]{0}) custom-call(%select.50, %bitcast.849, %arg18.19), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_2_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,64,128,160]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,32,128,160]{3,2,1,0}, f32[64,32,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng11{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Disqualified for being known-buggy.
+  Profiling failure on cuDNN engine eng13{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng12{k11=2}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.094375: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:546] Omitted potentially buggy algorithm eng14{k25=2} for conv (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,64,64,80]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.094970: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.094996: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bias-activation.15 = (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(%select.51, %bitcast.851, %arg25.26), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_3_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.098438: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.15 = (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(%select.51, %bitcast.851, %arg25.26), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_3_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,64,64,80]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng11{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=4,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng35{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng36{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Disqualified for being known-buggy.
+  Profiling failure on cuDNN engine eng13{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng12{k11=2}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng11{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.101923: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.101950: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-input.3 = (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(%select.52, %bitcast.851), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/functional_1/conv2d_3_1/convolution/Conv2DBackpropInput" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.105464: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-input.3 = (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(%select.52, %bitcast.851), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/functional_1/conv2d_3_1/convolution/Conv2DBackpropInput" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,64,64,80]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,64,64,80]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng25{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng25{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng2{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng5{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng50{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng4{k11=2}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng25{}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.108272: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.108299: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-input.4 = (f32[2,32,128,160]{3,2,1,0}, u8[0]{0}) custom-call(%select.54, %bitcast.849), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/functional_1/conv2d_2_1/convolution/Conv2DBackpropInput" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.111558: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-input.4 = (f32[2,32,128,160]{3,2,1,0}, u8[0]{0}) custom-call(%select.54, %bitcast.849), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/functional_1/conv2d_2_1/convolution/Conv2DBackpropInput" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,32,128,160]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,64,128,160]{3,2,1,0}, f32[64,32,3,3]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng25{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng25{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng2{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng5{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng50{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng4{k11=2}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng25{}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.114072: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.114099: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-input.5 = (f32[2,16,256,320]{3,2,1,0}, u8[0]{0}) custom-call(%select.56, %bitcast.847), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/functional_1/conv2d_1_2/convolution/Conv2DBackpropInput" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.117485: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-input.5 = (f32[2,16,256,320]{3,2,1,0}, u8[0]{0}) custom-call(%select.56, %bitcast.847), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/functional_1/conv2d_1_2/convolution/Conv2DBackpropInput" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[2,16,256,320]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,32,256,320]{3,2,1,0}, f32[32,16,3,3]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng25{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng25{k2=0,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng2{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng5{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng50{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=3,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng25{}: UNKNOWN: CUDNN_STATUS_INTERNAL_ERROR
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.119166: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.119193: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-filter.4 = (f32[16,1,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%bitcast.666, %select.59), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_1/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.122366: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-filter.4 = (f32[16,1,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%bitcast.666, %select.59), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_1/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[16,1,3,3]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,1,512,640]{3,2,1,0}, f32[2,16,512,640]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng20{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=5,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=7,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.123818: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.123845: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-filter.5 = (f32[32,16,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%select.49, %select.56), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_1_2/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.126697: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-filter.5 = (f32[32,16,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%select.49, %select.56), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_1_2/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[32,16,3,3]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,16,256,320]{3,2,1,0}, f32[2,32,256,320]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng20{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=5,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=7,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.128440: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.128467: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-filter.6 = (f32[64,32,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%select.50, %select.54), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_2_1/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.131315: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-filter.6 = (f32[64,32,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%select.50, %select.54), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_2_1/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[64,32,3,3]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,32,128,160]{3,2,1,0}, f32[2,64,128,160]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng20{k2=7,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=5,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng18{k11=2}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+2025-10-23 04:40:25.133059: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:848] None of the algorithms provided by cuDNN heuristics worked; trying fallback algorithms.
+2025-10-23 04:40:25.133086: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:851] Conv: %cudnn-conv-bw-filter.7 = (f32[64,64,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%select.51, %select.52), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_3_1/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+2025-10-23 04:40:25.135910: W external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:1077] Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bw-filter.7 = (f32[64,64,3,3]{3,2,1,0}, u8[0]{0}) custom-call(%select.51, %select.52), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", metadata={op_type="Conv2DBackpropFilter" op_name="gradient_tape/functional_1/conv2d_3_1/convolution/Conv2DBackpropFilter" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1221}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false,"reification_cost":[]}
+
+Original error: INTERNAL: All algorithms tried for (f32[64,64,3,3]{3,2,1,0}, u8[0]{0}) custom-call(f32[2,64,64,80]{3,2,1,0}, f32[2,64,64,80]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","reification_cost":[],"wait_on_operation_queues":[]} failed. Falling back to default algorithm.  Per-algorithm errors:
+  Profiling failure on cuDNN engine eng20{k2=7,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=5,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=6,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{k2=2,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{k2=1,k3=0}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng18{k11=2}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng1{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng20{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+  Profiling failure on cuDNN engine eng0{}: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+
+As a result, convolution performance may be suboptimal.
+I0000 00:00:1761194428.268696 2804049 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+2025-10-23 04:40:28.275447: I tensorflow/core/framework/local_rendezvous.cc:407] Local rendezvous is aborting with status: UNKNOWN: CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+	 [[{{node StatefulPartitionedCall}}]]
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/ModelSurfaceTensionCust.py", line 223, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/ModelSurfaceTensionCust.py", line 126, in main
+    history = model.fit(train_gen,
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/execute.py", line 53, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tensorflow.python.framework.errors_impl.UnknownError: Graph execution error:
+
+Detected at node StatefulPartitionedCall defined at (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/ModelSurfaceTensionCust.py", line 223, in <module>
+
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/ModelSurfaceTensionCust.py", line 126, in main
+
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/backend/tensorflow/trainer.py", line 377, in fit
+
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/backend/tensorflow/trainer.py", line 220, in function
+
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/backend/tensorflow/trainer.py", line 133, in multi_step_on_iterator
+
+CUDNN_STATUS_EXECUTION_FAILED
+in external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc(5308): 'status'
+	 [[{{node StatefulPartitionedCall}}]] [Op:__inference_multi_step_on_iterator_5548]
+2025-10-23 04:40:28.652846: W tensorflow/core/kernels/data/generator_dataset_op.cc:110] Error occurred when finalizing GeneratorDataset iterator: FAILED_PRECONDITION: Python interpreter state is not initialized. The process may be terminated.
+	 [[{{node PyFunc}}]]
