@@ -55,7 +55,7 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
-       # --- Conv Block 1 ---
+     # --- Conv Block 1 ---
     x = Conv2D(32, 3, activation='relu', padding='same')(img_input)
     x = BatchNormalization()(x)
     x = Conv2D(32, 3, activation='relu', padding='same')(x)
@@ -67,31 +67,30 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     x = BatchNormalization()(x)
     x = Conv2D(64, 3, activation='relu', padding='same')(x)
     x = MaxPooling2D(2)(x)
-    x = Dropout(0.2)(x)
+    x = Dropout(0.15)(x)
 
     # --- Conv Block 3 ---
     x = Conv2D(128, 3, activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
     x = Conv2D(128, 3, activation='relu', padding='same')(x)
     x = MaxPooling2D(2)(x)
-    x = Dropout(0.25)(x)
+    x = Dropout(0.2)(x)
 
-    # --- Conv Block 4 (new) ---
-    x = Conv2D(256, 3, activation='relu', padding='same')(x)
+    # --- Conv Block 4 ---
+    x = Conv2D(128, 3, activation='relu', padding='same')(x)  # Reduced from 256
     x = BatchNormalization()(x)
     x = GlobalAveragePooling2D()(x)
 
     # --- Dense head ---
-    x = Dense(256, activation='relu')(x)
-    x = Dropout(0.3)(x)
     x = Dense(128, activation='relu')(x)
+    x = Dropout(0.2)(x)
     x = Dense(64, activation='relu')(x)
 
     # --- Combine with parameters ---
     combined = Concatenate()([x, param_input])
-    z = Dense(64, activation='relu')(combined)
-    z = Dropout(0.2)(z)
-    z = Dense(32, activation='relu')(z)
+    z = Dense(32, activation='relu')(combined)
+    z = Dropout(0.1)(z)
+    z = Dense(16, activation='relu')(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -102,7 +101,7 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions_Cust.csv"
-    batch_size = 4
+    batch_size = 8
     image_size = (512, 640)
 
     # Print paths for debugging
