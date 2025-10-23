@@ -31,7 +31,7 @@ script_dir = os.path.dirname(__file__)
 # Add parent directory (MobileNet) to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from DataGenerator import ADSADataGenerator # your custom generator
+from CustomCNNDataGenerator import CustomCNNADSADataGenerator # your custom generator
 
 
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
@@ -79,37 +79,6 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
 
     return model
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
-    """
-    MobileNetV2 for regression with numeric inputs.
-    """
-    img_input = Input(shape=input_image_shape, name="img_input")
-    param_input = Input(shape=(input_param_size,), name="param_input")
-
-    # Load pretrained MobileNetV2
-    base_model = MobileNetV2(input_shape=input_image_shape, include_top=False, weights='imagenet')
-
-    # Freeze first N layers
-    for i, layer in enumerate(base_model.layers):
-        layer.trainable = i >= freeze_until
-
-    x = base_model(img_input, training=False)
-    x = GlobalAveragePooling2D()(x)
-
-    # Custom trainable layers
-    x = Dense(128, activation='relu')(x)
-    x = Dropout(0.3)(x)
-    x = Dense(64, activation='relu')(x)
-
-    # Concatenate with numeric input
-    combined = Concatenate()([x, param_input])
-    z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.2)(z)
-    output = Dense(1, activation='linear')(z)
-
-    model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
-    return model
 
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
@@ -123,14 +92,6 @@ def main():
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
     
-    train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
-                              image_size=image_size, output_type='Curvature (1/cm)')
-    
-    val_gen = ADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
-                                image_size=image_size, output_type='Curvature (1/cm)')
-    test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
-                                image_size=image_size, output_type='Curvature (1/cm)')
-    """
     train_gen = CustomCNNADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
                                     image_size=image_size, output_type='Curvature (1/cm)')
 
@@ -139,7 +100,7 @@ def main():
 
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Curvature (1/cm)')
-                                   """
+                                   
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_model(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference

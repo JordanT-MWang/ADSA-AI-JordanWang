@@ -15,8 +15,6 @@ import numpy as np
 import pandas as pd
 import os # Import os module
 from tensorflow.keras import mixed_precision
-import os
-os.environ['XLA_FLAGS'] = '--xla_gpu_strict_conv_algorithm_picker=false'
 tf.config.optimizer.set_jit(False)
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
@@ -24,7 +22,7 @@ for g in gpus:
         tf.config.experimental.set_memory_growth(g, True)
     except Exception:
         pass
-mixed_precision.set_global_policy("float32")
+mixed_precision.set_global_policy("mixed_float16")
 
 import sys
 
@@ -32,7 +30,6 @@ import sys
 script_dir = os.path.dirname(__file__)
 # Add parent directory (MobileNet) to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from DataGenerator import ADSADataGenerator # your custom generator
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     """
