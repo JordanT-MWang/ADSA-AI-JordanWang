@@ -36,14 +36,20 @@ def analyze_predictions(csv_path):
     plt.grid(True)
     plt.axis("equal")
 
-    # === Add Text with Metrics ===
+    # === Add Text with Metrics (below the x-axis) ===
     textstr = (
-        f"MAE: {mae:.4f}\n"
-        f"Accuracy: {accuracy:.2f}%\n"
-        f"R²: {r2:.4f}\n"
+        f"MAE: {mae:.4f}   "
+        f"Accuracy: {accuracy:.2f}%   "
+        f"R²: {r2:.4f}   "
         f"Avg Time: {avg_time:.4f}s"
     )
-    plt.gcf().text(0.05, 0.75, textstr, fontsize=10, bbox=dict(facecolor='white', alpha=0.6))
+    # Add centered text below the x-axis
+    plt.gcf().text(
+        0.5, -0.05, textstr,
+        ha="center", va="center",
+        fontsize=10,
+        bbox=dict(facecolor='white', alpha=0.6, edgecolor='gray')
+    )
 
     # === Save Plot ===
     graphs_dir = os.path.join(os.path.dirname(csv_path), "graphs")
@@ -55,6 +61,7 @@ def analyze_predictions(csv_path):
     plt.close()
 
     print(f"Graph saved to: {output_path}")
+
 
 def main():
     parser = argparse.ArgumentParser(
