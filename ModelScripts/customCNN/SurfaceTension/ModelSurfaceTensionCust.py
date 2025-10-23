@@ -101,7 +101,7 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions_Cust.csv"
-    batch_size = 8
+    batch_size = 2
     image_size = (512, 640)
 
     # Print paths for debugging
