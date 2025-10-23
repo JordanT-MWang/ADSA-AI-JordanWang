@@ -115,6 +115,15 @@ def main():
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Surface Tension (mN/m)')
                                   
+
+    # Quick generator sanity check
+    (X_batch, params_batch), y_batch = train_gen[0]  # get first batch from generator __getitem__
+    print("X batch shape, dtype:", getattr(X_batch, "shape", None), getattr(X_batch, "dtype", None))
+    print("params batch shape, dtype:", getattr(params_batch, "shape", None), getattr(params_batch, "dtype", None))
+    print("y batch shape, dtype:", getattr(y_batch, "shape", None), getattr(y_batch, "dtype", None))
+    # Ensure channel dim exists
+    assert X_batch.ndim == 4 and X_batch.shape[-1] in (1,3), "Image batch must be (B,H,W,C) with C=1 or 3"
+    assert X_batch.dtype == np.float32 or X_batch.dtype == np.uint8, "Prefer float32 or uint8"
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2)
     # Save normalization statistics for future inference
@@ -126,7 +135,10 @@ def main():
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
-                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)])
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)],
+                        workers=0,
+                        use_multiporcessing=False,
+                        max_queue_size=1)
 
     # Save model
     model.save("SurfaceTension_Model_Large_Cust_V1.keras")

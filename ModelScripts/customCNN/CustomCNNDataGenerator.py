@@ -82,9 +82,13 @@ class CustomCNNADSADataGenerator(Sequence):
             np.random.shuffle(self.indexes)
 
     def __len__(self):
-        return len(self.image_list) // self.batch_size
-
+        return int(np.ceil(len(self.image_list) / self.batch_size))
+    
     def __getitem__(self, index):
+        #if len(batch_images) == 0:
+        #    raise ValueError(f"Empty batch at index {index}")
+        #if np.isnan(params).any():
+        #    print(f"[WARNING] NaN params for {img_file}")
         batch_indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
         batch_images = [self.image_list[i] for i in batch_indexes]
 
@@ -103,7 +107,7 @@ class CustomCNNADSADataGenerator(Sequence):
                 X_img.append(image)
                 X_input.append(params)
                 y.append(output)
-
+        #print(f"Batch {index}: {len(batch_images)} images")
         return (np.array(X_img, dtype=np.float32), np.array(X_input, dtype=np.float32)), np.array(y, dtype=np.float32)
 
     def on_epoch_end(self):
@@ -128,7 +132,7 @@ class CustomCNNADSADataGenerator(Sequence):
 
         img = cv2.copyMakeBorder(img, pad_top, pad_bottom, pad_left, pad_right,
                                   cv2.BORDER_CONSTANT, value=0)
-        img = img / 255.0
+        img = img.astype(np.float32) / 255.0
 
         # Keep single channel, shape: (H, W, 1)
         if img.ndim == 2:
