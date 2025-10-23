@@ -22,7 +22,7 @@ for g in gpus:
         pass
 
 # You can re-enable mixed precision if your model benefits from it
-#mixed_precision.set_global_policy("mixed_float16")
+
 
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.models import Model, load_model
@@ -49,48 +49,45 @@ from CustomCNNDataGenerator import CustomCNNADSADataGenerator # your custom gene
 
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     """
-    A lighter CNN for regression with numeric inputs. 
-    Smaller and faster than the original, but still expressive.
+    A slightly smaller CNN for regression with numeric inputs.
+    Lighter and faster than the original, still expressive.
     """
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
-     # --- Conv Block 1 ---
-    x = Conv2D(32, 3, activation='relu', padding='same')(img_input)
+    # --- Conv Block 1 ---
+    x = Conv2D(16, 3, activation='relu', padding='same')(img_input)  # reduced filters
     x = BatchNormalization()(x)
+    x = MaxPooling2D(2)(x)
+    x = Dropout(0.05)(x)
+
+    # --- Conv Block 2 ---
     x = Conv2D(32, 3, activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
     x = MaxPooling2D(2)(x)
     x = Dropout(0.1)(x)
 
-    # --- Conv Block 2 ---
+    # --- Conv Block 3 ---
     x = Conv2D(64, 3, activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
-    x = Conv2D(64, 3, activation='relu', padding='same')(x)
     x = MaxPooling2D(2)(x)
     x = Dropout(0.15)(x)
 
-    # --- Conv Block 3 ---
-    x = Conv2D(128, 3, activation='relu', padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(128, 3, activation='relu', padding='same')(x)
-    x = MaxPooling2D(2)(x)
-    x = Dropout(0.2)(x)
-
     # --- Conv Block 4 ---
-    x = Conv2D(128, 3, activation='relu', padding='same')(x)  # Reduced from 256
+    x = Conv2D(64, 3, activation='relu', padding='same')(x)  # reduced last block
     x = BatchNormalization()(x)
     x = GlobalAveragePooling2D()(x)
 
     # --- Dense head ---
-    x = Dense(128, activation='relu')(x)
-    x = Dropout(0.2)(x)
     x = Dense(64, activation='relu')(x)
+    x = Dropout(0.1)(x)
+    x = Dense(32, activation='relu')(x)
 
-    # --- Combine with parameters ---
+    # --- Combine with numeric parameters ---
     combined = Concatenate()([x, param_input])
-    z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.1)(z)
-    z = Dense(16, activation='relu')(z)
+    z = Dense(16, activation='relu')(combined)
+    z = Dropout(0.05)(z)
+    z = Dense(8, activation='relu')(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
