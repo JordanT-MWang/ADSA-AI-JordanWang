@@ -6,3 +6,26 @@ Output CSV path: /home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined/output_param
 X batch shape, dtype: (2, 512, 640, 1) float32
 params batch shape, dtype: (2, 2) float32
 y batch shape, dtype: (2,) float32
+[main 26e243a] Predictions saved for job 8723795
+ Committer: Jordan Wang <jordanw7@gn-15-35-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 12 files changed, 166 insertions(+), 1 deletion(-)
+ create mode 100644 ModelScripts/MobileNet/Area/model-8723024.err
+ create mode 100644 ModelScripts/MobileNet/Area/model-8723024.out
+ create mode 100644 ModelScripts/MobileNet/Area/model-8723748.err
+ create mode 100644 ModelScripts/MobileNet/Area/model-8723748.out
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723795.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723795.out
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723797.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723797.out

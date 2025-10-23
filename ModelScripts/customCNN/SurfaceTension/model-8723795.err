@@ -17,3 +17,5 @@ Traceback (most recent call last):
     return fn(*args, **kwargs)
                   ^^^^^^^^^^^^^
 TypeError: TensorFlowTrainer.fit() got an unexpected keyword argument 'workers'
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   1d25681..26e243a  main -> main
