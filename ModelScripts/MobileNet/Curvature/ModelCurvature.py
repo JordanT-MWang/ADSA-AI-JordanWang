@@ -31,7 +31,7 @@ script_dir = os.path.dirname(__file__)
 # Add parent directory (MobileNet) to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from ModelScripts.MobileNet.DataGenerator import ADSADataGenerator # your custom generator
+from DataGenerator import ADSADataGenerator # your custom generator
 
 
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
