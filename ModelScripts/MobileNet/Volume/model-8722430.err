@@ -1,0 +1,28 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit 98b1dac6a4c11548eb4d3bf99e061eab5c160a99.
+error: The following untracked working tree files would be overwritten by merge:
+	ModelScripts/MobileNet/Area/model-8722429.err
+	ModelScripts/MobileNet/Area/model-8722429.out
+	ModelScripts/MobileNet/Volume/model-8722430.err
+	ModelScripts/MobileNet/Volume/model-8722430.out
+Please move or remove them before you merge.
+Aborting
+fatal: Cannot fast-forward your working tree.
+After making sure that you saved anything precious from
+$ git diff 98b1dac6a4c11548eb4d3bf99e061eab5c160a99
+output, run
+$ git reset --hard
+to recover.
+2025-10-23 01:44:01.535867: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-23 01:44:01.586869: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-23 01:44:07.688442: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/MobileNet/Volume/ModelVolume.py", line 248, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/MobileNet/Volume/ModelVolume.py", line 122, in main
+    train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
+                ^^^^^^^^^^^^^^^^^
+NameError: name 'ADSADataGenerator' is not defined
