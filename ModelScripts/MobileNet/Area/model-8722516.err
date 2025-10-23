@@ -24,3 +24,4 @@ I0000 00:00:1761188131.345093 3039675 gpu_device.cc:2020] Created device /job:lo
 2025-10-23 02:55:59.519014: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
 2025-10-23 02:55:59.638823: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
 I0000 00:00:1761188164.450502 3039920 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+slurmstepd: error: *** JOB 8722516 ON gn-16-34-00 CANCELLED AT 2025-10-23T08:51:39 DUE TO TIME LIMIT ***
