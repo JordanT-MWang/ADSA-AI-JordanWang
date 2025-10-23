@@ -2,7 +2,7 @@
 #SBATCH --job-name=areaCNNMovileNet       # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
-#SBATCH --time=0-6:00:00           # Max runtime (HH:MM:SS)
+#SBATCH --time=0-10:00:00           # Max runtime (HH:MM:SS)
 #SBATCH --cpus-per-task=6           # CPU cores for data loading
 
 #SBATCH --mem=64G ## max amount of memory per node you require
