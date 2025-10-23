@@ -120,7 +120,7 @@ def main():
                                    image_size=image_size, output_type='Surface Tension (mN/m)')
                                   
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
+    model = create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if CustomCNNADSADataGenerator.param_mean is not None:
         model._metadata = {
