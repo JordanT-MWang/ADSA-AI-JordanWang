@@ -2,11 +2,19 @@ import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten
+from tensorflow.keras.callbacks import EarlyStopping, CSVLogger, LambdaCallback
+
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import mixed_precision
+import matplotlib.pyplot as plt
+import time
+import datetime
+import numpy as np
+import pandas as pd
+import os # Import os module
 tf.config.optimizer.set_jit(False)
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
@@ -16,11 +24,6 @@ for g in gpus:
         pass
 mixed_precision.set_global_policy("mixed_float16")
 
-import matplotlib.pyplot as plt
-import time
-import numpy as np
-import pandas as pd
-import os # Import os module
 import sys
 
 # Get the path to ModelScripts (2 levels up from current file)
@@ -28,7 +31,7 @@ script_dir = os.path.dirname(__file__)
 # Add parent directory (MobileNet) to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from DataGenerator import ADSADataGenerator # your custom generator
+from CustomCNNDataGenerator import CustomCNNADSADataGenerator # your custom generator
 
 def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     """
@@ -75,42 +78,11 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
 
     return model
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
-    """
-    MobileNetV2 for regression with numeric inputs.
-    """
-    img_input = Input(shape=input_image_shape, name="img_input")
-    param_input = Input(shape=(input_param_size,), name="param_input")
-
-    # Load pretrained MobileNetV2
-    base_model = MobileNetV2(input_shape=input_image_shape, include_top=False, weights='imagenet')
-
-    # Freeze first N layers
-    for i, layer in enumerate(base_model.layers):
-        layer.trainable = i >= freeze_until
-
-    x = base_model(img_input, training=False)
-    x = GlobalAveragePooling2D()(x)
-
-    # Custom trainable layers
-    x = Dense(128, activation='relu')(x)
-    x = Dropout(0.3)(x)
-    x = Dense(64, activation='relu')(x)
-
-    # Concatenate with numeric input
-    combined = Concatenate()([x, param_input])
-    z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.2)(z)
-    output = Dense(1, activation='linear')(z)
-
-    model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
-    return model
 
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
-    output_csv = "ST_Model_Predictions.csv"
+    output_csv = "ST_Model_Predictions_Cust.csv"
     batch_size = 16
     image_size = (512, 640)
 
@@ -119,14 +91,6 @@ def main():
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
     
-    train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
-                              image_size=image_size, output_type='Surface Tension (mN/m)')
-    
-    val_gen = ADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
-                                image_size=image_size, output_type='Surface Tension (mN/m)')
-    test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
-                                image_size=image_size, output_type='Surface Tension (mN/m)')
-    """
     train_gen = CustomCNNADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
                                     image_size=image_size, output_type='Surface Tension (mN/m)')
 
@@ -135,14 +99,14 @@ def main():
 
     test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                    image_size=image_size, output_type='Surface Tension (mN/m)')
-                                   """
+                                  
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(512, 640, 3), input_param_size=2)
+    model = create_custom_cnn(input_image_shape=(512, 640, 3), input_param_size=2)
     # Save normalization statistics for future inference
-    if ADSADataGenerator.param_mean is not None:
+    if CustomCNNADSADataGenerator.param_mean is not None:
         model._metadata = {
-        "param_mean": ADSADataGenerator.param_mean.tolist() if ADSADataGenerator.param_mean is not None else None,
-        "param_std": ADSADataGenerator.param_std.tolist() if ADSADataGenerator.param_std is not None else None,
+        "param_mean": CustomCNNADSADataGenerator.param_mean.tolist() if CustomCNNADSADataGenerator.param_mean is not None else None,
+        "param_std": CustomCNNADSADataGenerator.param_std.tolist() if CustomCNNADSADataGenerator.param_std is not None else None,
     }
     history = model.fit(train_gen,
                         validation_data=val_gen,
@@ -150,7 +114,7 @@ def main():
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)])
 
     # Save model
-    model.save("SurfaceTension_Model_Large_Mobile_V1.keras")
+    model.save("SurfaceTension_Model_Large_Cust_V1.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -171,7 +135,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves_ST.png")
+    plt.savefig("training_curves_ST_Cust.png")
     plt.show()
 
     all_true = []
@@ -234,7 +198,7 @@ def main():
         plt.title("Predicted vs True Values")
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("pred_vs_true_ST.png")
+        plt.savefig("pred_vs_true_ST_Cust.png")
         plt.show()
     else:
         print("[INFO] No predictions were made, skipping plot generation.")
