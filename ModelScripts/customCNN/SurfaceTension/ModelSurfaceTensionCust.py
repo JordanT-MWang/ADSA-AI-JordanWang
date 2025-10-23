@@ -55,42 +55,47 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
-    # --- Conv Block 1 ---
-    x = Conv2D(16, (3,3), activation='relu', padding='same')(img_input)
+       # --- Conv Block 1 ---
+    x = Conv2D(32, 3, activation='relu', padding='same')(img_input)
     x = BatchNormalization()(x)
-    x = Conv2D(16, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
+    x = Conv2D(32, 3, activation='relu', padding='same')(x)
+    x = MaxPooling2D(2)(x)
     x = Dropout(0.1)(x)
 
     # --- Conv Block 2 ---
-    x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
+    x = Conv2D(64, 3, activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
-    x = Conv2D(32, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
+    x = Conv2D(64, 3, activation='relu', padding='same')(x)
+    x = MaxPooling2D(2)(x)
     x = Dropout(0.2)(x)
 
     # --- Conv Block 3 ---
-    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
+    x = Conv2D(128, 3, activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
-    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2,2))(x)
-    x = Dropout(0.2)(x)
+    x = Conv2D(128, 3, activation='relu', padding='same')(x)
+    x = MaxPooling2D(2)(x)
+    x = Dropout(0.25)(x)
 
-    # --- Global Pooling ---
+    # --- Conv Block 4 (new) ---
+    x = Conv2D(256, 3, activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
     x = GlobalAveragePooling2D()(x)
+
+    # --- Dense head ---
+    x = Dense(256, activation='relu')(x)
+    x = Dropout(0.3)(x)
     x = Dense(128, activation='relu')(x)
-    x = Dropout(0.2)(x)
     x = Dense(64, activation='relu')(x)
 
-    # --- Combine with numeric input ---
+    # --- Combine with parameters ---
     combined = Concatenate()([x, param_input])
-    z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.1)(z)
+    z = Dense(64, activation='relu')(combined)
+    z = Dropout(0.2)(z)
+    z = Dense(32, activation='relu')(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
-
+    model.compile(optimizer=Adam(1e-4), loss='mse', metrics=['mae'])
     return model
 
 def main():
