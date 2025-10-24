@@ -104,7 +104,7 @@ def main():
     assert X_batch.ndim == 4 and X_batch.shape[-1] in (1,3), "Image batch must be (B,H,W,C) with C=1 or 3"
     assert X_batch.dtype == np.float32 or X_batch.dtype == np.uint8, "Prefer float32 or uint8"
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2)
+    model = create_custom_cnn(input_image_shape=(500, 500, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if CustomCNNADSADataGenerator.param_mean is not None:
         model._metadata = {
