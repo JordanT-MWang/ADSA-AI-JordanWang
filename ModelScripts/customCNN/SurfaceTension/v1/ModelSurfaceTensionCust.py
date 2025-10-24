@@ -43,7 +43,7 @@ import pandas as pd
 
 # === Path handling for DataGenerator ===
 script_dir = os.path.dirname(__file__)
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from CustomCNNDataGenerator import CustomCNNADSADataGenerator # your custom generator
 
