@@ -114,7 +114,7 @@ class CustomCNNADSADataGenerator(Sequence):
     def random_augment(self, img):
         # Random rotation
         angle = np.random.uniform(-1, 1)
-        h, w = img.shape
+        h, w = img.shape[:2]
         M = cv2.getRotationMatrix2D((w/2, h/2), angle, 1)
         img = cv2.warpAffine(img, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
 
