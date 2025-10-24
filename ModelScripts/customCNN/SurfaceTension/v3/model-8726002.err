@@ -1,0 +1,18 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+2025-10-24 21:15:44.197617: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-24 21:15:44.239513: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-24 21:15:48.304185: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v3/ModelSurfaceTensionCustV3.py", line 230, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v3/ModelSurfaceTensionCustV3.py", line 118, in main
+    (X_batch, params_batch), y_batch = train_gen[0]  # get first batch from generator __getitem__
+                                       ~~~~~~~~~^^^
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/CustomCNNDataGenerator.py", line 102, in __getitem__
+    image = self.random_augment(image)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/customCNN/CustomCNNDataGenerator.py", line 117, in random_augment
+    h, w = img.shape
+    ^^^^
+ValueError: too many values to unpack (expected 2)
