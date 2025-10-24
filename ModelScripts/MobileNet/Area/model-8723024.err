@@ -24,3 +24,5 @@ I0000 00:00:1761248372.015242 2037358 gpu_device.cc:2020] Created device /job:lo
 2025-10-23 19:40:00.237744: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
 2025-10-23 19:40:00.404588: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
 I0000 00:00:1761248405.513767 2037506 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   ecb0be5..ca984b2  main -> main

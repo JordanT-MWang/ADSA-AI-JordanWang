@@ -37,3 +37,26 @@ Test Loss: 0.0007, Test MAE: 0.0157
     Total inference time: 190.545 seconds
     Avg prediction time per sample: 8.929 ms
 [INFO] Results saved to Area_Model_Predictions.csv
+[main ca984b2] Predictions saved for job 8723024
+ Committer: Jordan Wang <jordanw7@gn-09-17-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 11 files changed, 11724 insertions(+), 1 deletion(-)
+ create mode 100644 ModelScripts/MobileNet/Area/Area_Model.keras
+ create mode 100644 ModelScripts/MobileNet/Area/Area_Model_Predictions.csv
+ create mode 100644 ModelScripts/MobileNet/Area/pred_vs_true_area.png
+ create mode 100644 ModelScripts/MobileNet/Area/training_curves_area.png
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723846.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723846.out
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723929.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/model-8723929.out
