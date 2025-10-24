@@ -69,7 +69,7 @@ class CustomCNNADSADataGenerator(Sequence):
             self.image_list = test_names
         else:
             raise ValueError("split must be 'train', 'val', or 'test'")
-
+        self.split = split
         # Compute normalization stats once (from training data only)
         if CustomCNNADSADataGenerator.param_mean is None and split == 'train':
             params = np.array([self.input_dict[img] for img in train_names if img in self.input_dict])
@@ -97,7 +97,9 @@ class CustomCNNADSADataGenerator(Sequence):
         for img_file in batch_images:
             img_path = os.path.join(self.image_dir, img_file)
             image = self._load_and_pad(img_path)
-
+            #data augmentation
+            if getattr(self, "split", None) == "train":
+                image = self.random_augment(image)
             params = self.input_dict.get(img_file)
             output = self.output_dict.get(img_file)
 
@@ -109,7 +111,24 @@ class CustomCNNADSADataGenerator(Sequence):
                 y.append(output)
         #print(f"Batch {index}: {len(batch_images)} images")
         return (np.array(X_img, dtype=np.float32), np.array(X_input, dtype=np.float32)), np.array(y, dtype=np.float32)
+    def random_augment(self, img):
+        # Random rotation
+        angle = np.random.uniform(-1, 1)
+        h, w = img.shape
+        M = cv2.getRotationMatrix2D((w/2, h/2), angle, 1)
+        img = cv2.warpAffine(img, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
 
+        # Random shift
+        tx = np.random.uniform(-0.03, 0.03) * w
+        ty = np.random.uniform(-0.05, 0.05) * h
+        M = np.float32([[1, 0, tx], [0, 1, ty]])
+        img = cv2.warpAffine(img, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
+
+        # Small Gaussian noise
+        noise = np.random.normal(0, 0.02, img.shape).astype(np.float32)
+        img = np.clip(img + noise, 0, 1)
+
+        return img
     def on_epoch_end(self):
         if self.shuffle:
             np.random.shuffle(self.indexes)
