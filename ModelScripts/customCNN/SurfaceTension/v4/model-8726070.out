@@ -7,3 +7,22 @@ X batch shape, dtype: (32, 500, 500, 1) float32
 params batch shape, dtype: (32, 2) float32
 y batch shape, dtype: (32,) float32
 Epoch 1/50
+[main fc3a565] Predictions saved for job 8726070
+ Committer: Jordan Wang <jordanw7@gn-16-14-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 8 files changed, 264 insertions(+)
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v3/model-8726068.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v3/model-8726068.out
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/model-8726070.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/model-8726070.out
