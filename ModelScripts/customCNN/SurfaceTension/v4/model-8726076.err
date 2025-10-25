@@ -1,0 +1,12 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+2025-10-24 22:19:41.293151: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-24 22:19:41.335454: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-24 22:19:44.807294: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1761344741.485306 1837651 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:1e:00.0, compute capability: 8.6
+2025-10-24 22:25:44.552134: I external/local_xla/xla/service/service.cc:163] XLA service 0x14faa0011f90 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2025-10-24 22:25:44.552210: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA RTX A4000, Compute Capability 8.6
+2025-10-24 22:25:44.593323: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2025-10-24 22:25:44.864122: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91301
+I0000 00:00:1761344752.135637 1837801 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
