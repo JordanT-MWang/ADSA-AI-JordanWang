@@ -44,3 +44,26 @@ Test Loss: 288.0273, Test MAE: 11.9247
     Total inference time: 89.581 seconds
     Avg prediction time per sample: 2.739 ms
 [INFO] Results saved to ST_Model_Predictions_Cust.csv
+[main c02e941] Predictions saved for job 8726076
+ Committer: Jordan Wang <jordanw7@gn-15-35-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 12 files changed, 11765 insertions(+), 1 deletion(-)
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v2/model-8726207.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v2/model-8726207.out
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/ST_Model_Predictions_Cust.csv
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/SurfaceTension_Model_Large_Cust_V1.keras
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/model-8726076.err
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/model-8726076.out
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/pred_vs_true_ST_Cust.png
+ create mode 100644 ModelScripts/customCNN/SurfaceTension/v4/training_curves_ST_Cust.png
