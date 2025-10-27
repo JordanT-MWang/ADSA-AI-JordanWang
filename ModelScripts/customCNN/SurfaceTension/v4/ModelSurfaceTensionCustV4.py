@@ -129,7 +129,6 @@ def main():
         model._metadata = {
         "param_mean": CustomCNNADSADataGenerator.param_mean.tolist() if CustomCNNADSADataGenerator.param_mean is not None else None,
         "param_std": CustomCNNADSADataGenerator.param_std.tolist() if CustomCNNADSADataGenerator.param_std is not None else None,
-        }
         """
         
         stats = {

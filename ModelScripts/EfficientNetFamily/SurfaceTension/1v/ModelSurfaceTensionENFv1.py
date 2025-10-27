@@ -129,23 +129,26 @@ def main():
     all_true = []
     all_pred = []
     all_times = []
+    all_names = []  # <-- Track image names
 
     print("[INFO] Running inference...")
 
     start_total = time.time() # Start timing for the whole inference process
 
     # Go through test batches and predict on the whole batch
-    for (X_batch, params_batch), y_batch in test_gen:
-        start_batch = time.time() # Start timing for the batch prediction
+    for batch_idx, ((X_batch, params_batch), y_batch) in enumerate(test_gen):
+        start_batch = time.time()
         preds_batch = model.predict([X_batch, params_batch], verbose=0)
-        elapsed_batch = time.time() - start_batch # Time for the batch prediction
+        elapsed_batch = time.time() - start_batch
 
-        # Extend the lists with batch results
         all_true.extend(y_batch)
         all_pred.extend(preds_batch.flatten())
-        # For simplicity, we'll record the batch time for each sample in the batch
-        # A more precise timing would require predicting samples individually, which is slow
-        all_times.extend([elapsed_batch / len(y_batch)] * len(y_batch)) # Avg time per sample in this batch
+        all_times.extend([elapsed_batch / len(y_batch)] * len(y_batch))
+
+        # Correct way to get image names
+        start_idx = batch_idx * test_gen.batch_size
+        end_idx = start_idx + len(y_batch)
+        all_names.extend(test_gen.image_list[start_idx:end_idx])
 
 
     end_total = time.time() # End timing for the whole inference process
@@ -164,6 +167,7 @@ def main():
     # Save results to CSV
     if total_samples > 0:
         results_df = pd.DataFrame({
+            "image_name": all_names,
             "True_Value": all_true,
             "Predicted_Value": all_pred,
             "Prediction_Time_s": all_times
