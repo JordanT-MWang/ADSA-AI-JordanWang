@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=ST Mobile Net V2       # Job name
+#SBATCH --job-name=STMobileNetV2       # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-24:30:00           # Max runtime (HH:MM:SS)
