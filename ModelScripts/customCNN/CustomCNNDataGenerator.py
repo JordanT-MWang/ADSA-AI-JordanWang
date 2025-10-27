@@ -96,7 +96,7 @@ class CustomCNNADSADataGenerator(Sequence):
 
         for img_file in batch_images:
             img_path = os.path.join(self.image_dir, img_file)
-            image = self._load_and_pad(img_path)
+            image, resize_scale = self._load_and_pad(img_path)
             #data augmentation
             if getattr(self, "split", None) == "train":
                 image = self.random_augment(image)
@@ -105,6 +105,8 @@ class CustomCNNADSADataGenerator(Sequence):
 
             if params is not None and output is not None:
                 # Normalize params
+                params = np.array(params, dtype=np.float32)
+                params[1] = params[1] / resize_scale  # adjust scale factor by resize ratio      
                 params = (params - CustomCNNADSADataGenerator.param_mean) / CustomCNNADSADataGenerator.param_std
                 X_img.append(image)
                 X_input.append(params)
@@ -150,6 +152,7 @@ class CustomCNNADSADataGenerator(Sequence):
         h, w = img.shape[:2]
         scale = min(target_w / w, target_h / h)
         new_w, new_h = int(w * scale), int(h * scale)
+        
         img = cv2.resize(img, (new_w, new_h))
 
         pad_top = (target_h - new_h) // 2
@@ -165,5 +168,5 @@ class CustomCNNADSADataGenerator(Sequence):
         if img.ndim == 2:
             img = np.expand_dims(img, axis=-1)
 
-        return img
+        return img, scale
 

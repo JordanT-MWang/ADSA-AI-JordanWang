@@ -1,100 +1,70 @@
-import os
-import sys
-
-# === Must set BEFORE importing tensorflow ===
-os.environ["XLA_FLAGS"] = "--xla_gpu_strict_conv_algorithm_picker=false"
-os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-
-# (optional) Disable mixed precision if it's unstable
-# os.environ["TF_ENABLE_AUTO_MIXED_PRECISION"] = "0"
-
-# === Now import tensorflow and keras ===
 import tensorflow as tf
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.models import load_model
+from tensorflow.keras.metrics import MeanAbsoluteError
+from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import mixed_precision
 tf.config.optimizer.set_jit(False)
-
-# Set GPU memory growth
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
-    try:
+    try: 
         tf.config.experimental.set_memory_growth(g, True)
     except Exception:
         pass
-
-# You can re-enable mixed precision if your model benefits from it
-
-
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.models import Model, load_model
-from tensorflow.keras.layers import (
-    Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate,
-    Conv2D, BatchNormalization, MaxPooling2D, Flatten, Add, Activation
-)
-from tensorflow.keras.callbacks import EarlyStopping, CSVLogger, LambdaCallback
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.metrics import MeanAbsoluteError
-from tensorflow.keras.losses import MeanSquaredError
+mixed_precision.set_global_policy("mixed_float16")
 
 import matplotlib.pyplot as plt
 import time
-import datetime
 import numpy as np
 import pandas as pd
-import json
+import os # Import os module
+import sys
+
 # === Path handling for DataGenerator ===
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from CustomCNNDataGenerator import CustomCNNADSADataGenerator # your custom generator
-def conv_block(x, filters, kernel_size=3, pool=True, dropout=0.0, activation='relu', bn=True):
-    """Reusable convolutional block."""
-    x = Conv2D(filters, kernel_size, padding='same')(x)
-    if bn:
-        x = BatchNormalization()(x)
-    x = Activation(activation)(x)
-    if pool:
-        x = MaxPooling2D(pool_size=2)(x)
-    if dropout > 0:
-        x = Dropout(dropout)(x)
-    return x
+from DataGenerator import ADSADataGenerator # your custom generator
 
-def residual_block(x, filters, kernel_size=3, activation='relu'):
-    shortcut = x
-    x = Conv2D(filters, kernel_size, padding='same', activation=activation)(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(filters, kernel_size, padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Add()([x, shortcut])
-    x = Activation(activation)(x)
-    return x
-def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=75):
     """
-    A slightly smaller CNN for regression with numeric inputs.
-    Lighter and faster than the original, still expressive.
+    MobileNetV2 for regression with numeric inputs.
     """
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
-    x = conv_block(img_input, 16, dropout=0.05)
-    x = conv_block(x, 32, dropout=0.1)
-    
+    # Load pretrained MobileNetV2
+    base_model = MobileNetV2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+
+    # Freeze first N layers
+    for i, layer in enumerate(base_model.layers):
+        layer.trainable = i >= freeze_until
+
+    x = base_model(img_input, training=False)
     x = GlobalAveragePooling2D()(x)
-    x = Dense(32, activation='relu')(x)
-    # --- Combine with numeric parameters ---
+
+    # Custom trainable layers
+    x = Dense(128, activation='relu')(x)
+    x = Dropout(0.3)(x)
+    x = Dense(64, activation='relu')(x)
+
+    # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
-    z = Dense(16, activation='relu')(combined)
-    z = Dropout(0.05)(z)
-    z = Dense(8, activation='relu')(z)
+    z = Dense(32, activation='relu')(combined)
+    z = Dropout(0.2)(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
-    output_csv = "ST_Model_Predictions_Cust.csv"
+    output_csv = "ST_Model_Predictions.csv"
     batch_size = 32
     image_size = (500, 500)
 
@@ -103,49 +73,29 @@ def main():
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
     
-    train_gen = CustomCNNADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
-                                    image_size=image_size, output_type='Surface Tension (mN/m)')
-
-    val_gen = CustomCNNADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
-                                  image_size=image_size, output_type='Surface Tension (mN/m)')
-
-    test_gen = CustomCNNADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
-                                   image_size=image_size, output_type='Surface Tension (mN/m)')
-                                  
-
-    # Quick generator sanity check
-    (X_batch, params_batch), y_batch = train_gen[0]  # get first batch from generator __getitem__
-    print("X batch shape, dtype:", getattr(X_batch, "shape", None), getattr(X_batch, "dtype", None))
-    print("params batch shape, dtype:", getattr(params_batch, "shape", None), getattr(params_batch, "dtype", None))
-    print("y batch shape, dtype:", getattr(y_batch, "shape", None), getattr(y_batch, "dtype", None))
-    # Ensure channel dim exists
-    assert X_batch.ndim == 4 and X_batch.shape[-1] in (1,3), "Image batch must be (B,H,W,C) with C=1 or 3"
-    assert X_batch.dtype == np.float32 or X_batch.dtype == np.uint8, "Prefer float32 or uint8"
-    # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_custom_cnn(input_image_shape=(500, 500, 1), input_param_size=2)
-    # Save normalization statistics for future inference
-    if CustomCNNADSADataGenerator.param_mean is not None:
-        """
-        model._metadata = {
-        "param_mean": CustomCNNADSADataGenerator.param_mean.tolist() if CustomCNNADSADataGenerator.param_mean is not None else None,
-        "param_std": CustomCNNADSADataGenerator.param_std.tolist() if CustomCNNADSADataGenerator.param_std is not None else None,
-        }
-        """
-        
-        stats = {
-        "param_mean": CustomCNNADSADataGenerator.param_mean.tolist(),
-        "param_std": CustomCNNADSADataGenerator.param_std.tolist(),
-        }
-        with open("SurfaceTension_Model_Large_Cust_V1_stats.json", "w") as f:
-            json.dump(stats, f)
+    train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
+                              image_size=image_size, output_type='Surface Tension (mN/m)')
     
+    val_gen = ADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
+                                image_size=image_size, output_type='Surface Tension (mN/m)')
+    test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
+                                image_size=image_size, output_type='Surface Tension (mN/m)')
+ 
+    # Model now expects 1 for channel for custom and 3 for mobilenet
+    model = create_model(input_image_shape=(500, 500, 3), input_param_size=2)
+    # Save normalization statistics for future inference
+    if ADSADataGenerator.param_mean is not None:
+        model._metadata = {
+        "param_mean": ADSADataGenerator.param_mean.tolist() if ADSADataGenerator.param_mean is not None else None,
+        "param_std": ADSADataGenerator.param_std.tolist() if ADSADataGenerator.param_std is not None else None,
+    }
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)])
 
     # Save model
-    model.save("SurfaceTension_Model_Large_Cust_V1.keras")
+    model.save("SurfaceTension_Model_Large_Mobile_V1.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -166,7 +116,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves_ST_Cust.png")
+    plt.savefig("training_curves_ST.png")
     plt.show()
 
     all_true = []
@@ -229,7 +179,7 @@ def main():
         plt.title("Predicted vs True Values")
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("pred_vs_true_ST_Cust.png")
+        plt.savefig("pred_vs_true_ST.png")
         plt.show()
     else:
         print("[INFO] No predictions were made, skipping plot generation.")

@@ -69,7 +69,7 @@ class ADSADataGenerator(Sequence):
             self.image_list = test_names
         else:
             raise ValueError("split must be 'train', 'val', or 'test'")
-
+        self.split = split
         # Compute normalization stats once (from training data only)
         if ADSADataGenerator.param_mean is None and split == 'train':
             params = np.array([self.input_dict[img] for img in train_names if img in self.input_dict])
@@ -82,7 +82,7 @@ class ADSADataGenerator(Sequence):
             np.random.shuffle(self.indexes)
 
     def __len__(self):
-        return len(self.image_list) // self.batch_size
+        return int(np.ceil(len(self.image_list) / self.batch_size))
 
     def __getitem__(self, index):
         batch_indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
@@ -92,20 +92,49 @@ class ADSADataGenerator(Sequence):
 
         for img_file in batch_images:
             img_path = os.path.join(self.image_dir, img_file)
-            image = self._load_and_pad(img_path)
-
+            image, resize_scale = self._load_and_pad(img_path)
+            #data augmentation
+            if getattr(self, "split", None) == "train":
+                image = self.random_augment(image)
             params = self.input_dict.get(img_file)
             output = self.output_dict.get(img_file)
 
             if params is not None and output is not None:
                 # Normalize params
+                params = np.array(params, dtype=np.float32)
+                params[1] = params[1] / resize_scale  # adjust scale factor by resize ratio    
                 params = (params - ADSADataGenerator.param_mean) / ADSADataGenerator.param_std
                 X_img.append(image)
                 X_input.append(params)
                 y.append(output)
 
         return (np.array(X_img, dtype=np.float32), np.array(X_input, dtype=np.float32)), np.array(y, dtype=np.float32)
+    def random_augment(self, img):
+        # Remove channel dimension for cv2 operations
+        if img.ndim == 3 and img.shape[-1] == 1:
+            img_2d = img[:, :, 0]
+        else:
+            img_2d = img
 
+        # Random rotation
+        angle = np.random.uniform(-1, 1)
+        h, w = img_2d.shape[:2]
+        M = cv2.getRotationMatrix2D((w/2, h/2), angle, 1)
+        img_2d = cv2.warpAffine(img_2d, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
+
+        # Random shift
+        tx = np.random.uniform(-0.03, 0.03) * w
+        ty = np.random.uniform(-0.05, 0.05) * h
+        M = np.float32([[1, 0, tx], [0, 1, ty]])
+        img_2d = cv2.warpAffine(img_2d, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
+
+        # Small Gaussian noise
+        noise = np.random.normal(0, 0.02, img_2d.shape).astype(np.float32)
+        img_2d = np.clip(img_2d + noise, 0, 1)
+
+        # Add channel dimension back
+        img_aug = np.expand_dims(img_2d, axis=-1)
+        return img_aug
     def on_epoch_end(self):
         if self.shuffle:
             np.random.shuffle(self.indexes)
@@ -128,9 +157,9 @@ class ADSADataGenerator(Sequence):
 
         img = cv2.copyMakeBorder(img, pad_top, pad_bottom, pad_left, pad_right,
                                   cv2.BORDER_CONSTANT, value=0)
-        img = img / 255.0
+        img = img.astype(np.float32) / 255.0
 
         # Convert 1-channel grayscale -> 3-channel
         img = np.expand_dims(img, axis=-1)
         img = np.repeat(img, 3, axis=-1)  # shape: (H, W, 3)
-        return img
+        return img, scale
