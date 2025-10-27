@@ -133,8 +133,8 @@ class ADSADataGenerator(Sequence):
         img_2d = np.clip(img_2d + noise, 0, 1)
 
         # Add channel dimension back
-        img_aug = np.expand_dims(img_2d, axis=-1)
-        return img_aug
+        #img_aug = np.expand_dims(img_2d, axis=-1)
+        return img_2d
     def on_epoch_end(self):
         if self.shuffle:
             np.random.shuffle(self.indexes)
