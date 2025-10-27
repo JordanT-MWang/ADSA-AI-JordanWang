@@ -40,7 +40,7 @@ import time
 import datetime
 import numpy as np
 import pandas as pd
-
+import json
 # === Path handling for DataGenerator ===
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -125,10 +125,20 @@ def main():
     model = create_custom_cnn(input_image_shape=(500, 500, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if CustomCNNADSADataGenerator.param_mean is not None:
+        """
         model._metadata = {
         "param_mean": CustomCNNADSADataGenerator.param_mean.tolist() if CustomCNNADSADataGenerator.param_mean is not None else None,
         "param_std": CustomCNNADSADataGenerator.param_std.tolist() if CustomCNNADSADataGenerator.param_std is not None else None,
-    }
+        }
+        """
+        
+        stats = {
+        "param_mean": CustomCNNADSADataGenerator.param_mean.tolist(),
+        "param_std": CustomCNNADSADataGenerator.param_std.tolist(),
+        }
+        with open("SurfaceTension_Model_Large_Cust_V1_stats.json", "w") as f:
+            json.dump(stats, f)
+    
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
