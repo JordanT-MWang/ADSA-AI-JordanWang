@@ -154,5 +154,5 @@ class ADSADataGenerator(Sequence):
 
         # Convert 1-channel grayscale -> 3-channel
         img = np.expand_dims(img, axis=-1)
-        img = np.repeat(img, 3, axis=-1)  # shape: (H, W, 3)
+        #img = np.repeat(img, 3, axis=-1)  # shape: (H, W, 3)
         return img, scale

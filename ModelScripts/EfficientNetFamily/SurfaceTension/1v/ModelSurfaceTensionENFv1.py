@@ -37,11 +37,11 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     param_input = Input(shape=(input_param_size,), name="param_input")
 
     # Load pretrained MobileNetV2
-    base_model = EfficientNetB2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+    base_model = EfficientNetB2(input_shape=input_image_shape, include_top=False, weights=None)
 
     # Freeze first N layers
-    for i, layer in enumerate(base_model.layers):
-        layer.trainable = i >= freeze_until
+    #for i, layer in enumerate(base_model.layers):
+    #    layer.trainable = i >= freeze_until
 
     x = base_model(img_input, training=False)
     x = GlobalAveragePooling2D()(x)
@@ -82,7 +82,7 @@ def main():
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
  
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(500, 500, 3), input_param_size=2)
+    model = create_model(input_image_shape=(500, 500, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         """
