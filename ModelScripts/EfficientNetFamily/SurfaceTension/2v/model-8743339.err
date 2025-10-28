@@ -1,13 +1,13 @@
 Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
 From github.com:JordanT-MWang/ADSA-AI-JordanWang
-   8ba29b1..a483be5  main       -> origin/main
-2025-10-28 01:44:10.842036: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2025-10-28 01:44:10.893015: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+   6c28c8a..d8bb5b8  main       -> origin/main
+2025-10-28 01:56:11.381970: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-28 01:56:11.431937: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2025-10-28 01:44:15.597036: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-28 01:56:13.708008: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1761616240.728871 3774682 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 31134 MB memory:  -> device: 0, name: Tesla V100-SXM2-32GB, pci bus id: 0000:89:00.0, compute capability: 7.0
-2025-10-28 01:50:40.769390: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+I0000 00:00:1761616944.842870 3777253 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 31134 MB memory:  -> device: 0, name: Tesla V100-SXM2-32GB, pci bus id: 0000:89:00.0, compute capability: 7.0
+2025-10-28 02:02:24.882748: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
 Traceback (most recent call last):
   File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/2v/ModelSurfaceTensionENFv2.py", line 200, in <module>
     main()
@@ -15,9 +15,9 @@ Traceback (most recent call last):
     model = create_model(input_image_shape=(512, 512, 3), input_param_size=2)
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/2v/ModelSurfaceTensionENFv2.py", line 40, in create_model
-    base_model = EfficientNetB2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+    base_model = EfficientNetB0(input_shape=input_image_shape, include_top=False, weights='imagenet')
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/applications/efficientnet.py", line 637, in EfficientNetB2
+  File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/applications/efficientnet.py", line 571, in EfficientNetB0
     return EfficientNet(
            ^^^^^^^^^^^^^
   File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/applications/efficientnet.py", line 434, in EfficientNet
@@ -27,5 +27,3 @@ Traceback (most recent call last):
   File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/legacy/saving/legacy_h5_format.py", line 452, in _set_weights
     raise ValueError(
 ValueError: Shape mismatch in layer #1 (named stem_conv)for weight stem_conv/kernel. Weight expects shape (3, 3, 1, 32). Received saved weight with shape (3, 3, 3, 32)
-To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
-   a483be5..6c28c8a  main -> main
