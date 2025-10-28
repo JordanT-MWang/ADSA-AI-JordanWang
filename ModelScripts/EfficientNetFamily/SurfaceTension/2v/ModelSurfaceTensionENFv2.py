@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras.applications import EfficientNetB2
+from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten
 from tensorflow.keras.optimizers import Adam
@@ -37,7 +37,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     param_input = Input(shape=(input_param_size,), name="param_input")
 
     # Load pretrained MobileNetV2
-    base_model = EfficientNetB2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+    base_model = EfficientNetB0(input_shape=input_image_shape, include_top=False, weights='imagenet')
 
     # Freeze first N layers
     #for i, layer in enumerate(base_model.layers):
