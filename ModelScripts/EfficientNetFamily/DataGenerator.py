@@ -110,35 +110,24 @@ class ADSADataGenerator(Sequence):
 
         return (np.array(X_img, dtype=np.float32), np.array(X_input, dtype=np.float32)), np.array(y, dtype=np.float32)
     def random_augment(self, img):
-        # Remove channel dimension for cv2 operations
-        if img.ndim == 3 and img.shape[-1] == 1:
-            img_2d = img[:, :, 0]
-        else:
-            img_2d = img
 
         # Random rotation
         angle = np.random.uniform(-1, 1)
-        h, w = img_2d.shape[:2]
+        h, w = img.shape[:2]
         M = cv2.getRotationMatrix2D((w/2, h/2), angle, 1)
-        img_2d = cv2.warpAffine(img_2d, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
+        img = cv2.warpAffine(img, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
 
         # Random shift
         tx = np.random.uniform(-0.03, 0.03) * w
         ty = np.random.uniform(-0.05, 0.05) * h
         M = np.float32([[1, 0, tx], [0, 1, ty]])
-        img_2d = cv2.warpAffine(img_2d, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
+        img = cv2.warpAffine(img, M, (w, h), borderMode=cv2.BORDER_REFLECT_101)
 
         # Small Gaussian noise
-        noise = np.random.normal(0, 0.02, img_2d.shape).astype(np.float32)
-        img_2d = np.clip(img_2d + noise, 0, 1)
+        noise = np.random.normal(0, 0.02, img.shape).astype(np.float32)
+        img = np.clip(img + noise, 0, 1)
 
-        # Add channel dimension back
-        # Ensure 3 channels for pretrained model
-        if img_2d.ndim == 2:
-            img_2d = np.expand_dims(img_2d, axis=-1)
-        if img_2d.shape[-1] == 1:
-            img_2d = np.repeat(img_2d, 3, axis=-1)
-        return img_2d
+        return img
     def on_epoch_end(self):
         if self.shuffle:
             np.random.shuffle(self.indexes)
