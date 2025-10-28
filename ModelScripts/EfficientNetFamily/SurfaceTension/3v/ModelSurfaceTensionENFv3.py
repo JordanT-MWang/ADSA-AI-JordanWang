@@ -73,8 +73,8 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions.csv"
-    batch_size = 64
-    image_size = (512, 512)
+    batch_size = 32
+    image_size = (256, 256)
 
     # Print paths for debugging
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")
@@ -95,7 +95,7 @@ def main():
     print("Output batch shape:", y.shape)
  
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(512, 512, 3), input_param_size=2)
+    model = create_model(input_image_shape=(256, 256, 3), input_param_size=2)
     print(model.input_shape)
     base_model = model.get_layer('efficientnetb2')
     print(base_model.layers[0].name, base_model.layers[0].input_shape, base_model.layers[0].output_shape)
@@ -118,7 +118,7 @@ def main():
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
 
     # Save model
-    model.save("SurfaceTensionENFv1.keras")
+    model.save("SurfaceTensionENFv2.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
