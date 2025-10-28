@@ -8,3 +8,20 @@ Output CSV path: /home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined/output_param
 [INFO] Computed normalization stats: mean=[9.9271584e-01 6.0119742e-04], std=[0.00061441 0.00056276]
 Downloading data from https://storage.googleapis.com/keras-applications/efficientnetb0_notop.h5
 [1m       0/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m0s[0m 0s/step[1m   24576/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m36s[0m 2us/step[1m   57344/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m33s[0m 2us/step[1m  106496/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m27s[0m 2us/step[1m  172032/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m21s[0m 1us/step[1m  253952/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m17s[0m 1us/step[1m  385024/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m13s[0m 1us/step[1m  614400/16705208[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m9s[0m 1us/step [1m  974848/16705208[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m6s[0m 0us/step[1m 1572864/16705208[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m4s[0m 0us/step[1m 2539520/16705208[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m2s[0m 0us/step[1m 4145152/16705208[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m1s[0m 0us/step[1m 6766592/16705208[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m0s[0m 0us/step[1m 9584640/16705208[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m0s[0m 0us/step[1m12664832/16705208[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m0s[0m 0us/step[1m15515648/16705208[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m0s[0m 0us/step[1m16705208/16705208[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m1s[0m 0us/step
+[main 8fe907d] Predictions saved for job 8743339
+ Committer: Jordan Wang <jordanw7@gn-16-14-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 7 files changed, 66 insertions(+), 2 deletions(-)
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceTension/2v/model-8743339.err
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceTension/2v/model-8743339.out
