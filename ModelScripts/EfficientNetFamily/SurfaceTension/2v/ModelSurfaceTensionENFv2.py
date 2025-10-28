@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow.keras.applications import EfficientNetB2
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten
+from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
@@ -37,13 +37,14 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     param_input = Input(shape=(input_param_size,), name="param_input")
     print(input_image_shape)
     # If somehow input channels=1, repeat to 3
+    
     if input_image_shape[2] == 1:
-        x_input = Concatenate()([img_input, img_input, img_input])
+        x_input = Lambda(lambda x: tf.image.grayscale_to_rgb(x))(img_input)
     else:
         x_input = img_input
     # Load pretrained MobileNetV2
     
-    base_model = EfficientNetB2(input_shape=input_image_shape, include_top=False, weights='imagenet')
+    base_model = EfficientNetB2(input_shape=(input_image_shape[0], input_image_shape[1], 3), include_top=False, weights='imagenet')
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze first N layers
