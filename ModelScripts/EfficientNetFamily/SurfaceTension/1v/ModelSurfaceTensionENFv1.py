@@ -65,8 +65,8 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions.csv"
-    batch_size = 64
-    image_size = (500, 500)
+    batch_size = 32
+    image_size = (256, 256)
 
     # Print paths for debugging
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")
@@ -82,7 +82,7 @@ def main():
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
  
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(500, 500, 1), input_param_size=2)
+    model = create_model(input_image_shape=(256, 256, 1), input_param_size=2)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         """

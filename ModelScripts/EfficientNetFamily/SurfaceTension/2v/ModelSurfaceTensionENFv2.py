@@ -42,7 +42,8 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     else:
         x_input = img_input
     # Load pretrained MobileNetV2
-    base_model = EfficientNetB2(input_shape=(input_image_shape[0], input_image_shape[1], 3), include_top=False, weights='imagenet')
+    
+    base_model = EfficientNetB2(input_shape=input_image_shape, include_top=False, weights='imagenet')
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze first N layers
