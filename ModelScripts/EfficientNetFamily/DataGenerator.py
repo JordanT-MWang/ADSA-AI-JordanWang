@@ -134,6 +134,8 @@ class ADSADataGenerator(Sequence):
 
         # Add channel dimension back
         #img_aug = np.expand_dims(img_2d, axis=-1)
+        if img_2d.shape[-1] == 1:
+            img_2d = np.repeat(img, 3, axis=-1)
         return img_2d
     def on_epoch_end(self):
         if self.shuffle:
