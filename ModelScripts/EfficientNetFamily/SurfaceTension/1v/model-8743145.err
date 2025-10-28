@@ -1,13 +1,13 @@
 Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
 From github.com:JordanT-MWang/ADSA-AI-JordanWang
-   6051148..f0b9c3d  main       -> origin/main
-2025-10-28 00:33:59.989705: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2025-10-28 00:34:00.045039: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+   e8ca1d1..bf0ece9  main       -> origin/main
+2025-10-28 00:44:01.178901: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-28 00:44:01.232595: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2025-10-28 00:34:04.939276: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-28 00:44:05.964253: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1761612048.143402 2991113 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:23:00.0, compute capability: 8.6
-2025-10-28 00:40:48.195257: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+I0000 00:00:1761612706.414510 2995278 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:23:00.0, compute capability: 8.6
+2025-10-28 00:51:46.469479: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
 Traceback (most recent call last):
   File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/1v/ModelSurfaceTensionENFv1.py", line 200, in <module>
     main()
@@ -27,5 +27,3 @@ Traceback (most recent call last):
   File "/home/jordanw7/.local/lib/python3.11/site-packages/keras/src/legacy/saving/legacy_h5_format.py", line 452, in _set_weights
     raise ValueError(
 ValueError: Shape mismatch in layer #1 (named stem_conv)for weight stem_conv/kernel. Weight expects shape (3, 3, 1, 32). Received saved weight with shape (3, 3, 3, 32)
-To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
-   f0b9c3d..e8ca1d1  main -> main
