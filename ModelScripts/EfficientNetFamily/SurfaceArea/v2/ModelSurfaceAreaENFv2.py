@@ -14,7 +14,8 @@ for g in gpus:
         tf.config.experimental.set_memory_growth(g, True)
     except Exception:
         pass
-mixed_precision.set_global_policy("mixed_float32")
+mixed_precision.set_global_policy("mixed_float16")
+
 
 import matplotlib.pyplot as plt
 import time
