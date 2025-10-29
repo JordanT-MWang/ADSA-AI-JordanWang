@@ -111,13 +111,14 @@ def main():
     stats = {
         "param_mean": train_pipeline.param_mean.tolist(),
         "param_std": train_pipeline.param_std.tolist(),
+        "image_size": list(image_size)  # Save as list to be JSON serializable
     }
     with open("SurfaceTension_Model_Large_Cust_V4_stats.json", "w") as f:
         json.dump(stats, f)
 
 
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(512, 512, 3), input_param_size=2)
+    model = create_model(input_image_shape=(image_size[0], image[1], 3), input_param_size=2)
 
 
 
