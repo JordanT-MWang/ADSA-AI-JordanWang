@@ -3,7 +3,7 @@
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-24:30:00           # Max runtime (HH:MM:SS)
-#SBATCH --cpus-per-task=4           # CPU cores for data loading
+#SBATCH --cpus-per-task=6           # CPU cores for data loading
 
 #SBATCH --mem=64G ## max amount of memory per node you require
 
@@ -23,11 +23,18 @@ module load system/CUDA/12.2.0
 eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
+#copy data set locally
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
+LOCAL_DATA="$TMPDIR/DataSetCombined"
+mkdir -p $LOCAL_DATA
+cp -r $HOME_DATA/Edges $LOCAL_DATA/
+cp $HOME_DATA/input_params.csv $LOCAL_DATA/
+cp $HOME_DATA/output_params.csv $LOCAL_DATA/
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git pull
-python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceArea/1v/ModelSurfaceAreaENFv1.py
+python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceArea/2v/ModelSurfaceAreaENFv2.py --dataset_path $LOCAL_DATA
 git add -A
 git commit -am "Predictions saved for job $SLURM_JOB_ID"
 git push origin
