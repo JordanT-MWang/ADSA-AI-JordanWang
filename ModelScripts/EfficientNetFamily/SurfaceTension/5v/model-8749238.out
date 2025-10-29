@@ -1,0 +1,7 @@
+Agent pid 3437935
+Updating 4c14122..f40434d
+Fast-forward
+ .../EfficientNetFamily/SurfaceTension/5v/ModelSurfaceTensionENFV5.py   | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
