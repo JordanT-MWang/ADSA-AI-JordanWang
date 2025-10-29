@@ -24,6 +24,7 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 
+
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git pull
