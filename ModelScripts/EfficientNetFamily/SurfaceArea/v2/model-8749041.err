@@ -19,3 +19,5 @@ Traceback (most recent call last):
   File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/layers/input_spec.py", line 245, in assert_input_compatibility
     raise ValueError(
 ValueError: Input 0 of layer "functional" is incompatible with the layer: expected shape=(None, 512, 512, 3), found shape=(None, 512, 640, 3)
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   6e64677..8dcc5d6  main -> main
