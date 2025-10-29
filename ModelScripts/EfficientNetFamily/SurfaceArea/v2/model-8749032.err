@@ -1,6 +1,6 @@
 Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
 From github.com:JordanT-MWang/ADSA-AI-JordanWang
-   ea492df..48c9ee6  main       -> origin/main
+   03088f7..92c71b9  main       -> origin/main
 python: can't open file '/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceArea/2v/ModelSurfaceAreaENFv2.py': [Errno 2] No such file or directory
 To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
-   48c9ee6..03088f7  main -> main
+   92c71b9..d9f2118  main -> main
