@@ -87,7 +87,7 @@ def main():
     
     output_csv = "SA_Model_Predictions.csv"
     output_training = "Area (cm^2)"
-    batch_size = 256
+    batch_size = 128
     model_name="SurfaceAreaENFv2"
     image_size = (512, 512)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
