@@ -35,7 +35,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     """
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
-    print(input_image_shape)
+    
     # If somehow input channels=1, repeat to 3
     
     if input_image_shape[2] == 1:
@@ -88,17 +88,10 @@ def main():
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
     test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
-    #test input shape
-    (X_img, X_params), y = train_gen[0]
-    print("Image batch shape:", X_img.shape)
-    print("Parameter batch shape:", X_params.shape)
-    print("Output batch shape:", y.shape)
- 
+
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_model(input_image_shape=(512, 512, 3), input_param_size=2)
-    print(model.input_shape)
-    base_model = model.get_layer('efficientnetb1')
-    print(base_model.layers[0].name, base_model.layers[0].input_shape, base_model.layers[0].output_shape)
+
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         """
