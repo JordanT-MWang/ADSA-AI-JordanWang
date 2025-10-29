@@ -118,7 +118,7 @@ def main():
 
 
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(image_size[0], image[1], 3), input_param_size=2)
+    model = create_model(input_image_shape=(image_size[0], image_size[1], 3), input_param_size=2)
 
 
 
