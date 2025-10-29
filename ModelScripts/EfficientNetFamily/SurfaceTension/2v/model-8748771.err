@@ -160,3 +160,15 @@ Traceback (most recent call last):
     batch_outputs, potentially_ragged_concat, outputs
     ^^^^^^^^^^^^^
 UnboundLocalError: cannot access local variable 'batch_outputs' where it is not associated with a value
+remote: warning: File ModelScripts/EfficientNetFamily/SurfaceTension/2v/SurfaceTensionENFv1.keras is 78.14 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File ModelScripts/EfficientNetFamily/SurfaceTension/5v/SurfaceTensionENFv5.keras is 75.81 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: error: Trace: f73e3801f38c0860a8aea6143c1ce3785f85837becf89fbb41a4c72681b63460        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/6v/best_SurfaceTensinoENFv6.keras is 103.30 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/6v/best_SurfaceTensinoENFv6.keras is 103.30 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JordanT-MWang/ADSA-AI-JordanWang.git'
