@@ -1,0 +1,20 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+2025-10-29 00:08:07.636637: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-29 00:08:08.103278: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1761696488.323061 3387460 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1761696488.366831 3387460 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-10-29 00:08:08.800225: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1761696832.910732 3387460 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:1e:00.0, compute capability: 8.6
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/2v/ModelSurfaceTensionENFv2.py", line 216, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/2v/ModelSurfaceTensionENFv2.py", line 100, in main
+    base_model = model.get_layer('efficientnetb2')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/models/model.py", line 210, in get_layer
+    raise ValueError(
+ValueError: No such layer: efficientnetb2. Existing layers are: ['img_input', 'efficientnetb1', 'global_average_pooling2d', 'dense', 'dropout', 'dense_1', 'param_input', 'concatenate', 'dense_2', 'dropout_1', 'dense_3'].
