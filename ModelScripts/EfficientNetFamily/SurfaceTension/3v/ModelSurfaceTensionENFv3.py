@@ -88,17 +88,11 @@ def main():
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
     test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
                                 image_size=image_size, output_type='Surface Tension (mN/m)')
-    #test input shape
-    (X_img, X_params), y = train_gen[0]
-    print("Image batch shape:", X_img.shape)
-    print("Parameter batch shape:", X_params.shape)
-    print("Output batch shape:", y.shape)
+
  
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_model(input_image_shape=(256, 256, 3), input_param_size=2)
-    print(model.input_shape)
-    base_model = model.get_layer('efficientnetb1')
-    print(base_model.layers[0].name, base_model.layers[0].input_shape, base_model.layers[0].output_shape)
+    
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
         """
@@ -118,7 +112,7 @@ def main():
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
 
     # Save model
-    model.save("SurfaceTensionENFv2.keras")
+    model.save("SurfaceTensionENFv3.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
