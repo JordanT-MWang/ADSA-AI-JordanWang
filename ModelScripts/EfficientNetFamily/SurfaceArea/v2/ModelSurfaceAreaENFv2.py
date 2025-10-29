@@ -102,9 +102,9 @@ def main():
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
     
-    train_pipeline = ADSADataPipeline(dataset_path, split='train', output_type=output_training, batch_size=batch_size)
-    val_gen = ADSADataPipeline(dataset_path, split='val', output_type=output_training, batch_size=batch_size).get_dataset()
-    test_gen = ADSADataPipeline(dataset_path, split='test', output_type=output_training, batch_size=batch_size).get_dataset()
+    train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size)
+    val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
+    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
     train_gen = train_pipeline.get_dataset()
 
     # Save normalization stats

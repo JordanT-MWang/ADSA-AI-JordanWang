@@ -79,6 +79,9 @@ def main(model_path, model_type, image_folder):
     for img_name in img_files:
         img_path = os.path.join(edges_folder, img_name)
         img = preprocess_image(img_path)
+        params = np.array(params, dtype=np.float32)
+        params = (params - param_mean) / param_std  # normalize
+        params = np.expand_dims(params, axis=0)
         pred = model.predict([img, params_batch], verbose=0)
         predictions.append(pred[0][0])
 
