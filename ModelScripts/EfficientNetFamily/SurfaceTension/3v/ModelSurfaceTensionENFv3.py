@@ -97,7 +97,7 @@ def main():
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_model(input_image_shape=(256, 256, 3), input_param_size=2)
     print(model.input_shape)
-    base_model = model.get_layer('efficientnetb2')
+    base_model = model.get_layer('efficientnetb1')
     print(base_model.layers[0].name, base_model.layers[0].input_shape, base_model.layers[0].output_shape)
     # Save normalization statistics for future inference
     if ADSADataGenerator.param_mean is not None:
