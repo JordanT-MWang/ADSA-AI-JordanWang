@@ -221,3 +221,18 @@ Traceback (most recent call last):
   File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/layers/input_spec.py", line 245, in assert_input_compatibility
     raise ValueError(
 ValueError: Input 0 of layer "functional" is incompatible with the layer: expected shape=(None, 800, 800, 3), found shape=(32, 512, 640, 3)
+remote: warning: File ModelScripts/EfficientNetFamily/SurfaceTension/2v/SurfaceTensionENFv1.keras is 78.14 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File ModelScripts/EfficientNetFamily/SurfaceTension/5v/SurfaceTensionENFv5.keras is 75.81 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: error: Trace: 5b1603e707029d7de4853db74091c0d6395274a1b8e657d1e042e72e66728e0b        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/6v/best_SurfaceTensinoENFv6.keras is 103.30 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/6v/best_SurfaceTensinoENFv6.keras is 103.30 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/6v/SurfaceTensionENFv6.keras is 103.30 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JordanT-MWang/ADSA-AI-JordanWang.git'
