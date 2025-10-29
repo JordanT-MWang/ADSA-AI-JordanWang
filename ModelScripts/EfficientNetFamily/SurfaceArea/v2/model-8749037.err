@@ -28,3 +28,5 @@ Traceback (most recent call last):
   File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/dtype_policies/dtype_policy.py", line 90, in _parse_name
     raise ValueError(
 ValueError: Cannot convert 'mixed_float32' to a mixed precision DTypePolicy. Valid policies include 'mixed_float16', 'mixed_bfloat16', and the name of any float dtype such as 'float32'.
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   d9f2118..97d8e3f  main -> main
