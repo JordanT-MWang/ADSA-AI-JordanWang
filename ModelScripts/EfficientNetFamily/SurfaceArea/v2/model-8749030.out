@@ -1,0 +1,6 @@
+Agent pid 3413344
+Updating ea492df..48c9ee6
+Fast-forward
+ .../EfficientNetFamily/SurfaceArea/v2/ModelSurfaceAreaENFv2.py        | 4 ++--
+ .../EfficientNetFamily/SurfaceArea/v2/ModelSurfaceAreaENFv2.slurm     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
