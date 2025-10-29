@@ -23,13 +23,15 @@ import pandas as pd
 import os # Import os module
 import sys
 import json
+import argparse
+
 # === Path handling for DataGenerator ===
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from DataGeneratorv2 import ADSADataGenerator # your custom generator
+from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=75):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=350):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -48,10 +50,10 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze first N layers
-    #for i, layer in enumerate(base_model.layers):
-    #    layer.trainable = i >= freeze_until
+    for i, layer in enumerate(base_model.layers):
+        layer.trainable = i >= freeze_until
 
-    x = base_model(img_input, training=False)
+    x = base_model(img_input, training=True)
     x = GlobalAveragePooling2D()(x)
 
     # Custom trainable layers
@@ -63,56 +65,69 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     combined = Concatenate()([x, param_input])
     z = Dense(32, activation='relu')(combined)
     z = Dropout(0.2)(z)
-    output = Dense(1, activation='linear')(z)
+    output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
     model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
-    #dataset_path = "/content/drive/MyDrive/DataSetCombined"
-    dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
+    #parse to get local data set
+    parser = argparse.ArgumentParser(description="Train EfficientNet model on ADSA dataset")
+    parser.add_argument(
+        "--dataset_path",
+        type=str,
+        required=False,
+        default="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined",
+        help="Path to dataset directory containing Edges/, input_params.csv, output_params.csv"
+    )
+    args = parser.parse_args()
+
+    dataset_path = args.dataset_path  # Use whatever was passed in
+    
     output_csv = "SA_Model_Predictions.csv"
     output_training = "Area (cm^2)"
     batch_size = 256
+    model_name="SurfaceAreaENFv2"
     image_size = (512, 512)
-
+    checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
+    "best_SurfaceAreaENFv2.keras",
+    monitor="val_loss",
+    save_best_only=True,
+    save_weights_only=False,
+    )
     # Print paths for debugging
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
 
     
-    train_gen = ADSADataGenerator(dataset_path, split='train', batch_size=batch_size,
-                              image_size=image_size, output_type=output_training)
-    
-    val_gen = ADSADataGenerator(dataset_path, split='val', batch_size=batch_size,
-                                image_size=image_size, output_type=output_training)
-    test_gen = ADSADataGenerator(dataset_path, split='test', batch_size=batch_size,
-                                image_size=image_size, output_type=output_training)
+    train_pipeline = ADSADataPipeline(dataset_path, split='train', output_type=output_training, batch_size=batch_size)
+    val_gen = ADSADataPipeline(dataset_path, split='val', output_type=output_training, batch_size=batch_size).get_dataset()
+    test_gen = ADSADataPipeline(dataset_path, split='test', output_type=output_training, batch_size=batch_size).get_dataset()
+    train_gen = train_pipeline.get_dataset()
+
+    # Save normalization stats
+    stats = {
+        "param_mean": train_pipeline.param_mean.tolist(),
+        "param_std": train_pipeline.param_std.tolist(),
+    }
+    with open("SurfaceArea_Model_Large_Cust_V2_stats.json", "w") as f:
+        json.dump(stats, f)
+
 
     # Model now expects 1 for channel for custom and 3 for mobilenet
     model = create_model(input_image_shape=(512, 512, 3), input_param_size=2)
 
-    # Save normalization statistics for future inference
-    if ADSADataGenerator.param_mean is not None:
-        """
-        model._metadata = {
-        "param_mean": ADSADataGenerator.param_mean.tolist() if ADSADataGenerator.param_mean is not None else None,
-        "param_std": ADSADataGenerator.param_std.tolist() if ADSADataGenerator.param_std is not None else None,
-    }"""
-        stats = {
-        "param_mean": ADSADataGenerator.param_mean.tolist(),
-        "param_std": ADSADataGenerator.param_std.tolist(),
-        }
-        with open("SurfaceArea_Model_Large_Cust_V1_stats.json", "w") as f:
-            json.dump(stats, f)
+
+
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
-                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+                        checkpoint_cb])
 
     # Save model
-    model.save("SurfaceAreaENFv1.keras")
+    model.save("SurfaceAreaENFv2.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
