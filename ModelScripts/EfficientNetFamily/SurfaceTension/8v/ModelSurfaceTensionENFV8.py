@@ -163,7 +163,7 @@ def main():
     start_total = time.time()
 
     # Keep track of index manually using the pipeline
-    test_pipeline = ADSADataPipeline(dataset_path, split='test', output_type=output_training, batch_size=batch_size)
+    test_pipeline = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size)
     test_gen = test_pipeline.get_dataset()
     image_paths = test_pipeline.image_paths  # Original list of image paths
 
