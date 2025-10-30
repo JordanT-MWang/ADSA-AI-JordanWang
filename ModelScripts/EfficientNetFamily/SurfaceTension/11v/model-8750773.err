@@ -109,3 +109,13 @@ Original error: RESOURCE_EXHAUSTED: Out of memory while trying to allocate 31010
 
 To ignore this failure and try to use a fallback algorithm (which may have suboptimal performance), use XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false.  Please also file a bug for the root cause of failing autotuning.
 	 [[{{node StatefulPartitionedCall}}]] [Op:__inference_multi_step_on_iterator_81179]
+remote: error: Trace: 5b70e13e5a7bc55f5395fe17f57519d8ddaa7fbfc857a6e3bedd3eb6992b7157        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JordanT-MWang/ADSA-AI-JordanWang.git'
