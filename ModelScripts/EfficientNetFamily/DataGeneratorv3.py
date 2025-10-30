@@ -64,12 +64,16 @@ class ADSADataPipeline:
         image = tf.io.read_file(path)
         image = tf.image.decode_png(image, channels=3)
         image = tf.image.convert_image_dtype(image, tf.float32)
+        original_h = image.shape[0]
+        original_w = image.shape[1]
+        scale = min(self.image_size[0] / original_h, self.image_size[1] / original_w)
+
         image = tf.image.resize_with_pad(image, self.image_size[0], self.image_size[1])
         image = tf.keras.applications.efficientnet.preprocess_input(image)
 
         # Normalize params
         param = (param - self.param_mean) / self.param_std
-
+        param[1] = param[1] / scale
         if self.split == 'train':
             image = self._augment(image)
 
