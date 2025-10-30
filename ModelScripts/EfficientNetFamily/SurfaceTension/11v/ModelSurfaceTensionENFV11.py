@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=75):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=0):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -92,7 +92,7 @@ def main():
     model_name="SurfaceTensionENF4"
     image_size = (1000, 1000)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    "best_SurfaceTensinoENFv10.keras",
+    "best_SurfaceTensinoENFv11.keras",
     monitor="val_loss",
     save_best_only=True,
     save_weights_only=False,
@@ -113,7 +113,7 @@ def main():
         "param_std": train_pipeline.param_std.tolist(),
         "image_size": list(image_size)  # Save as list to be JSON serializable
     }
-    with open("SurfaceTension_Model_Large_Cust_V10_stats.json", "w") as f:
+    with open("SurfaceTension_Model_Large_Cust_V11_stats.json", "w") as f:
         json.dump(stats, f)
 
 
@@ -129,7 +129,7 @@ def main():
                         checkpoint_cb])
 
     # Save model
-    model.save("SurfaceTensionENFv10.keras")
+    model.save("SurfaceTensionENFv11.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
