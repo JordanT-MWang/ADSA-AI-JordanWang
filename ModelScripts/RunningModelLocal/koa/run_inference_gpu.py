@@ -13,6 +13,7 @@ Example usage:
 import tensorflow as tf
 import numpy as np
 import pandas as pd
+import json
 import matplotlib.pyplot as plt
 import argparse
 import os
@@ -21,6 +22,21 @@ from tensorflow.keras.models import load_model
 from DataGeneratorv3 import ADSADataPipeline  # Ensure this file is in your PYTHONPATH
 
 def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800)):
+    # model_path is passed as argument
+    model_dir = os.path.dirname(model_path)
+    json_files = [f for f in os.listdir(model_dir) if f.endswith(".json")]
+
+    if not json_files:
+        raise FileNotFoundError(f"No JSON file found in model directory: {model_dir}")
+
+    # assuming there's only one stats JSON
+    stats_path = os.path.join(model_dir, json_files[0])
+    with open(stats_path, "r") as f:
+        stats = json.load(f)
+
+    param_mean = np.array(stats["param_mean"], dtype=np.float32)
+    param_std = np.array(stats["param_std"], dtype=np.float32)
+    image_size = tuple(stats["image_size"])
     print(f"[INFO] Loading model from: {model_path}")
     model = load_model(model_path, compile=False)
 
