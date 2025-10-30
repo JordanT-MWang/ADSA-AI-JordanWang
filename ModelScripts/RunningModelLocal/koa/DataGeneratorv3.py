@@ -6,7 +6,7 @@ import cv2
 
 class ADSADataPipeline:
     def __init__(self, dataset_path, split='train', image_size=(512, 640),
-                 output_type='Surface Tension', batch_size=32, shuffle=True, random_state=42):
+                 output_type='Surface Tension', batch_size=32, shuffle=True, random_state=42,param_mean=None, param_std=None):
         self.dataset_path = dataset_path
         self.image_dir = os.path.join(dataset_path, "Edges")
         self.input_csv = os.path.join(dataset_path, "input_params.csv")
@@ -17,7 +17,7 @@ class ADSADataPipeline:
         self.split = split
         self.shuffle = shuffle
         self.random_state = random_state
-
+        
         input_df = pd.read_csv(self.input_csv)
         output_df = pd.read_csv(self.output_csv)
 
@@ -43,17 +43,16 @@ class ADSADataPipeline:
         self.image_paths = np.array(image_paths)[idx]
         self.params = np.array(params, dtype=np.float32)[idx]
         self.outputs = np.array(outputs, dtype=np.float32)[idx]
-
-        # Compute normalization on train split
-        if split == 'train':
+        # Use passed stats if provided
+        if param_mean is not None and param_std is not None:
+            self.param_mean = np.array(param_mean, dtype=np.float32)
+            self.param_std = np.array(param_std, dtype=np.float32)
+        elif split == 'train':
             self.param_mean = np.mean(self.params, axis=0)
             self.param_std = np.std(self.params, axis=0)
         else:
-            # Load saved stats from train split
-            stats_path = os.path.join(dataset_path, "param_stats.npz")
-            stats = np.load(stats_path)
-            self.param_mean = stats["mean"]
-            self.param_std = stats["std"]
+            # fallback: previously tried to load param_stats.npz
+            raise ValueError("param_mean and param_std must be provided for non-training splits")
 
         # Save train stats for others
         if split == 'train':
