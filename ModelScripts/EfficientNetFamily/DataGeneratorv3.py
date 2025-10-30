@@ -64,19 +64,24 @@ class ADSADataPipeline:
         image = tf.io.read_file(path)
         image = tf.image.decode_png(image, channels=3)
         image = tf.image.convert_image_dtype(image, tf.float32)
-        # image is a tensor from decode_png
+        # Get original height and width as tensors
         original_h = tf.cast(tf.shape(image)[0], tf.float32)
         original_w = tf.cast(tf.shape(image)[1], tf.float32)
 
-        scale = tf.minimum(self.image_size[0] / original_h,
-                        self.image_size[1] / original_w)
+        # Compute scale safely in TF
+        scale_h = tf.cast(self.image_size[0], tf.float32) / original_h
+        scale_w = tf.cast(self.image_size[1], tf.float32) / original_w
+        scale = tf.minimum(scale_h, scale_w)
 
+        # Resize with padding
         image = tf.image.resize_with_pad(image, self.image_size[0], self.image_size[1])
-        image = tf.keras.applications.efficientnet.preprocess_input(image)
+
+        # Optional: update param[1] (scale factor) to account for resizing
+        param = tf.concat([param[:1], param[1:2] / scale], axis=0)
 
         # Normalize params
         param = (param - self.param_mean) / self.param_std
-        param[1] = param[1] / scale
+
         if self.split == 'train':
             image = self._augment(image)
 
