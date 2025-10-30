@@ -4,3 +4,23 @@ Image directory path: /tmp/DataSetCombined/Edges
 Output CSV path: /tmp/DataSetCombined/output_params.csv
 Base model input shape: (None, 1000, 1000, 3)
 Epoch 1/50
+[main c6dfd40] Predictions saved for job 8750769
+ Committer: Jordan Wang <jordanw7@gn-09-17-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 8 files changed, 1545 insertions(+)
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceArea/3v/SurfaceArea_Model_Large_Cust_V3_stats.json
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceArea/3v/model-8750769.err
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceArea/3v/model-8750769.out
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceTension/8v/model-8750711.err
+ create mode 100644 ModelScripts/EfficientNetFamily/SurfaceTension/8v/model-8750711.out

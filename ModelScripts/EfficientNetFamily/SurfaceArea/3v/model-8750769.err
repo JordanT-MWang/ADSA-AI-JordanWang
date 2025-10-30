@@ -1268,3 +1268,12 @@ Hint: If you want to see a list of allocated tensors when OOM happens, add repor
  [Op:__inference_multi_step_on_iterator_69907]
 2025-10-30 08:30:43.732292: F external/local_xla/xla/tsl/framework/bfc_allocator.cc:811] Check failed: c->in_use() && (c->bin_num == kInvalidBinNum) 
 /var/spool/slurm/d/job8750769/slurm_script: line 37: 2937634 Aborted                 (core dumped) python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceArea/3v/ModelSurfaceAreaENFv3.py --dataset_path $LOCAL_DATA
+remote: error: Trace: 72edc831bb35ce89edafb14ae54f9a782d29a0f7a302a64b9c81ec293fd7195e        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JordanT-MWang/ADSA-AI-JordanWang.git'
