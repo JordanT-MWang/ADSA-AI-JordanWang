@@ -93,7 +93,7 @@ def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800))
 
     # Save results
     model_dir = os.path.dirname(model_path)
-    output_csv = model_dir
+    output_csv = os.path.join(model_dir, "predictions.csv")
     
     results_df = pd.DataFrame({
         "image_name": all_names,
