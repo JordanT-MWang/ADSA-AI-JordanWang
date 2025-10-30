@@ -87,12 +87,12 @@ def main():
     dataset_path = args.dataset_path  # Use whatever was passed in
     
     output_csv = "ST_Model_Predictions.csv"
-    output_training = "Surface Tension (mN/m)"
+    output_training = "Area (cm^2)"
     batch_size = 64
     model_name="SurfaceTensionENF4"
     image_size = (1000, 1000)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    "best_SurfaceTensinoENFv9.keras",
+    "best_SurfaceAreaENFv3.keras",
     monitor="val_loss",
     save_best_only=True,
     save_weights_only=False,
@@ -113,7 +113,7 @@ def main():
         "param_std": train_pipeline.param_std.tolist(),
         "image_size": list(image_size)  # Save as list to be JSON serializable
     }
-    with open("SurfaceTension_Model_Large_Cust_V9_stats.json", "w") as f:
+    with open("SurfaceArea_Model_Large_Cust_V3_stats.json", "w") as f:
         json.dump(stats, f)
 
 
@@ -129,7 +129,7 @@ def main():
                         checkpoint_cb])
 
     # Save model
-    model.save("SurfaceTensionENFv9.keras")
+    model.save("SurfaceAreaENFv3.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -150,7 +150,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves_ST.png")
+    plt.savefig("training_curves_SA.png")
     plt.show()
 
     all_true = []
@@ -199,8 +199,8 @@ def main():
     plt.scatter(all_true, all_pred, alpha=0.6)
     if len(all_true) > 1:
         plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], 'r--')
-    plt.xlabel("True Surface Area (cm^2)")
-    plt.ylabel("Predicted Surface Area (cm^2)")
+    plt.xlabel("True Area (cm^2)")
+    plt.ylabel("Predicted Area (cm^2)")
     plt.title("Predicted vs True Values")
     plt.grid(True)
     plt.tight_layout()
