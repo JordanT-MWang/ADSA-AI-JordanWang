@@ -1,0 +1,6 @@
+Agent pid 2940388
+Already up to date.
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 1000, 1000, 3)
+Epoch 1/50
