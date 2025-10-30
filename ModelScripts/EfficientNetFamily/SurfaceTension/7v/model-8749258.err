@@ -219,3 +219,11 @@ Original error: INTERNAL: Failed to synchronize GPU for autotuning conv instruct
 
 To ignore this failure and try to use a fallback algorithm (which may have suboptimal performance), use XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false.  Please also file a bug for the root cause of failing autotuning.
 	 [[{{node StatefulPartitionedCall}}]] [Op:__inference_multi_step_on_iterator_49297]
+<<<<<<< HEAD
+=======
+remote: warning: See https://gh.io/lfs for more information.        
+remote: warning: File ModelScripts/EfficientNetFamily/SurfaceTension/5v/best_SurfaceTensinoENFv5.keras is 75.81 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+   a7d203c..c8d2cd1  main -> main
+>>>>>>> 82f5d0634c2ad5837f8155ebd51d65efad0a9a30

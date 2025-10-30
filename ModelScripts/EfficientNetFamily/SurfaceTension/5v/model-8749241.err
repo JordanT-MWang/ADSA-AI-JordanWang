@@ -211,3 +211,26 @@ E0000 00:00:1761714592.787874 3439187 gpu_timer.cc:82] Delay kernel timed out: m
 2025-10-29 05:09:57.541576: E external/local_xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng45{k2=9,k5=3,k14=3} for conv (f16[35,100,100,144]{3,2,1,0}, u8[0]{0}) custom-call(f16[35,203,203,144]{3,2,1,0}, f16[144,5,5,1]{3,2,1,0}), window={size=5x5 stride=2x2}, dim_labels=b01f_o01i->b01f, feature_group_count=144, custom_call_target="__cudnn$convForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
 2025-10-29 05:09:57.801254: E external/local_xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.259748044s
 Trying algorithm eng45{k2=9,k5=3,k14=3} for conv (f16[35,100,100,144]{3,2,1,0}, u8[0]{0}) custom-call(f16[35,203,203,144]{3,2,1,0}, f16[144,5,5,1]{3,2,1,0}), window={size=5x5 stride=2x2}, dim_labels=b01f_o01i->b01f, feature_group_count=144, custom_call_target="__cudnn$convForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+<<<<<<< HEAD
+=======
+Traceback (most recent call last):
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/5v/ModelSurfaceTensionENFV5.py", line 213, in <module>
+    main()
+  File "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/5v/ModelSurfaceTensionENFV5.py", line 172, in main
+    preds_batch = model.predict([X_batch, params_batch], verbose=0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/layers/input_spec.py", line 245, in assert_input_compatibility
+    raise ValueError(
+ValueError: Input 0 of layer "functional" is incompatible with the layer: expected shape=(None, 800, 800, 3), found shape=(32, 512, 640, 3)
+remote: warning: File ModelScripts/EfficientNetFamily/SurfaceTension/5v/SurfaceTensionENFv5.keras is 75.81 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: error: Trace: 66c480a00c7a1c869308e482a684fa6e6d8f0773be2b46f6121b62bf1537c098        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/6v/best_SurfaceTensinoENFv6.keras is 103.30 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JordanT-MWang/ADSA-AI-JordanWang.git'
+>>>>>>> 82f5d0634c2ad5837f8155ebd51d65efad0a9a30
