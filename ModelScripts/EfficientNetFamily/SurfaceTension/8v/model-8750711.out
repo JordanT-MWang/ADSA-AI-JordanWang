@@ -35,3 +35,18 @@ Epoch 14/50
 Test Loss: 58.4980, Test MAE: 4.6811
 [INFO] Running inference...
 [INFO] Results saved to ST_Model_Predictions.csv
+[main 947adf9] Predictions saved for job 8750711
+ Committer: Jordan Wang <jordanw7@gn-15-35-00.mana.ci.its.hawaii.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 8 files changed, 11716 insertions(+), 11620 deletions(-)
