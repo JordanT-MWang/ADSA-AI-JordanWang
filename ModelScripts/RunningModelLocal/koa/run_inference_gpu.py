@@ -87,7 +87,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run trained CNN model on ADSA dataset.")
     parser.add_argument("--model_path", type=str, required=True, help="Path to the trained model (.keras)")
     parser.add_argument("--model_type", type=str, required=True,
-                        choices=["Surface Area", "Surface Tension", "Volume", "Curvature"],
+                        choices=["Surface Area", "Surface Tension (mN/m)", "Volume", "Curvature"],
                         help="Which type of output the model predicts")
     parser.add_argument("--dataset_path", type=str, required=True, help="Path to the dataset folder")
     parser.add_argument("--batch_size", type=int, default=4, help="Batch size for inference")
