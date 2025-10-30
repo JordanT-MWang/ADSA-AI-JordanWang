@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 """
-Run inference on a trained CNN model for ADSA data.
+run once
+module load lang/Anaconda3/2024.02-1
+module load tools/git/2.42.0-GCCcore-13.2.0
+module load system/CUDA/12.2.0
+# Activate your environment the robust way
+eval "$(conda shell.bash hook)"
+conda activate ADSAenv
 
-Example usage:
-    python run_inference_gpu.py \
-        --model_path /home/jordanw7/koa_scratch/ADSA-AI/Models/SurfaceTension_Model.keras \
-        --model_type "Surface Tension" \
-        --dataset_path /home/jordanw7/koa_scratch/ADSA-AI/Dataset/DataSetCombined \
-        --batch_size 4
+#copy data set locally
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
+LOCAL_DATA="$TMPDIR/DataSetCombined"
+mkdir -p $LOCAL_DATA
+cp -r $HOME_DATA/Edges $LOCAL_DATA/
+cp $HOME_DATA/input_params.csv $LOCAL_DATA/
+cp $HOME_DATA/output_params.csv $LOCAL_DATA/
+
+python run_inference_gpu.py --model_path /mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras --model_type "Surface Tension (mN/m)" --dataset_path $TMPDIR/DataSetCombined --batch_size 32
 """
 
 import tensorflow as tf
@@ -20,6 +29,8 @@ import os
 import time
 from tensorflow.keras.models import load_model
 from DataGeneratorv3 import ADSADataPipeline  # Ensure this file is in your PYTHONPATH
+import re
+
 
 def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800)):
     # model_path is passed as argument
@@ -76,7 +87,7 @@ def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800))
 
     # Save results
     model_dir = os.path.dirname(model_path)
-    output_csv = os.path.join(model_dir, f"results_{model_type.replace(' ', '_')}.csv")
+    output_csv = model_dir
     
     results_df = pd.DataFrame({
         "image_name": all_names,
