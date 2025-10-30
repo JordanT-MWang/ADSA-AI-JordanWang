@@ -277,3 +277,11 @@ Trying algorithm eng45{k2=9,k5=3,k14=3} for conv (f16[32,100,100,144]{3,2,1,0}, 
 E0000 00:00:1761805714.905335 3573295 gpu_timer.cc:82] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
 E0000 00:00:1761805715.040460 3573295 gpu_timer.cc:82] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
 2025-10-30 06:29:05.318473: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+remote: error: Trace: 6a1f2dc1d3970adf81a3a8343c9e20c51949b3a997050d519951598754db5277        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File ModelScripts/EfficientNetFamily/SurfaceTension/8v/best_SurfaceTensinoENFv8.keras is 128.09 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To github.com:JordanT-MWang/ADSA-AI-JordanWang.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JordanT-MWang/ADSA-AI-JordanWang.git'
