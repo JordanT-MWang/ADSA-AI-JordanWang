@@ -3,7 +3,10 @@ import numpy as np
 import os
 import pandas as pd
 import cv2
-
+import os
+os.environ['XLA_FLAGS'] = '--xla_gpu_strict_conv_algorithm_picker=false'
+from tensorflow.keras import mixed_precision
+mixed_precision.set_global_policy("mixed_float16")
 class ADSADataPipeline:
     def __init__(self, dataset_path, split='train', image_size=(512, 640),
                  output_type='Surface Tension', batch_size=32, shuffle=True, random_state=42,param_mean=None, param_std=None):
