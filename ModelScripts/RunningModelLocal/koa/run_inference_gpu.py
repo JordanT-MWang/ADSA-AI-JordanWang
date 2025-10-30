@@ -31,6 +31,12 @@ from tensorflow.keras.models import load_model
 from DataGeneratorv3 import ADSADataPipeline  # Ensure this file is in your PYTHONPATH
 import re
 
+os.environ["XLA_FLAGS"] = "--xla_gpu_strict_conv_algorithm_picker=false"
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+
 
 def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800)):
     # model_path is passed as argument
