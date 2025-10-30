@@ -33,7 +33,7 @@ def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800))
     stats_path = os.path.join(model_dir, json_files[0])
     with open(stats_path, "r") as f:
         stats = json.load(f)
-
+    image_size = tuple(args.image_size) if args.image_size else tuple(stats["image_size"])
     param_mean = np.array(stats["param_mean"], dtype=np.float32)
     param_std = np.array(stats["param_std"], dtype=np.float32)
     image_size = tuple(stats["image_size"])
