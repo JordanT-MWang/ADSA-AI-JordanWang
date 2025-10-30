@@ -11,6 +11,7 @@ import argparse
 # Preprocessing function
 # -------------------------
 def preprocess_image(img_path, target_size=(512, 640)):
+
     """Resize + pad + convert to 3 channels."""
     img = Image.open(img_path).convert("L")
     img = img_to_array(img)
