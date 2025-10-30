@@ -64,9 +64,12 @@ class ADSADataPipeline:
         image = tf.io.read_file(path)
         image = tf.image.decode_png(image, channels=3)
         image = tf.image.convert_image_dtype(image, tf.float32)
-        original_h = image.shape[0]
-        original_w = image.shape[1]
-        scale = min(self.image_size[0] / original_h, self.image_size[1] / original_w)
+        # image is a tensor from decode_png
+        original_h = tf.cast(tf.shape(image)[0], tf.float32)
+        original_w = tf.cast(tf.shape(image)[1], tf.float32)
+
+        scale = tf.minimum(self.image_size[0] / original_h,
+                        self.image_size[1] / original_w)
 
         image = tf.image.resize_with_pad(image, self.image_size[0], self.image_size[1])
         image = tf.keras.applications.efficientnet.preprocess_input(image)
