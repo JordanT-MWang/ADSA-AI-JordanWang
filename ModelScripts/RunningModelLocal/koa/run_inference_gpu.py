@@ -46,7 +46,9 @@ def main(model_path, model_type, dataset_path, batch_size, image_size=(800,800))
         split='test',
         image_size=image_size,
         output_type=model_type,
-        batch_size=batch_size
+        batch_size=batch_size,
+        param_mean=param_mean,
+        param_std=param_std
     )
     test_gen = test_pipeline.get_dataset()
     image_paths = test_pipeline.image_paths
