@@ -68,7 +68,7 @@ class ADSADataPipeline:
         image = tf.image.convert_image_dtype(image, tf.float32)
         image = tf.image.resize_with_pad(image, self.image_size[0], self.image_size[1])
         image = tf.keras.applications.efficientnet.preprocess_input(image)
-
+        image = tf.image.resize_with_pad(image, self.image_size[0], self.image_size[1])
         # Normalize params
         param = (param - self.param_mean) / self.param_std
 
