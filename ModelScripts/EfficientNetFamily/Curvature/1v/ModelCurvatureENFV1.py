@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=25):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=0):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -86,13 +86,13 @@ def main():
 
     dataset_path = args.dataset_path  # Use whatever was passed in
     
-    output_csv = "ST_Model_Predictions.csv"
-    output_training = "Surface Tension (mN/m)"
-    batch_size = 32
+    output_csv = "Cuv_Model_Predictions.csv"
+    output_training = "Curvature (1/cm)"
+    batch_size = 64
     model_name="SurfaceTensionENF4"
     image_size = (800, 800)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    "best_SurfaceTensinoENFv10.keras",
+    "best_CurvatureENFv1.keras",
     monitor="val_loss",
     save_best_only=True,
     save_weights_only=False,
@@ -113,7 +113,7 @@ def main():
         "param_std": train_pipeline.param_std.tolist(),
         "image_size": list(image_size)  # Save as list to be JSON serializable
     }
-    with open("SurfaceTension_Model_Large_Cust_V10_stats.json", "w") as f:
+    with open("Curvature_Model_Large_Cust_V1_stats.json", "w") as f:
         json.dump(stats, f)
 
 
@@ -129,7 +129,7 @@ def main():
                         checkpoint_cb])
 
     # Save model
-    model.save("SurfaceTensionENFv10.keras")
+    model.save("CurvatureENFv11.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -199,12 +199,12 @@ def main():
     plt.scatter(all_true, all_pred, alpha=0.6)
     if len(all_true) > 1:
         plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], 'r--')
-    plt.xlabel("True Surface Area (cm^2)")
-    plt.ylabel("Predicted Surface Area (cm^2)")
+    plt.xlabel("True Curvature (1/cm)")
+    plt.ylabel("Predicted Curvature (1/cm)")
     plt.title("Predicted vs True Values")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig("pred_vs_true_SA.png")
+    plt.savefig("pred_vs_true_Curv.png")
     plt.show()
 
 

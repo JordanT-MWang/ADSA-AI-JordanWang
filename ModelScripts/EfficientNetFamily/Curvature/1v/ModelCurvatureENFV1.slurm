@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=SurfTensionEFTv9      # Job name
+#SBATCH --job-name=SurfTensionEFTv11     # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-12:30:00           # Max runtime (HH:MM:SS)
@@ -34,8 +34,7 @@ cp $HOME_DATA/output_params.csv $LOCAL_DATA/
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git pull
-python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/9v/ModelSurfaceTensionENFV9.py --dataset_path $LOCAL_DATA
-git add . ':!*.keras'
-
+python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/11v/ModelSurfaceTensionENFV11.py --dataset_path $LOCAL_DATA
+git add -A
 git commit -am "Predictions saved for job $SLURM_JOB_ID"
 git push origin
