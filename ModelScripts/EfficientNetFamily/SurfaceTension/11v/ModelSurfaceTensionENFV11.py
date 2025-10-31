@@ -90,7 +90,7 @@ def main():
     output_training = "Surface Tension (mN/m)"
     batch_size = 64
     model_name="SurfaceTensionENF4"
-    image_size = (1000, 1000)
+    image_size = (800, 800)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_SurfaceTensinoENFv11.keras",
     monitor="val_loss",
