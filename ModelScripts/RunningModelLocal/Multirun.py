@@ -99,7 +99,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run CNN model on folder of images")
     parser.add_argument("--model_path", type=str, required=True, help="Path to trained model (.keras)")
     parser.add_argument("--model_type", type=str, required=True,
-                        choices=["Surface Area", "Surface Tension", "Volume", "Curvature"])
+                        choices=["Area (cm^2)", "Surface Tension (mN/m)", "Volume (ul)", "Curvature (1/cm)"])
     parser.add_argument("--image_folder", type=str, required=True, help="Folder containing Edges/ and params.txt")
     args = parser.parse_args()
 

@@ -34,4 +34,4 @@ cp $HOME_DATA/output_params.csv $LOCAL_DATA/
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git pull
-python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamil/Curvature/1v/ModelCurvatureENFV1.py --dataset_path $LOCAL_DATA
+python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/Curvature/2v/ModelCurvatureENFV2.py --dataset_path $LOCAL_DATA
