@@ -3,7 +3,7 @@ import numpy as np
 import os
 import pandas as pd
 import cv2
-import tensorflow_addons as tfa
+
 class ADSADataPipeline:
     def __init__(self, dataset_path, split='train', image_size=(512, 640),
                  output_type='Surface Tension', batch_size=32, shuffle=True, random_state=42):
@@ -92,15 +92,12 @@ class ADSADataPipeline:
         image = tf.image.random_flip_left_right(image)
         image = tf.image.random_brightness(image, max_delta=0.05)
         image = tf.image.random_contrast(image, 0.9, 1.1)
-        shift_x = tf.random.uniform([], -0.05, 0.05)  # ±5%
-        shift_y = tf.random.uniform([], -0.05, 0.05)
-        image = tfa.image.transform(  # same math if Addons is available
-            image,
-            [1, 0, shift_x * tf.cast(tf.shape(image)[1], tf.float32),
-            0, 1, shift_y * tf.cast(tf.shape(image)[0], tf.float32),
-            0, 0],
-            interpolation='BILINEAR'
+        # Use built-in layer for translation
+        layer = tf.keras.layers.RandomTranslation(
+            height_factor=0.05, width_factor=0.05, fill_mode='nearest'
         )
+        image = layer(tf.expand_dims(image, 0))[0]  # add batch dim and remove after
+
         return image
 
     def get_dataset(self):
