@@ -79,12 +79,15 @@ def main():
     args = parser.parse_args()
 
     parent_dir = args.directory
-
+    #run over one folder
+    generate_output_params(parent_dir)
+    """to run over many foulder
     for root, dirs, _ in os.walk(parent_dir):
         for d in dirs:
             folder_path = os.path.join(root, d)
             if os.path.exists(os.path.join(folder_path, "data.dat")) and os.path.exists(os.path.join(folder_path, "Edges")):
                 generate_output_params(folder_path)
+                """
 
 
 if __name__ == "__main__":

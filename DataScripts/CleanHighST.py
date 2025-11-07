@@ -2,7 +2,7 @@ import argparse
 import os
 import pandas as pd
 
-def remove_high_surface_tension(folder_path, threshold=75):
+def remove_high_surface_tension(folder_path, threshold=80):
     # Paths to CSVs and Edges folder
     output_csv_path = os.path.join(folder_path, "output_params.csv")
     input_csv_path = os.path.join(folder_path, "input_params.csv")

@@ -36,6 +36,3 @@ ssh-add ~/.ssh/id_ed25519
 git pull
 python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/9v/ModelSurfaceTensionENFV9.py --dataset_path $LOCAL_DATA
 git add . ':!*.keras'
-
-git commit -am "Predictions saved for job $SLURM_JOB_ID"
-git push origin
