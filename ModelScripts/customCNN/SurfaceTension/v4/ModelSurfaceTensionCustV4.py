@@ -95,8 +95,8 @@ def main():
     #dataset_path = "/content/drive/MyDrive/DataSetCombined"
     dataset_path = "/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
     output_csv = "ST_Model_Predictions_Cust.csv"
-    batch_size = 32
-    image_size = (500, 500)
+    batch_size = 128
+    image_size = (640, 480)
 
     # Print paths for debugging
     print(f"Image directory path: {os.path.join(dataset_path, 'Edges')}")

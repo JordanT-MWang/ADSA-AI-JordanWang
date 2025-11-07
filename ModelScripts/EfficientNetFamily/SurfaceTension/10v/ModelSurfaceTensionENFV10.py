@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras.applications import EfficientNetB1
+from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Lambda
 from tensorflow.keras.optimizers import Adam
@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=90):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=10):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -47,7 +47,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
         x_input = img_input
     # Load pretrained MobileNetV2
     
-    base_model = EfficientNetB1(input_shape=(input_image_shape[0], input_image_shape[1], 3), include_top=False, weights='imagenet')
+    base_model = EfficientNetB0(input_shape=(input_image_shape[0], input_image_shape[1], 3), include_top=False, weights='imagenet')
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze first N layers
