@@ -125,7 +125,7 @@ def main():
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
-                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True),
                         checkpoint_cb])
 
     # Save model
