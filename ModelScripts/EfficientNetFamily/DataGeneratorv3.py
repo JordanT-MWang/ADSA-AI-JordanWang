@@ -92,6 +92,11 @@ class ADSADataPipeline:
         image = tf.image.random_flip_left_right(image)
         image = tf.image.random_brightness(image, max_delta=0.05)
         image = tf.image.random_contrast(image, 0.9, 1.1)
+         # Use built-in layer for translation
+        layer = tf.keras.layers.RandomTranslation(
+            height_factor=0.05, width_factor=0.05, fill_mode='nearest'
+        )
+        image = layer(tf.expand_dims(image, 0))[0]  # add batch dim and remove after
         return image
 
     def get_dataset(self):
