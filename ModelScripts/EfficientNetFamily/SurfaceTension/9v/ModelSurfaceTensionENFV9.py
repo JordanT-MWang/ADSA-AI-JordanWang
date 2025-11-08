@@ -88,7 +88,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
-    batch_size = 128
+    batch_size = 32
     model_name="SurfaceTensionENF4"
     image_size = (384, 384)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
@@ -125,7 +125,7 @@ def main():
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
-                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True),
                         checkpoint_cb])
 
     # Save model
