@@ -121,7 +121,7 @@ def main():
     }
     with open("SurfaceTension_Model_Large_Cust_V10_stats.json", "w") as f:
         json.dump(stats, f)
-    model = create_custom_cnn(input_image_shape=(500, 500, 1), input_param_size=2)
+    model = create_custom_cnn(input_image_shape=(image_size[0], image_size[1], 1), input_param_size=2)
     # Save normalization statistics for future inference
     
     history = model.fit(train_gen,
