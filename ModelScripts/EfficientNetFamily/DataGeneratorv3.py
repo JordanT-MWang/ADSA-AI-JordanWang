@@ -17,7 +17,11 @@ class ADSADataPipeline:
         self.split = split
         self.shuffle = shuffle
         self.random_state = random_state
-
+        self.translation_layer = tf.keras.layers.RandomTranslation(
+            height_factor=0.05,
+            width_factor=0.05,
+            fill_mode='nearest'
+        )
         input_df = pd.read_csv(self.input_csv)
         output_df = pd.read_csv(self.output_csv)
 
@@ -93,10 +97,7 @@ class ADSADataPipeline:
         image = tf.image.random_brightness(image, max_delta=0.05)
         image = tf.image.random_contrast(image, 0.9, 1.1)
          # Use built-in layer for translation
-        layer = tf.keras.layers.RandomTranslation(
-            height_factor=0.05, width_factor=0.05, fill_mode='nearest'
-        )
-        image = layer(tf.expand_dims(image, 0))[0]  # add batch dim and remove after
+        image = self.translation_layer(tf.expand_dims(image, 0))[0]
         return image
 
     def get_dataset(self):
