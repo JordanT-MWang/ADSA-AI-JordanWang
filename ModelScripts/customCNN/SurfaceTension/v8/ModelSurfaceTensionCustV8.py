@@ -63,7 +63,7 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
 
     x = conv_block(img_input,32, dropout=0.1)
     x = conv_block(x, 64, dropout=0.15)
-    #x = conv_block(x, 128, dropout=0.25)
+    x = conv_block(x, 128, dropout=0.25)
     
     x = GlobalAveragePooling2D()(x)
     x = Dense(32, activation='relu')(x)
