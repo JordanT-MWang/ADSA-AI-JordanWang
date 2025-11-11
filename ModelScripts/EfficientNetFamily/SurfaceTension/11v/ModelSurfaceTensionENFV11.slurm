@@ -33,8 +33,7 @@ cp $HOME_DATA/output_params.csv $LOCAL_DATA/
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
-git pull
+git stash
+git pull --rebase origin main
+git stash pop
 python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/11v/ModelSurfaceTensionENFV11.py --dataset_path $LOCAL_DATA
-git add -A
-git commit -am "Predictions saved for job $SLURM_JOB_ID"
-git push origin
