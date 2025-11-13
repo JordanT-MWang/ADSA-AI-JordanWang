@@ -92,5 +92,28 @@ class ADSADataPipeline:
         # Adjust scale factor
         param = tf.concat([param[:1], param[1:2] / scale], axis=0)
 
-        # Normalize params
-        param = (param - self.
+         # Normalize params
+        param = (param - self.param_mean) / self.param_std
+
+        # Augment only on training split
+        if self.split == 'train':
+            image = self._augment(image)
+
+        return (image, param), y
+
+    def _augment(self, image):
+        image = tf.image.random_flip_left_right(image)
+        image = tf.image.random_brightness(image, max_delta=0.05)
+        image = tf.image.random_contrast(image, 0.9, 1.1)
+        image = self.translation_layer(tf.expand_dims(image, 0))[0]
+        return image
+
+    def get_dataset(self):
+        ds = tf.data.Dataset.from_tensor_slices((self.image_paths, self.params, self.outputs))
+        if self.shuffle:
+            ds = ds.shuffle(buffer_size=len(self.image_paths))
+        ds = ds.map(lambda p, prm, y: self._parse_function(p, prm, y),
+                    num_parallel_calls=tf.data.AUTOTUNE)
+        ds = ds.batch(self.batch_size)
+        ds = ds.prefetch(tf.data.AUTOTUNE)
+        return ds
