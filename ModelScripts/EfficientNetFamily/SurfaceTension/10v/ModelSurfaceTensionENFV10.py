@@ -11,7 +11,7 @@ tf.config.optimizer.set_jit(True)
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
     try: 
-        tf.config.experimental.set_memory_growth(g, True)
+        tf.config.experimental.set_memory_growth(g, False)
     except Exception:
         pass
 mixed_precision.set_global_policy("mixed_float16")
@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=200):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=150):
     """
     MobileNetV2 for regression with numeric inputs.
     """
