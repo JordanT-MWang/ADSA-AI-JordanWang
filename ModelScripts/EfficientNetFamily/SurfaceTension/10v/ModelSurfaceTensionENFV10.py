@@ -54,7 +54,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     for i, layer in enumerate(base_model.layers):
         layer.trainable = i >= freeze_until
 
-    x = base_model(img_input, training=True)
+    x = base_model(x_input, training=True)
     x = GlobalAveragePooling2D()(x)
 
     # Custom trainable layers

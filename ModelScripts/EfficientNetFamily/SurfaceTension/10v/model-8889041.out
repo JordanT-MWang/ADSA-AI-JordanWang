@@ -1,0 +1,71 @@
+Agent pid 2177038
+Saved working directory and index state WIP on main: 4be67ad Predictions saved for job 8827104
+Current branch main is up to date.
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../../customCNN/__pycache__/DataGeneratorv3.cpython-311.pyc
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	model-8889041.err
+	model-8889041.out
+	../8v/model-8830061.err
+	../8v/model-8830061.out
+	../8v/model-8830307.err
+	../8v/model-8830307.out
+	../8v/model-8830672.err
+	../8v/model-8830672.out
+	../8v/model-8830978.err
+	../8v/model-8830978.out
+	../9v/model-8889039.err
+	../9v/model-8889039.out
+	../../../customCNN/SurfaceTension/v5/ST_Model_Predictions.csv
+	../../../customCNN/SurfaceTension/v5/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../../../customCNN/SurfaceTension/v5/model-8830070.err
+	../../../customCNN/SurfaceTension/v5/model-8830070.out
+	../../../customCNN/SurfaceTension/v5/model-8830300.err
+	../../../customCNN/SurfaceTension/v5/model-8830300.out
+	../../../customCNN/SurfaceTension/v5/model-8830669.err
+	../../../customCNN/SurfaceTension/v5/model-8830669.out
+	../../../customCNN/SurfaceTension/v5/model-8830840.err
+	../../../customCNN/SurfaceTension/v5/model-8830840.out
+	../../../customCNN/SurfaceTension/v5/model-8830982.err
+	../../../customCNN/SurfaceTension/v5/model-8830982.out
+	../../../customCNN/SurfaceTension/v5/model-8831976.err
+	../../../customCNN/SurfaceTension/v5/model-8831976.out
+	../../../customCNN/SurfaceTension/v5/pred_vs_true_ST_Cust.png
+	../../../customCNN/SurfaceTension/v5/training_curves_ST_Cust.png
+	../../../customCNN/SurfaceTension/v6/SurfaceTension_Model_Large_Cust_V6_stats.json
+	../../../customCNN/SurfaceTension/v6/model-8876076.err
+	../../../customCNN/SurfaceTension/v6/model-8876076.out
+	../../../customCNN/SurfaceTension/v7/ST_Model_Predictions.csv
+	../../../customCNN/SurfaceTension/v7/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../../../customCNN/SurfaceTension/v7/model-8876077.err
+	../../../customCNN/SurfaceTension/v7/model-8876077.out
+	../../../customCNN/SurfaceTension/v7/pred_vs_true_ST_Cust.png
+	../../../customCNN/SurfaceTension/v7/training_curves_ST_Cust.png
+	../../../customCNN/SurfaceTension/v8/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../../../customCNN/SurfaceTension/v8/model-8876078.err
+	../../../customCNN/SurfaceTension/v8/model-8876078.out
+	../../../customCNN/SurfaceTension/v8/model-8880748.err
+	../../../customCNN/SurfaceTension/v8/model-8880748.out
+	../../../customCNN/SurfaceTension/v8/model-8880768.err
+	../../../customCNN/SurfaceTension/v8/model-8880768.out
+	../../../customCNN/SurfaceTension/v8/model-8883211.err
+	../../../customCNN/SurfaceTension/v8/model-8883211.out
+	../../../customCNN/SurfaceTension/v8/model-8883626.err
+	../../../customCNN/SurfaceTension/v8/model-8883626.out
+	../../../customCNN/SurfaceTension/v8/model-8886443.err
+	../../../customCNN/SurfaceTension/v8/model-8886443.out
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (d3298d4d4f7555f6cc60b4c9b916beb0e8c715a8)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 800, 800, 3)
+Epoch 1/50

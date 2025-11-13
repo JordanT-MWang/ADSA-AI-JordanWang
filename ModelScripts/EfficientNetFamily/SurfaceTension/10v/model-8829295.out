@@ -1,0 +1,11 @@
+Agent pid 766154
+Updating 7622cb1..e0325ed
+Fast-forward
+ .../SurfaceTension/10v/ModelSurfaceTensionENFV10.py                 | 6 +++---
+ .../customCNN/SurfaceTension/v4/ModelSurfaceTensionCustV4.py        | 4 ++--
+ .../customCNN/SurfaceTension/v4/ModelSurfaceTensionCustV4.slurm     | 3 ---
+ 3 files changed, 5 insertions(+), 8 deletions(-)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 800, 800, 3)
+Epoch 1/50

@@ -1,0 +1,9 @@
+Agent pid 764471
+Updating 0f9dada..7622cb1
+Fast-forward
+ .../EfficientNetFamily/SurfaceTension/10v/ModelSurfaceTensionENFV10.py  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 800, 800, 3)
+Epoch 1/50
