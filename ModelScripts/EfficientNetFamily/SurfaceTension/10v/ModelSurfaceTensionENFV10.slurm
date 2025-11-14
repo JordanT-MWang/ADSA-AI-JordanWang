@@ -33,8 +33,8 @@ cp $HOME_DATA/output_params.csv $LOCAL_DATA/
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
-git stash
-git pull --rebase origin main
-git stash pop
+
+git pull
+
 python ModelSurfaceTensionENFV10.py --dataset_path $LOCAL_DATA
 
