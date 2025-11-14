@@ -30,7 +30,7 @@ import argparse
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from DataGeneratorv3 import ADSADataPipeline # your custom generator
+from DataGeneratorv4 import ADSADataPipeline # your custom generator
 
 def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=200):
     """
