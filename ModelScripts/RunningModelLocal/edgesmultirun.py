@@ -131,7 +131,8 @@ def main(model_path, model_type, image_folder, batch_size=32):
     # -------------------------
     # Save results
     # -------------------------
-    out_csv = os.path.join(image_folder, f"{model_type.replace(' ','_').replace('/','_')}_Predictions.csv")
+    model_dir = os.path.dirname(model_path)
+    out_csv = os.path.join(model_dir, f"{model_type.replace(' ','_').replace('/','_')}_Predictions.csv")
     pd.DataFrame(results).to_csv(out_csv, index=False)
     print(f"[INFO] Saved predictions to {out_csv}")
 
