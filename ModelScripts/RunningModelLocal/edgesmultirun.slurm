@@ -36,5 +36,5 @@ ssh-add ~/.ssh/id_ed25519
 git stash
 git pull --rebase origin main
 git stash pop
-python edgesmultirun.py --model_path "/home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras" --model_type "Surface Tension (mN/m)" --image_folder $LOCAL_DATA
+python edgesmultirun.py --model_path "/home/jordanw7/koa_scratch/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras" --model_type "Surface Tension (mN/m)" --image_folder $LOCAL_DATA
 
