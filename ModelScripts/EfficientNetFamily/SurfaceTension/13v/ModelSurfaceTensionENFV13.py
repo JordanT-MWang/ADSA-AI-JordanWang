@@ -30,7 +30,7 @@ import argparse
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from DataGeneratorv4 import ADSADataPipeline # your custom generator
+from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
 def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=200):
     """
@@ -88,9 +88,9 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
-    batch_size = 64
+    batch_size = 128
     model_name="SurfaceTensionENF4"
-    image_size = (600, 600)
+    image_size = (500, 500)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_SurfaceTensinoENFv12.keras",
     monitor="val_loss",
