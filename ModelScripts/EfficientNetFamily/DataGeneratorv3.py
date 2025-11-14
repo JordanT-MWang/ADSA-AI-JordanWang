@@ -98,8 +98,8 @@ class ADSADataPipeline:
         # Augment only on training split
         if self.split == 'train':
             image = self._augment(image)
-
-        return (image, param), y
+        filename = tf.strings.split(path, os.sep)[-1]
+        return (image, param, filename), y
 
     def _augment(self, image):
         image = tf.image.random_flip_left_right(image)
@@ -113,7 +113,8 @@ class ADSADataPipeline:
         if self.shuffle:
             ds = ds.shuffle(buffer_size=len(self.image_paths))
         ds = ds.map(lambda p, prm, y: self._parse_function(p, prm, y),
-                    num_parallel_calls=tf.data.AUTOTUNE)
+            num_parallel_calls=tf.data.AUTOTUNE)
+
         ds = ds.batch(self.batch_size)
         ds = ds.prefetch(tf.data.AUTOTUNE)
         return ds

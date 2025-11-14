@@ -55,7 +55,7 @@ def load_and_preprocess(img_path, target_size):
 # -------------------------
 # Main function
 # -------------------------
-def main(model_path, model_type, image_folder, batch_size=32):
+def main(model_path, model_type, image_folder, batch_size=8):
 
     # Load model
     model = tf.keras.models.load_model(model_path, compile=False)
@@ -131,8 +131,7 @@ def main(model_path, model_type, image_folder, batch_size=32):
     # -------------------------
     # Save results
     # -------------------------
-    model_dir = os.path.dirname(model_path)
-    out_csv = os.path.join(model_dir, f"{model_type.replace(' ','_').replace('/','_')}_Predictions.csv")
+    out_csv = os.path.join(image_folder, f"{model_type.replace(' ','_').replace('/','_')}_Predictions.csv")
     pd.DataFrame(results).to_csv(out_csv, index=False)
     print(f"[INFO] Saved predictions to {out_csv}")
 

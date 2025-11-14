@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=200):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -90,7 +90,7 @@ def main():
     output_training = "Surface Tension (mN/m)"
     batch_size = 32
     model_name="SurfaceTensionENF4"
-    image_size = (1000, 1000)
+    image_size = (800, 800)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_SurfaceTensinoENFv11.keras",
     monitor="val_loss",
@@ -104,7 +104,7 @@ def main():
     
     train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size)
     val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
-    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
+    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False).get_dataset()
     train_gen = train_pipeline.get_dataset()
 
     # Save normalization stats
@@ -125,7 +125,7 @@ def main():
     history = model.fit(train_gen,
                         validation_data=val_gen,
                         epochs=50,
-                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+                        callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True),
                         checkpoint_cb])
 
     # Save model
@@ -163,23 +163,19 @@ def main():
     start_total = time.time()
 
     # Keep track of index manually using the pipeline
-    test_pipeline = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size)
+    test_pipeline = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False)
     test_gen = test_pipeline.get_dataset()
     image_paths = test_pipeline.image_paths  # Original list of image paths
 
-    for batch_idx, ((X_batch, params_batch), y_batch) in enumerate(test_gen):
-        start_batch = time.time()
+    for ((X_batch, params_batch, names_batch), y_batch) in test_gen:
+        start = time.time()
         preds_batch = model.predict([X_batch, params_batch], verbose=0)
-        elapsed_batch = time.time() - start_batch
+        elapsed = time.time() - start
 
         all_true.extend(y_batch)
         all_pred.extend(preds_batch.flatten())
-        all_times.extend([elapsed_batch / len(y_batch)] * len(y_batch))
-
-        # Use the batch index to get correct image names
-        start_idx = batch_idx * batch_size
-        end_idx = start_idx + len(y_batch)
-        all_names.extend(image_paths[start_idx:end_idx])
+        all_times.extend([elapsed / len(y_batch)] * len(y_batch))
+        all_names.extend([n.numpy().decode('utf-8') for n in names_batch])
 
     end_total = time.time()
     total_elapsed_time = end_total - start_total
