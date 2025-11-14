@@ -49,6 +49,19 @@ def move_images_and_clean_input(folder_path):
     removed_rows = len(input_df) - len(cleaned_input_df)
     cleaned_input_df.to_csv(input_csv_path, index=False)
     print(f"✅ Removed {removed_rows} rows from input_params.csv that had no matching output entry.")
+    # Clean output_params.csv: remove rows where image file is missing
+    existing_images = set(os.listdir(edges_folder))
+    cleaned_output_df = output_df[output_df["Image Name"].isin(existing_images)]
+    removed_output_rows = len(output_df) - len(cleaned_output_df)
+    cleaned_output_df.to_csv(output_csv_path, index=False)
+    print(f"✅ Removed {removed_output_rows} rows from output_params.csv for missing image files.")
+
+    # Optional: sort both CSVs by Image Name for consistency
+    cleaned_input_df = cleaned_input_df.sort_values(by="Image Name").reset_index(drop=True)
+    cleaned_output_df = cleaned_output_df.sort_values(by="Image Name").reset_index(drop=True)
+    cleaned_input_df.to_csv(input_csv_path, index=False)
+    cleaned_output_df.to_csv(output_csv_path, index=False)
+    print("✅ Sorted both CSVs by Image Name for alignment.")
 
 
 def main():

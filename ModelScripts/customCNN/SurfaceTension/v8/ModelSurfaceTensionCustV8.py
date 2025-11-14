@@ -75,7 +75,7 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(1e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
