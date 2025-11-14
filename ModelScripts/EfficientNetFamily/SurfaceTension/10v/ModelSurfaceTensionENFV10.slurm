@@ -36,5 +36,5 @@ ssh-add ~/.ssh/id_ed25519
 git stash
 git pull --rebase origin main
 git stash pop
-python /home/jordanw7/koa_scratch/ADSA-AI/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/10v/ModelSurfaceTensionENFV10.py --dataset_path $LOCAL_DATA
+python ModelSurfaceTensionENFV10.py --dataset_path $LOCAL_DATA
 

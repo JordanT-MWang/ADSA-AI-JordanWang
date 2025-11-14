@@ -25,7 +25,7 @@ conda activate ADSAenv
 
 #copy data set locally
 HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/SurfaceTension_All"
-LOCAL_DATA="$TMPDIR/DataSetCombined"
+LOCAL_DATA="$TMPDIR/SurfaceTension_All"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/
 cp $HOME_DATA/input_params.csv $LOCAL_DATA/
