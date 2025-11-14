@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv4 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=200):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -69,7 +69,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
     return model
 
 def main():
@@ -85,7 +85,7 @@ def main():
     parser.add_argument(
         "--batch_size",
         type=int,
-        default=128
+        default=64
     )
     parser.add_argument(
         "--cache",
@@ -101,7 +101,7 @@ def main():
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
     model_name = "SurfaceTensionENF4"
-    image_size = (500, 500)
+    image_size = (800, 800)
 
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
         "best_SurfaceTensinoENFv12.keras",
