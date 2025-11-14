@@ -99,7 +99,10 @@ class ADSADataPipeline:
         if self.split == 'train':
             image = self._augment(image)
         filename = tf.strings.split(path, os.sep)[-1]
-        return (image, param, filename), y
+        if self.split == 'test':  # keep filename for inference
+            return (image, param), y, filename
+        else:  # train/val
+            return (image, param), y
 
     def _augment(self, image):
         image = tf.image.random_flip_left_right(image)

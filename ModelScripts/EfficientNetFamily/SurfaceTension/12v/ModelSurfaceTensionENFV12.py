@@ -30,7 +30,7 @@ import argparse
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from DataGeneratorv3 import ADSADataPipeline # your custom generator
+from DataGeneratorv4 import ADSADataPipeline # your custom generator
 
 def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=200):
     """
@@ -92,7 +92,7 @@ def main():
     model_name="SurfaceTensionENF4"
     image_size = (800, 800)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    "best_SurfaceTensinoENFv11.keras",
+    "best_SurfaceTensinoENFv12.keras",
     monitor="val_loss",
     save_best_only=True,
     save_weights_only=False,
@@ -103,19 +103,17 @@ def main():
 
     
     train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=True)
-    val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False).get_dataset()
-     # Keep track of index manually using the pipeline
-    test_pipeline = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False)
-    test_gen = test_pipeline.get_dataset()
+    val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size,shuffle=False).get_dataset()
+    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False).get_dataset()
     train_gen = train_pipeline.get_dataset()
-    
+
     # Save normalization stats
     stats = {
         "param_mean": train_pipeline.param_mean.tolist(),
         "param_std": train_pipeline.param_std.tolist(),
         "image_size": list(image_size)  # Save as list to be JSON serializable
     }
-    with open("SurfaceTension_Model_Large_Cust_V11_stats.json", "w") as f:
+    with open("SurfaceTension_Model_Large_Cust_V12_stats.json", "w") as f:
         json.dump(stats, f)
 
 
@@ -131,7 +129,7 @@ def main():
                         checkpoint_cb])
 
     # Save model
-    model.save("SurfaceTensionENFv11.keras")
+    model.save("SurfaceTensionENFv12.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -167,7 +165,7 @@ def main():
    
     image_paths = test_pipeline.image_paths  # Original list of image paths
 
-    for ((X_batch, params_batch), y_batch, names_batch) in test_gen:
+    for ((X_batch, params_batch, names_batch), y_batch) in test_gen:
         start = time.time()
         preds_batch = model.predict([X_batch, params_batch], verbose=0)
         elapsed = time.time() - start

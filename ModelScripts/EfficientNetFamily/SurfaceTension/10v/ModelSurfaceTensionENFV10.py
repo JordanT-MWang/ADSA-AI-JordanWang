@@ -167,7 +167,7 @@ def main():
     test_gen = test_pipeline.get_dataset()
     image_paths = test_pipeline.image_paths  # Original list of image paths
 
-    for ((X_batch, params_batch, names_batch), y_batch) in test_gen:
+    for ((X_batch, params_batch), y_batch, names_batch) in test_gen:
         start = time.time()
         preds_batch = model.predict([X_batch, params_batch], verbose=0)
         elapsed = time.time() - start
