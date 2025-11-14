@@ -104,7 +104,8 @@ def main():
     
     train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=True)
     val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size,shuffle=False).get_dataset()
-    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False).get_dataset()
+    test_pipeline = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False)
+    test_gen = test_pipeline.get_dataset()
     train_gen = train_pipeline.get_dataset()
 
     # Save normalization stats
@@ -165,7 +166,7 @@ def main():
    
     image_paths = test_pipeline.image_paths  # Original list of image paths
 
-    for ((X_batch, params_batch, names_batch), y_batch) in test_gen:
+    for ((X_batch, params_batch), y_batch, names_batch) in test_gen:
         start = time.time()
         preds_batch = model.predict([X_batch, params_batch], verbose=0)
         elapsed = time.time() - start

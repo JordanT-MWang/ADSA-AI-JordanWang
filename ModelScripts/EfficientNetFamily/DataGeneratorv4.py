@@ -74,7 +74,7 @@ class ADSADataPipeline:
         if self.param_mean is not None:
             params = (params - self.param_mean) / self.param_std
 
-        return (image, params, filename), label
+        return (image, params), label, filename
 
     # ------------------------------------------------------------------------------
     # Build tf.data.Dataset
