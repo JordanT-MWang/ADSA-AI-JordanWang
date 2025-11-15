@@ -24,7 +24,7 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 #copy data set locally
-HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined"
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/combinedDir"
 LOCAL_DATA="$TMPDIR/DataSetCombined"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/
@@ -33,9 +33,8 @@ cp $HOME_DATA/output_params.csv $LOCAL_DATA/
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
-git stash
-git pull --rebase origin main
-git stash pop
+git pull 
+
 
 python ModelSurfaceTensionCustV8.py --dataset_path $LOCAL_DATA
 
