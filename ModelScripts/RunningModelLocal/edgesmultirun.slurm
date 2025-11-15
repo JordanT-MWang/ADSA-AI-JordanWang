@@ -24,15 +24,15 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 #copy data set locally
-HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/SurfaceTension_All"
-LOCAL_DATA="$TMPDIR/SurfaceTension_All"
+
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/combinedDir"
+LOCAL_DATA="$TMPDIR/DataSetCombined"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/
 cp $HOME_DATA/input_params.csv $LOCAL_DATA/
 cp $HOME_DATA/output_params.csv $LOCAL_DATA/
-
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git pull --rebase
-python edgesmultirun.py --model_path "/home/jordanw7/koa_scratch/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/8v/SurfaceTensionENFv8.keras" --model_type "Surface Tension (mN/m)" --image_folder $LOCAL_DATA
+python edgesmultirun.py --model_path "/home/jordanw7/koa_scratch/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/12v/SurfaceTensionENFv12.keras" --model_type "Surface Tension (mN/m)" --image_folder $LOCAL_DATA
 
