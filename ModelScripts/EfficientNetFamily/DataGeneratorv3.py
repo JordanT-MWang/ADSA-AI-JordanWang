@@ -66,7 +66,7 @@ class ADSADataPipeline:
 
     def _parse_function(self, path, param, y):
         image = tf.io.read_file(path)
-        image = tf.image.decode_png(image, channels=3)
+        image = tf.image.decode_png(image, channels=1)
         image = tf.image.convert_image_dtype(image, tf.float32)
         # Get original height and width as tensors
         original_h = tf.cast(tf.shape(image)[0], tf.float32)
@@ -96,8 +96,9 @@ class ADSADataPipeline:
         image = tf.image.random_flip_left_right(image)
         image = tf.image.random_brightness(image, max_delta=0.05)
         image = tf.image.random_contrast(image, 0.9, 1.1)
-         # Use built-in layer for translation
+        # Use built-in layer for translation
         image = self.translation_layer(tf.expand_dims(image, 0))[0]
+
         return image
 
     def get_dataset(self):
