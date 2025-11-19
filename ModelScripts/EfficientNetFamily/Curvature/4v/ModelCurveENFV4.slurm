@@ -2,7 +2,7 @@
 #SBATCH --job-name=CurveEFTv4    # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
-#SBATCH --time=0-03:30:00           # Max runtime (HH:MM:SS)
+#SBATCH --time=0-05:30:00           # Max runtime (HH:MM:SS)
 #SBATCH --cpus-per-task=2           # CPU cores for data loading
 
 #SBATCH --mem=16G ## max amount of memory per node you require
