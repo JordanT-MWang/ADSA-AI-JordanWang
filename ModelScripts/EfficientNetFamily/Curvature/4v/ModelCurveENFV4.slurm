@@ -3,9 +3,9 @@
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-03:30:00           # Max runtime (HH:MM:SS)
-#SBATCH --cpus-per-task=4           # CPU cores for data loading
+#SBATCH --cpus-per-task=2           # CPU cores for data loading
 
-#SBATCH --mem=64G ## max amount of memory per node you require
+#SBATCH --mem=16G ## max amount of memory per node you require
 
 #SBATCH --output=model-%A.out      # STDOUT log
 #SBATCH --error=model-%A.err       # STDERR log
