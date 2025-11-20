@@ -12,6 +12,31 @@ import pandas as pd
 # -------------------------
 # Preprocessing function
 # -------------------------
+def find_image_folders(parent_dir):
+    """Return all subdirectories that contain an Edges/ folder."""
+    runs = []
+    for root, dirs, files in os.walk(parent_dir):
+        if "Edges" in dirs:
+            runs.append(root)
+    return runs
+def run_on_all_subfolders(model_path, model_type, parent_dir):
+    folders = find_image_folders(parent_dir)
+
+    if not folders:
+        raise FileNotFoundError("No subfolders with Edges/ found inside parent directory.")
+
+    print(f"[INFO] Found {len(folders)} runs in {parent_dir}")
+
+    for folder in folders:
+        print("\n===============================================")
+        print(f"[INFO] Processing run folder: {folder}")
+        print("===============================================\n")
+
+        try:
+            main(model_path, model_type, folder)
+        except Exception as e:
+            print(f"❌ Error in {folder}: {str(e)}")
+
 def preprocess_image(img_path, target_size=(512, 640)):
     """Resize + pad + convert to 3 channels."""
     #for grey
@@ -157,11 +182,23 @@ def main(model_path, model_type, image_folder):
 # Argument parser
 # -------------------------
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run CNN model on folder of images")
-    parser.add_argument("--model_path", type=str, required=True, help="Path to trained model (.keras)")
+    parser = argparse.ArgumentParser(description="Run CNN model on many runs")
+
+    parser.add_argument("--model_path", type=str, required=True,
+                        help="Path to trained model (.keras)")
     parser.add_argument("--model_type", type=str, required=True,
-                        choices=["Area (cm^2)", "Surface Tension (mN/m)", "Volume (ul)", "Curvature (1/cm)"])
-    parser.add_argument("--image_folder", type=str, required=True, help="Folder containing Edges/ and params.txt or input_params.csv")
+                        choices=["Area (cm^2)", "Surface Tension (mN/m)", 
+                                 "Volume (ul)", "Curvature (1/cm)"])
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--image_folder", type=str,
+                       help="Single folder containing Edges/ and params")
+    group.add_argument("--parent_dir", type=str,
+                       help="Parent folder containing multiple run folders")
+
     args = parser.parse_args()
 
-    main(args.model_path, args.model_type, args.image_folder)
+    if args.image_folder:
+        main(args.model_path, args.model_type, args.image_folder)
+    else:
+        run_on_all_subfolders(args.model_path, args.model_type, args.parent_dir)

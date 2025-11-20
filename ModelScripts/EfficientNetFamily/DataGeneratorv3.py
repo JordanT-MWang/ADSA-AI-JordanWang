@@ -18,8 +18,8 @@ class ADSADataPipeline:
         self.shuffle = shuffle
         self.random_state = random_state
         self.translation_layer = tf.keras.layers.RandomTranslation(
-            height_factor=0.05,
-            width_factor=0.05,
+            height_factor=0.15,
+            width_factor=0.15,
             fill_mode='nearest'
         )
         input_df = pd.read_csv(self.input_csv)
