@@ -1,0 +1,63 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+2025-11-10 20:39:20.342271: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-11-10 20:39:20.354453: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1762807160.367519 2165187 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1762807160.371489 2165187 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-11-10 20:39:20.384649: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1762807164.333333 2165187 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:1e:00.0, compute capability: 8.6
+2025-11-10 20:40:04.240152: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1762807205.584636 2165225 service.cc:148] XLA service 0x147924016530 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1762807205.584730 2165225 service.cc:156]   StreamExecutor device (0): NVIDIA RTX A4000, Compute Capability 8.6
+I0000 00:00:1762807205.592155 2165225 cuda_dnn.cc:529] Loaded cuDNN version 91301
+I0000 00:00:1762807205.626320 2165225 device_compiler.h:188] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+2025-11-10 20:40:08.220102: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:268] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2025-11-10 20:40:09.731267: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 5.02GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2025-11-10 20:40:09.770848: W tensorflow/core/framework/op_kernel.cc:1841] OP_REQUIRES failed at xla_ops.cc:577 : UNKNOWN: Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.12 = (f16[64,1280,1024,32]{3,2,1,0}, u8[0]{0}) custom-call(f16[64,1280,1024,1]{3,2,1,0} %arg0.1, f16[32,3,3,1]{3,2,1,0} %bitcast.13149, f16[32]{0} %convert.3565), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1196}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+
+Original error: RESOURCE_EXHAUSTED: Out of memory while trying to allocate 5385486336 bytes.
+
+To ignore this failure and try to use a fallback algorithm (which may have suboptimal performance), use XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false.  Please also file a bug for the root cause of failing autotuning.
+2025-11-10 20:40:09.771306: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: UNKNOWN: Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.12 = (f16[64,1280,1024,32]{3,2,1,0}, u8[0]{0}) custom-call(f16[64,1280,1024,1]{3,2,1,0} %arg0.1, f16[32,3,3,1]{3,2,1,0} %bitcast.13149, f16[32]{0} %convert.3565), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1196}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+
+Original error: RESOURCE_EXHAUSTED: Out of memory while trying to allocate 5385486336 bytes.
+
+To ignore this failure and try to use a fallback algorithm (which may have suboptimal performance), use XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false.  Please also file a bug for the root cause of failing autotuning.
+	 [[{{node StatefulPartitionedCall}}]]
+Traceback (most recent call last):
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v8/ModelSurfaceTensionCustV8.py", line 225, in <module>
+    main()
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v8/ModelSurfaceTensionCustV8.py", line 127, in main
+    history = model.fit(train_gen,
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/execute.py", line 53, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tensorflow.python.framework.errors_impl.UnknownError: Graph execution error:
+
+Detected at node StatefulPartitionedCall defined at (most recent call last):
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v8/ModelSurfaceTensionCustV8.py", line 225, in <module>
+
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v8/ModelSurfaceTensionCustV8.py", line 127, in main
+
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/trainer.py", line 371, in fit
+
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/trainer.py", line 219, in function
+
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/trainer.py", line 132, in multi_step_on_iterator
+
+Failed to determine best cudnn convolution algorithm for:
+%cudnn-conv-bias-activation.12 = (f16[64,1280,1024,32]{3,2,1,0}, u8[0]{0}) custom-call(f16[64,1280,1024,1]{3,2,1,0} %arg0.1, f16[32,3,3,1]{3,2,1,0} %bitcast.13149, f16[32]{0} %convert.3565), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="functional_1/conv2d_1/convolution" source_file="/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/ops.py" source_line=1196}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+
+Original error: RESOURCE_EXHAUSTED: Out of memory while trying to allocate 5385486336 bytes.
+
+To ignore this failure and try to use a fallback algorithm (which may have suboptimal performance), use XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false.  Please also file a bug for the root cause of failing autotuning.
+	 [[{{node StatefulPartitionedCall}}]] [Op:__inference_multi_step_on_iterator_6824]

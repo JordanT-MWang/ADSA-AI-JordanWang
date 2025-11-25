@@ -1,0 +1,103 @@
+Agent pid 2512444
+No local changes to save
+Already up to date.
+Already up to date.
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	model-8921039.err
+	model-8921039.out
+	model-8921064.err
+	model-8921064.out
+	model-8921077.err
+	model-8921077.out
+	model-8921655.err
+	model-8921655.out
+	model-8921689.err
+	model-8921689.out
+	model-8921691.err
+	model-8921691.out
+	model-8921710.err
+	model-8921710.out
+	model-8921715.err
+	model-8921715.out
+	model-8921725.err
+	model-8921725.out
+	model-8921744.err
+	model-8921744.out
+	model-8923276.err
+	model-8923276.out
+	model-8924033.err
+	model-8924033.out
+	../11v/ST_Model_Predictions.csv
+	../11v/model-8914749.err
+	../11v/model-8914749.out
+	../11v/pred_vs_true_SA.png
+	../11v/training_curves_ST.png
+	../8v/model-8830061.err
+	../8v/model-8830061.out
+	../8v/model-8830307.err
+	../8v/model-8830307.out
+	../8v/model-8830672.err
+	../8v/model-8830672.out
+	../8v/model-8830978.err
+	../8v/model-8830978.out
+	../8v/model-8921088.err
+	../8v/model-8921088.out
+	../8v/model-8921654.err
+	../8v/model-8921654.out
+	../../../RunningModelLocal/model-8924093.err
+	../../../RunningModelLocal/model-8924093.out
+	../../../customCNN/SurfaceTension/v5/ST_Model_Predictions.csv
+	../../../customCNN/SurfaceTension/v5/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../../../customCNN/SurfaceTension/v5/model-8830070.err
+	../../../customCNN/SurfaceTension/v5/model-8830070.out
+	../../../customCNN/SurfaceTension/v5/model-8830300.err
+	../../../customCNN/SurfaceTension/v5/model-8830300.out
+	../../../customCNN/SurfaceTension/v5/model-8830669.err
+	../../../customCNN/SurfaceTension/v5/model-8830669.out
+	../../../customCNN/SurfaceTension/v5/model-8830840.err
+	../../../customCNN/SurfaceTension/v5/model-8830840.out
+	../../../customCNN/SurfaceTension/v5/model-8830982.err
+	../../../customCNN/SurfaceTension/v5/model-8830982.out
+	../../../customCNN/SurfaceTension/v5/model-8831976.err
+	../../../customCNN/SurfaceTension/v5/model-8831976.out
+	../../../customCNN/SurfaceTension/v5/pred_vs_true_ST_Cust.png
+	../../../customCNN/SurfaceTension/v5/training_curves_ST_Cust.png
+	../../../customCNN/SurfaceTension/v6/SurfaceTension_Model_Large_Cust_V6_stats.json
+	../../../customCNN/SurfaceTension/v6/model-8876076.err
+	../../../customCNN/SurfaceTension/v6/model-8876076.out
+	../../../customCNN/SurfaceTension/v6/model-8914745.err
+	../../../customCNN/SurfaceTension/v6/model-8914745.out
+	../../../customCNN/SurfaceTension/v7/ST_Model_Predictions.csv
+	../../../customCNN/SurfaceTension/v7/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../../../customCNN/SurfaceTension/v7/model-8876077.err
+	../../../customCNN/SurfaceTension/v7/model-8876077.out
+	../../../customCNN/SurfaceTension/v7/pred_vs_true_ST_Cust.png
+	../../../customCNN/SurfaceTension/v7/training_curves_ST_Cust.png
+	../../../customCNN/SurfaceTension/v8/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../../../customCNN/SurfaceTension/v8/model-8876078.err
+	../../../customCNN/SurfaceTension/v8/model-8876078.out
+	../../../customCNN/SurfaceTension/v8/model-8880748.err
+	../../../customCNN/SurfaceTension/v8/model-8880748.out
+	../../../customCNN/SurfaceTension/v8/model-8880768.err
+	../../../customCNN/SurfaceTension/v8/model-8880768.out
+	../../../customCNN/SurfaceTension/v8/model-8883211.err
+	../../../customCNN/SurfaceTension/v8/model-8883211.out
+	../../../customCNN/SurfaceTension/v8/model-8883626.err
+	../../../customCNN/SurfaceTension/v8/model-8883626.out
+	../../../customCNN/SurfaceTension/v8/model-8886443.err
+	../../../customCNN/SurfaceTension/v8/model-8886443.out
+	../../../customCNN/SurfaceTension/v8/model-8914747.err
+	../../../customCNN/SurfaceTension/v8/model-8914747.out
+	../../../customCNN/SurfaceTension/v8/model-8914758.err
+	../../../customCNN/SurfaceTension/v8/model-8914758.out
+
+nothing added to commit but untracked files present (use "git add" to track)
+The stash entry is kept in case you need it again.
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 800, 800, 3)
+Epoch 1/50

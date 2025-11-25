@@ -1,0 +1,9 @@
+Agent pid 1966878
+Updating 2f8edaf..d804dea
+Fast-forward
+ ModelScripts/RunningModelLocal/edgesmultirun.slurm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[INFO] Using GPU: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+[INFO] Loaded JSON: image_size=(800, 800), param_mean=[9.93660092e-01 4.85973957e-04], param_std=[3.30097770e-04 9.95605888e-07]
+[INFO] Running predictions on 41683 images...
+[INFO] Saved predictions to /home/jordanw7/koa_scratch/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/11v/Surface_Tension_(mN_m)_Predictions.csv

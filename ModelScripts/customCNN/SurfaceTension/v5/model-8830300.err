@@ -1,0 +1,150 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+2025-11-08 01:03:50.878232: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-11-08 01:03:50.892169: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1762563830.908818  811726 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1762563830.913507  811726 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-11-08 01:03:50.929697: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1762563864.908217  811726 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:1e:00.0, compute capability: 8.6
+Traceback (most recent call last):
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v5/ModelSurfaceTensionCustV5.py", line 225, in <module>
+    main()
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/SurfaceTension/v5/ModelSurfaceTensionCustV5.py", line 114, in main
+    train_gen = train_pipeline.get_dataset()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/DataGeneratorv3.py", line 107, in get_dataset
+    ds = ds.map(lambda p, prm, y: self._parse_function(p, prm, y),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/data/ops/dataset_ops.py", line 2341, in map
+    return map_op._map_v2(
+           ^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/data/ops/map_op.py", line 57, in _map_v2
+    return _ParallelMapDataset(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/data/ops/map_op.py", line 202, in __init__
+    self._map_func = structured_function.StructuredFunctionWrapper(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/data/ops/structured_function.py", line 265, in __init__
+    self._function = fn_factory()
+                     ^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 1251, in get_concrete_function
+    concrete = self._get_concrete_function_garbage_collected(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 1227, in _get_concrete_function_garbage_collected
+    return tracing_compilation.trace_function(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 178, in trace_function
+    concrete_function = _maybe_define_function(
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 283, in _maybe_define_function
+    concrete_function = _create_concrete_function(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 310, in _create_concrete_function
+    traced_func_graph = func_graph_module.func_graph_from_py_func(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/framework/func_graph.py", line 1059, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 599, in wrapped_fn
+    out = weak_wrapped_fn().__wrapped__(*args, **kwds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/data/ops/structured_function.py", line 231, in wrapped_fn
+    ret = wrapper_helper(*args)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/data/ops/structured_function.py", line 161, in wrapper_helper
+    ret = autograph.tf_convert(self._func, ag_ctx)(*nested_args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 693, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 690, in wrapper
+    return converted_call(f, args, kwargs, options=options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 439, in converted_call
+    result = converted_f(*effective_args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/__autograph_generated_filet2dbad7_.py", line 6, in <lambda>
+    tf__lam = lambda p, prm, y: ag__.with_function_scope(lambda lscope: ag__.converted_call(self._parse_function, (p, prm, y), None, lscope), 'lscope', ag__.STD)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/core/function_wrappers.py", line 113, in with_function_scope
+    return thunk(scope)
+           ^^^^^^^^^^^^
+  File "/tmp/__autograph_generated_filet2dbad7_.py", line 6, in <lambda>
+    tf__lam = lambda p, prm, y: ag__.with_function_scope(lambda lscope: ag__.converted_call(self._parse_function, (p, prm, y), None, lscope), 'lscope', ag__.STD)
+                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 441, in converted_call
+    result = converted_f(*effective_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/__autograph_generated_filefqau3a2s.py", line 36, in tf___parse_function
+    ag__.if_stmt(ag__.ld(self).split == 'train', if_body, else_body, get_state, set_state, ('image',), 1)
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/operators/control_flow.py", line 1217, in if_stmt
+    _py_if_stmt(cond, body, orelse)
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/operators/control_flow.py", line 1270, in _py_if_stmt
+    return body() if cond else orelse()
+           ^^^^^^
+  File "/tmp/__autograph_generated_filefqau3a2s.py", line 31, in if_body
+    image = ag__.converted_call(ag__.ld(self)._augment, (ag__.ld(image),), None, fscope)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 441, in converted_call
+    result = converted_f(*effective_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/__autograph_generated_filepohuktir.py", line 13, in tf___augment
+    layer = ag__.converted_call(ag__.ld(tf).keras.layers.RandomTranslation, (), dict(height_factor=0.05, width_factor=0.05, fill_mode='nearest'), fscope)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
+    return _call_unconverted(f, args, kwargs, options, False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/autograph/impl/api.py", line 459, in _call_unconverted
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/layers/preprocessing/image_preprocessing/random_translation.py", line 136, in __init__
+    self.generator = SeedGenerator(seed)
+                     ^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/random/seed_generator.py", line 87, in __init__
+    self.state = self.backend.Variable(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/common/variables.py", line 186, in __init__
+    self._initialize_with_initializer(initializer)
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/core.py", line 47, in _initialize_with_initializer
+    self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/core.py", line 38, in _initialize
+    self._value = tf.Variable(
+                  ^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/util/traceback_utils.py", line 153, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 702, in invalid_creator_scope
+    raise ValueError(
+ValueError: in user code:
+
+    File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/DataGeneratorv3.py", line 107, in None  *
+        lambda p, prm, y: self._parse_function(p, prm, y)
+    File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/DataGeneratorv3.py", line 86, in _parse_function  *
+        image = self._augment(image)
+    File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/customCNN/DataGeneratorv3.py", line 96, in _augment  *
+        layer = tf.keras.layers.RandomTranslation(
+    File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/layers/preprocessing/image_preprocessing/random_translation.py", line 136, in __init__  **
+        self.generator = SeedGenerator(seed)
+    File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/random/seed_generator.py", line 87, in __init__
+        self.state = self.backend.Variable(
+    File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/common/variables.py", line 186, in __init__
+        self._initialize_with_initializer(initializer)
+    File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/core.py", line 47, in _initialize_with_initializer
+        self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+    File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/backend/tensorflow/core.py", line 38, in _initialize
+        self._value = tf.Variable(
+
+    ValueError: tf.function only supports singleton tf.Variables created on the first call. Make sure the tf.Variable is only created once or created outside tf.function. See https://www.tensorflow.org/guide/function#creating_tfvariables for more information.
+

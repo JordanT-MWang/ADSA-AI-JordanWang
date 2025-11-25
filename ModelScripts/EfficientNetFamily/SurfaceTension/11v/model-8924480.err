@@ -1,0 +1,21 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+2025-11-14 02:16:08.917684: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-11-14 02:16:08.929397: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1763086568.942721 2521292 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1763086568.946742 2521292 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-11-14 02:16:08.960387: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1763086580.691812 2521292 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:23:00.0, compute capability: 8.6
+2025-11-14 02:17:01.608909: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+Traceback (most recent call last):
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/11v/ModelSurfaceTensionENFV11.py", line 209, in <module>
+    main()
+  File "/mnt/lustre/koa/scratch/jordanw7/ADSA-AI/ADSANoPush/ADSA-AI-JordanWang/ModelScripts/EfficientNetFamily/SurfaceTension/11v/ModelSurfaceTensionENFV11.py", line 125, in main
+    history = model.fit(train_gen,
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/jordanw7/.conda/envs/ADSAenv/lib/python3.11/site-packages/keras/src/layers/input_spec.py", line 160, in assert_input_compatibility
+    raise ValueError(
+ValueError: Layer "functional" expects 2 input(s), but it received 3 input tensors. Inputs received: [<tf.Tensor 'data:0' shape=(None, 800, 800, 3) dtype=float16>, <tf.Tensor 'data_1:0' shape=(None, 2) dtype=float32>, <tf.Tensor 'data_2:0' shape=(None,) dtype=string>]

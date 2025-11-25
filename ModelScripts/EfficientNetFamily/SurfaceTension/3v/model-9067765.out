@@ -1,0 +1,12 @@
+Agent pid 1783140
+Updating 59cb851..51c59ee
+Fast-forward
+ .../SurfaceTension/17v/ModelSurfaceTensionENFV17.py                   | 4 ++--
+ ModelScripts/EfficientNetFamily/Volume/3v/ModelVolumev3.py            | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+Image directory path: /home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined/Edges
+Output CSV path: /home/jordanw7/koa_scratch/ADSA-AI/DataSetCombined/output_params.csv
+[INFO] Computed normalization stats: mean=[9.9626893e-01 5.2713207e-04], std=[0.0029341  0.00033763]
+(256, 256, 3)
+Base model input shape: (None, 256, 256, 3)
+Epoch 1/50

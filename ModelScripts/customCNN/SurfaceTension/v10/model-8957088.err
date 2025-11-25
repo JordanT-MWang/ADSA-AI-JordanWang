@@ -1,0 +1,152 @@
+Identity added: /home/jordanw7/.ssh/id_ed25519 (cluster_key)
+2025-11-16 05:31:12.565146: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-11-16 05:31:12.577140: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1763271072.591770 2130033 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1763271072.595996 2130033 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-11-16 05:31:12.610737: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1763271076.560394 2130033 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14271 MB memory:  -> device: 0, name: NVIDIA RTX A4000, pci bus id: 0000:56:00.0, compute capability: 8.6
+2025-11-16 05:31:22.878139: E tensorflow/core/util/util.cc:131] oneDNN supports DT_HALF only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1763271084.581672 2130084 service.cc:148] XLA service 0x1545e0004e70 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1763271084.581774 2130084 service.cc:156]   StreamExecutor device (0): NVIDIA RTX A4000, Compute Capability 8.6
+I0000 00:00:1763271084.590488 2130084 cuda_dnn.cc:529] Loaded cuDNN version 91301
+I0000 00:00:1763271084.632160 2130084 device_compiler.h:188] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+2025-11-16 05:31:26.409520: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:268] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+E0000 00:00:1763271104.314059 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271104.314182 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271104.314192 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271104.314199 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271104.314205 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271104.314212 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271104.314218 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271104.314224 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271104.314231 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271104.314237 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:44.314263: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=8,k13=1,k14=4,k18=1,k23=0}
+2025-11-16 05:31:44.314313: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:44.314323: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:44.314333: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:44.314341: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:44.314354: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+E0000 00:00:1763271105.465043 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271105.465146 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271105.465154 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271105.465161 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271105.465168 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271105.465174 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271105.465180 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271105.465186 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271105.465193 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271105.465199 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:45.465221: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=5,k13=1,k14=3,k18=1,k23=0}
+2025-11-16 05:31:45.465256: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:45.465265: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:45.465275: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:45.465283: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:45.465295: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+2025-11-16 05:31:45.465350: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:378] Garbage collection: deallocate free memory regions (i.e., allocations) so that we can re-allocate a larger region to avoid OOM due to memory fragmentation. If you see this message frequently, you are running near the threshold of the available device memory and re-allocation may incur great performance overhead. You may try smaller batch sizes to observe the performance impact. Set TF_ENABLE_GPU_GARBAGE_COLLECTION=false if you'd like to disable this feature.
+E0000 00:00:1763271106.598017 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271106.598117 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271106.598126 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271106.598150 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271106.598158 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271106.598164 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271106.598171 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271106.598177 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271106.598183 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271106.598189 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:46.598216: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=23,k13=0,k14=3,k18=1,k23=0}
+2025-11-16 05:31:46.598253: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:46.598262: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:46.598272: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:46.598280: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:46.598293: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+E0000 00:00:1763271107.428230 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271107.428301 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271107.428309 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271107.428316 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271107.428322 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271107.428328 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271107.428334 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271107.428341 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271107.428347 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271107.428353 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:47.428370: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=1,k13=0,k14=4,k18=1,k23=0}
+2025-11-16 05:31:47.428399: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:47.428434: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:47.428444: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:47.428452: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:47.428463: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+E0000 00:00:1763271108.333913 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271108.334002 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271108.334009 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271108.334015 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271108.334022 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271108.334028 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271108.334034 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271108.334040 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271108.334046 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271108.334052 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:48.334074: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=1,k13=1,k14=2,k18=1,k23=0}
+2025-11-16 05:31:48.334106: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:48.334115: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:48.334124: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:48.334132: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:48.334144: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+E0000 00:00:1763271109.327272 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271109.327348 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271109.327356 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271109.327363 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271109.327369 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271109.327376 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271109.327382 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271109.327389 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271109.327395 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271109.327402 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:49.327424: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=7,k13=0,k14=4,k18=1,k23=0}
+2025-11-16 05:31:49.327469: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:49.327479: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:49.327487: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:49.327495: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:49.327507: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+2025-11-16 05:31:50.327640: E external/local_xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng9{k2=0,k13=0,k14=3,k18=1,k23=0} for conv (f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+E0000 00:00:1763271110.898028 2130084 buffer_comparator.cc:157] Difference at 0: 64608, expected 49408
+E0000 00:00:1763271110.898119 2130084 buffer_comparator.cc:157] Difference at 1: 64192, expected 48992
+E0000 00:00:1763271110.898127 2130084 buffer_comparator.cc:157] Difference at 2: 64512, expected 49248
+E0000 00:00:1763271110.898133 2130084 buffer_comparator.cc:157] Difference at 3: 64416, expected 49184
+E0000 00:00:1763271110.898140 2130084 buffer_comparator.cc:157] Difference at 4: 64608, expected 49216
+E0000 00:00:1763271110.898146 2130084 buffer_comparator.cc:157] Difference at 5: 64768, expected 49472
+E0000 00:00:1763271110.898152 2130084 buffer_comparator.cc:157] Difference at 6: 64480, expected 49216
+E0000 00:00:1763271110.898158 2130084 buffer_comparator.cc:157] Difference at 7: 64512, expected 49312
+E0000 00:00:1763271110.898164 2130084 buffer_comparator.cc:157] Difference at 8: 64192, expected 49152
+E0000 00:00:1763271110.898171 2130084 buffer_comparator.cc:157] Difference at 9: 64480, expected 49216
+2025-11-16 05:31:50.898195: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:771] Results mismatch between different convolution algorithms. This is likely a bug/unexpected loss of precision in cudnn.
+(f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} for eng39{k2=11,k6=0,k12=285,k13=1,k14=0,k15=0,k17=286,k22=3} vs eng9{k2=0,k13=0,k14=3,k18=1,k23=0}
+2025-11-16 05:31:50.898222: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:325] Device: NVIDIA RTX A4000
+2025-11-16 05:31:50.898231: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:326] Platform: Compute Capability 8.6
+2025-11-16 05:31:50.898240: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:327] Driver: 12.9.0
+2025-11-16 05:31:50.898264: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:328] Runtime: 12.2.0
+2025-11-16 05:31:50.898278: E external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:333] cudnn version: 9.13.1
+2025-11-16 05:31:50.898300: E external/local_xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.570753822s
+Trying algorithm eng9{k2=0,k13=0,k14=3,k18=1,k23=0} for conv (f16[32,3,3,1]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,1000,800,1]{3,2,1,0}, f16[32,1000,800,32]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:01.710245: E external/local_xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng19{k2=2} for conv (f16[128,3,3,64]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,250,200,64]{3,2,1,0}, f16[32,250,200,128]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:09.901793: E external/local_xla/xla/service/slow_operation_alarm.cc:133] The operation took 9.191630616s
+Trying algorithm eng19{k2=2} for conv (f16[128,3,3,64]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,250,200,64]{3,2,1,0}, f16[32,250,200,128]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:14.879491: E external/local_xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng19{k2=4} for conv (f16[256,3,3,128]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,125,100,128]{3,2,1,0}, f16[32,125,100,256]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:23.574371: E external/local_xla/xla/service/slow_operation_alarm.cc:133] The operation took 9.694977033s
+Trying algorithm eng19{k2=4} for conv (f16[256,3,3,128]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,125,100,128]{3,2,1,0}, f16[32,125,100,256]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:24.574608: E external/local_xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng19{k2=2} for conv (f16[256,3,3,128]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,125,100,128]{3,2,1,0}, f16[32,125,100,256]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:33.750767: E external/local_xla/xla/service/slow_operation_alarm.cc:133] The operation took 10.176240196s
+Trying algorithm eng19{k2=2} for conv (f16[256,3,3,128]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,125,100,128]{3,2,1,0}, f16[32,125,100,256]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:34.751043: E external/local_xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng19{k2=1} for conv (f16[256,3,3,128]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,125,100,128]{3,2,1,0}, f16[32,125,100,256]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 05:32:45.591908: E external/local_xla/xla/service/slow_operation_alarm.cc:133] The operation took 11.840948819s
+Trying algorithm eng19{k2=1} for conv (f16[256,3,3,128]{3,2,1,0}, u8[0]{0}) custom-call(f16[32,125,100,128]{3,2,1,0}, f16[32,125,100,256]{3,2,1,0}), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convBackwardFilter", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]} is taking a while...
+2025-11-16 08:08:46.143818: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
