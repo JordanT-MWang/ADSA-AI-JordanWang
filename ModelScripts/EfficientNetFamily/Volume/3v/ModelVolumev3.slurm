@@ -23,6 +23,8 @@ module load system/CUDA/12.2.0
 eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
+export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
+
 #copy data set locally
 HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV3"
 LOCAL_DATA="$TMPDIR/DataSetCombined"
