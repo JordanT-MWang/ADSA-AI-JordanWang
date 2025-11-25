@@ -1,39 +1,50 @@
 import os
+
+# ---- Disable XLA completely (fixes cuDNN autotune crashes) ----
 os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
 os.environ["XLA_FLAGS"] = "--xla_gpu_strict_conv_algorithm_picker=false"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
+# ---- Disable JIT (important!) ----
+# Remove ANY tf.config.optimizer.set_jit(True)
+# because it forces XLA back on.
+# DO NOT enable JIT anywhere else.
+
 import tensorflow as tf
-from tensorflow.keras.applications import EfficientNetB1
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Lambda
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import load_model
-from tensorflow.keras.metrics import MeanAbsoluteError
-from tensorflow.keras.losses import MeanSquaredError
+
+# ---- Disable mixed precision (already correct for stability) ----
 from tensorflow.keras import mixed_precision
 mixed_precision.set_global_policy('float32')
 
-tf.config.optimizer.set_jit(True)
+# ---- Safe GPU config ----
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
-    try: 
+    try:
         tf.config.experimental.set_memory_growth(g, True)
     except Exception:
         pass
 
-
-
-import matplotlib.pyplot as plt
-import time
-import numpy as np
-import pandas as pd
-import os # Import os module
+# ---- Rest of your imports ----
 import sys
+import time
 import json
 import argparse
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.layers import (
+    Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate,
+    Conv2D, BatchNormalization, MaxPooling2D, Flatten, Lambda
+)
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.metrics import MeanAbsoluteError
+from tensorflow.keras.losses import MeanSquaredError
+from tensorflow.keras.applications import EfficientNetB1
 
-# === Path handling for DataGenerator ===
+# ---- Script path handling ----
 script_dir = os.path.dirname(__file__)
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+sys.path.append(os.path.abspath(os.path.join(script_dir, "../..")))
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
