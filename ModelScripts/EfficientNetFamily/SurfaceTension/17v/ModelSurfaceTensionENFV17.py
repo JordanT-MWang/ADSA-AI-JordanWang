@@ -1,3 +1,6 @@
+import os
+os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
+os.environ["XLA_FLAGS"] = "--xla_gpu_strict_conv_algorithm_picker=false"
 import tensorflow as tf
 from tensorflow.keras.applications import EfficientNetB1
 from tensorflow.keras.models import Model
@@ -7,6 +10,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import mixed_precision
+mixed_precision.set_global_policy('float32')
+
 tf.config.optimizer.set_jit(True)
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
@@ -14,7 +19,7 @@ for g in gpus:
         tf.config.experimental.set_memory_growth(g, True)
     except Exception:
         pass
-mixed_precision.set_global_policy("mixed_float16")
+
 
 
 import matplotlib.pyplot as plt
