@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=25):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=125):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -88,7 +88,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
-    batch_size = 64
+    batch_size = 32
     model_name="SurfaceTensionENF4"
     image_size = (500, 500)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
