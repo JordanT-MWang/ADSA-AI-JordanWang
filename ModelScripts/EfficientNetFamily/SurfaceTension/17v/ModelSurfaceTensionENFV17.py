@@ -5,14 +5,15 @@ os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
 os.environ["XLA_FLAGS"] = "--xla_gpu_strict_conv_algorithm_picker=false"
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
-# ---- Disable JIT (important!) ----
-# Remove ANY tf.config.optimizer.set_jit(True)
-# because it forces XLA back on.
-# DO NOT enable JIT anywhere else.
+# ---- Ensure no JIT / XLA anywhere ----
+# Do NOT call tf.config.optimizer.set_jit(True) anywhere
 
 import tensorflow as tf
 
-# ---- Disable mixed precision (already correct for stability) ----
+# ---- Reset any existing graphs (important if running in notebook / multiple runs) ----
+tf.keras.backend.clear_session()
+
+# ---- Disable mixed precision (stability) ----
 from tensorflow.keras import mixed_precision
 mixed_precision.set_global_policy('float32')
 
@@ -24,7 +25,7 @@ for g in gpus:
     except Exception:
         pass
 
-# ---- Rest of your imports ----
+# ---- Imports ----
 import sys
 import time
 import json
