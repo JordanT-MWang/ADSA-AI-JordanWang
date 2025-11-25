@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=SurfTensioncustv12      # Job name
+#SBATCH --job-name=SurfTensioncustv13      # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
-#SBATCH --time=0-4:30:00           # Max runtime (HH:MM:SS)
+#SBATCH --time=0-3:30:00           # Max runtime (HH:MM:SS)
 #SBATCH --cpus-per-task=4           # CPU cores for data loading
 
 #SBATCH --mem=64G ## max amount of memory per node you require
@@ -24,7 +24,7 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 #copy data set locally
-HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV3"
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV3Theory"
 LOCAL_DATA="$TMPDIR/DataSetCombined"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/
@@ -36,5 +36,5 @@ ssh-add ~/.ssh/id_ed25519
 git pull 
 
 
-python ModelSurfaceTensionCustV12.py --dataset_path $LOCAL_DATA
+python ModelSurfaceTensionCustV11.py --dataset_path $LOCAL_DATA
 
