@@ -28,6 +28,8 @@ def convert_png_to_bmp(parent_dir):
 
         # Open PNG and save as BMP
         with Image.open(png_path) as img:
+            # Ensure 8-bit grayscale
+            img = img.convert("L")
             img.save(bmp_path, format="BMP")
 
         #print(f"Saved: {bmp_path}")

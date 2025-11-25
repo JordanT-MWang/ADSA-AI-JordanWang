@@ -65,7 +65,7 @@ def preprocess_image(img_path, target_size=(512, 640)):
     #img = np.expand_dims(img, axis=0)
     #for rgb
     img = np.expand_dims(img, axis=0)  # shape (1, H, W, 3)
-    return img.astype(np.float32)
+    return img.astype(np.float32), scale
 
 # -------------------------
 # Read params.txt
@@ -125,20 +125,18 @@ def main(model_path, model_type, image_folder):
     param_file = os.path.join(image_folder, "params.txt")
     input_csv_path = os.path.join(image_folder, "input_params.csv")
     per_image_params = {}
-    if os.path.exists(param_file):
-        global_params = read_params_txt(param_file)
-        # Normalize
-        global_params = (global_params - param_mean) / param_std
-        print(f"[INFO] Using params.txt for normalization: {global_params}")
-    elif os.path.exists(input_csv_path):
+    # Determine parameters for each image
+    if os.path.exists(input_csv_path):
+        # per-image params from CSV
         raw_param_map = read_params_csv(input_csv_path)
-        # Normalize per image
-        for k, v in raw_param_map.items():
-            per_image_params[k] = (v - param_mean) / param_std
-        print(f"[INFO] Using input_params.csv for per-image normalization")
+        per_image_params = raw_param_map
+        use_global_params = False
+    elif os.path.exists(param_file):
+        # single params.txt for all images
+        global_params = read_params_txt(param_file)
+        use_global_params = True
     else:
-        raise FileNotFoundError("Neither params.txt nor input_params.csv found in the image folder")
-
+        raise FileNotFoundError("Missing params.txt or input_params.csv")
     # Process images
     edges_folder = os.path.join(image_folder, "Edges")
     if not os.path.exists(edges_folder):
@@ -152,16 +150,19 @@ def main(model_path, model_type, image_folder):
     predictions = []
     for img_name in img_files:
         img_path = os.path.join(edges_folder, img_name)
-        img = preprocess_image(img_path, target_size=image_size)
+        img, scale = preprocess_image(img_path, target_size=image_size)
 
-        # Get params
-        if per_image_params:
+        if use_global_params:
+            params = global_params.copy()
+        else:
             params = per_image_params.get(img_name)
             if params is None:
-                print(f"⚠️  {img_name} not found in input_params.csv, using global mean")
-                params = (np.array(param_mean) - param_mean) / param_std
-        else:
-            params = global_params
+                print(f"⚠️ {img_name} missing from input_params.csv, using global mean")
+                params = global_params.copy()
+
+        params[1] = params[1] / scale
+        params = (params - param_mean) / param_std
+       
 
         params = np.expand_dims(params, axis=0)
         pred = model.predict([img, params], verbose=0)
