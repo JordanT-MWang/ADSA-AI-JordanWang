@@ -90,7 +90,7 @@ def main():
     output_training = "Volume (ul)"
     batch_size = 64
     model_name="SurfaceTensionENF4"
-    image_size = (640, 640)
+    image_size = (480, 480)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_VolumeENFv2.keras",
     monitor="val_loss",
