@@ -1,0 +1,5 @@
+Agent pid 2024236
+[INFO] Using GPU: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+[INFO] Loaded JSON: image_size=(800, 800), param_mean=[9.93660092e-01 4.85973957e-04], param_std=[3.30097770e-04 9.95605888e-07]
+[INFO] Running predictions on 41683 images...
+[INFO] Saved predictions to /tmp/DataSetCombined/Surface_Tension_(mN_m)_Predictions.csv

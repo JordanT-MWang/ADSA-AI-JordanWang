@@ -1,0 +1,27 @@
+Agent pid 1529875
+Saved working directory and index state WIP on (no branch): cfb5989 push test and reoranization
+Already up to date.
+interactive rebase in progress; onto cfb5989
+Last command done (1 command done):
+   pick 39ecc11 Predictions saved for job 8827104
+No commands remaining.
+You are currently editing a commit while rebasing branch 'main' on 'cfb5989'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../__pycache__/DataGeneratorv3.cpython-311.pyc
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	model-8921039.err
+	model-8921039.out
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (0d7e20585d74b1f485dbb230ab68639998859c97)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 800, 800, 3)
+Epoch 1/50

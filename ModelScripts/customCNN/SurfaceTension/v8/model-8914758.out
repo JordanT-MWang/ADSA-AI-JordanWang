@@ -1,0 +1,85 @@
+Agent pid 1929576
+Saved working directory and index state WIP on main: f037f4f Predictions saved for job 8827104
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   ../../../EfficientNetFamily/SurfaceTension/9v/ST_Model_Predictions.csv
+	new file:   ../../../EfficientNetFamily/SurfaceTension/9v/model-8889039.err
+	new file:   ../../../EfficientNetFamily/SurfaceTension/9v/model-8889039.out
+	new file:   ../../../EfficientNetFamily/SurfaceTension/9v/pred_vs_true_SA.png
+	new file:   ../../../EfficientNetFamily/SurfaceTension/9v/training_curves_ST.png
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../../EfficientNetFamily/SurfaceTension/11v/SurfaceTension_Model_Large_Cust_V11_stats.json
+	modified:   ../../__pycache__/DataGeneratorv3.cpython-311.pyc
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../../../EfficientNetFamily/SurfaceTension/10v/model-8889041.err
+	../../../EfficientNetFamily/SurfaceTension/10v/model-8889041.out
+	../../../EfficientNetFamily/SurfaceTension/10v/model-8914748.err
+	../../../EfficientNetFamily/SurfaceTension/10v/model-8914748.out
+	../../../EfficientNetFamily/SurfaceTension/11v/model-8914749.err
+	../../../EfficientNetFamily/SurfaceTension/11v/model-8914749.out
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830061.err
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830061.out
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830307.err
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830307.out
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830672.err
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830672.out
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830978.err
+	../../../EfficientNetFamily/SurfaceTension/8v/model-8830978.out
+	../v5/ST_Model_Predictions.csv
+	../v5/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../v5/model-8830070.err
+	../v5/model-8830070.out
+	../v5/model-8830300.err
+	../v5/model-8830300.out
+	../v5/model-8830669.err
+	../v5/model-8830669.out
+	../v5/model-8830840.err
+	../v5/model-8830840.out
+	../v5/model-8830982.err
+	../v5/model-8830982.out
+	../v5/model-8831976.err
+	../v5/model-8831976.out
+	../v5/pred_vs_true_ST_Cust.png
+	../v5/training_curves_ST_Cust.png
+	../v6/SurfaceTension_Model_Large_Cust_V6_stats.json
+	../v6/model-8876076.err
+	../v6/model-8876076.out
+	../v6/model-8914745.err
+	../v6/model-8914745.out
+	../v7/ST_Model_Predictions.csv
+	../v7/SurfaceTension_Model_Large_Cust_V10_stats.json
+	../v7/model-8876077.err
+	../v7/model-8876077.out
+	../v7/pred_vs_true_ST_Cust.png
+	../v7/training_curves_ST_Cust.png
+	SurfaceTension_Model_Large_Cust_V10_stats.json
+	model-8876078.err
+	model-8876078.out
+	model-8880748.err
+	model-8880748.out
+	model-8880768.err
+	model-8880768.out
+	model-8883211.err
+	model-8883211.out
+	model-8883626.err
+	model-8883626.out
+	model-8886443.err
+	model-8886443.out
+	model-8914747.err
+	model-8914747.out
+	model-8914758.err
+	model-8914758.out
+
+Dropped refs/stash@{0} (75ede98be66da87f4b76d976e41a6c97a3943a57)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Epoch 1/50

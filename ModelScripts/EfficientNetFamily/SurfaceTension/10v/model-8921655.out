@@ -1,0 +1,42 @@
+Agent pid 2475774
+Saved working directory and index state WIP on (no branch): 165d9ac update for v10 size
+Updating 165d9ac..53127d7
+Fast-forward
+ ModelScripts/EfficientNetFamily/DataGeneratorv3.py | 126 +++++++++++----------
+ 1 file changed, 69 insertions(+), 57 deletions(-)
+interactive rebase in progress; onto cfb5989
+Last command done (1 command done):
+   pick 39ecc11 Predictions saved for job 8827104
+No commands remaining.
+You are currently editing a commit while rebasing branch 'main' on 'cfb5989'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   SurfaceTension_Model_Large_Cust_V10_stats.json
+	modified:   ../8v/SurfaceTension_Model_Large_Cust_V8_stats.json
+	modified:   ../../__pycache__/DataGeneratorv3.cpython-311.pyc
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	model-8921039.err
+	model-8921039.out
+	model-8921064.err
+	model-8921064.out
+	model-8921077.err
+	model-8921077.out
+	model-8921655.err
+	model-8921655.out
+	../8v/model-8921088.err
+	../8v/model-8921088.out
+	../8v/model-8921654.err
+	../8v/model-8921654.out
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (37d2b7e6034950b661e14d0d545f8914edb8ba5f)
+Image directory path: /tmp/DataSetCombined/Edges
+Output CSV path: /tmp/DataSetCombined/output_params.csv
+Base model input shape: (None, 800, 800, 3)
+Epoch 1/50
