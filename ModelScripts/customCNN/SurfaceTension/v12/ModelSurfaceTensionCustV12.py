@@ -62,9 +62,9 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     img_input = Input(shape=input_image_shape, name="img_input")
     param_input = Input(shape=(input_param_size,), name="param_input")
 
-    x = conv_block(img_input, 4, dropout=0.15)
-    x = conv_block(x, 8, dropout=0.25)
-    x = conv_block(x, 16, dropout=0.5)
+    x = conv_block(img_input, 8, dropout=0.15)
+    x = conv_block(x, 16, dropout=0.25)
+    x = conv_block(x, 32, dropout=0.5)
    
     x = GlobalAveragePooling2D()(x)
     x = Dense(32, activation='relu')(x)
@@ -76,7 +76,7 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(1e-5), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(1e-4), loss='mse', metrics=['mae'])
     return model
 
 def main():
@@ -95,7 +95,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
-    batch_size = 64
+    batch_size = 128
     model_name="SurfaceTensionENF4"
     image_size = (384, 384)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
@@ -128,7 +128,7 @@ def main():
     
     history = model.fit(train_gen,
                         validation_data=val_gen,
-                        epochs=50,
+                        epochs=100,
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True),
                         checkpoint_cb])
 
