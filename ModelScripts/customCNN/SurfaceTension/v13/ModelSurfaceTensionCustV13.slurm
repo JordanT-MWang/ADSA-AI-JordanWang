@@ -36,5 +36,5 @@ ssh-add ~/.ssh/id_ed25519
 git pull 
 
 
-python ModelSurfaceTensionCustV11.py --dataset_path $LOCAL_DATA
+python ModelSurfaceTensionCustV13.py --dataset_path $LOCAL_DATA
 
