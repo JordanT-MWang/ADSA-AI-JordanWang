@@ -7,6 +7,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import mixed_precision
+from tensorflow.keras.regularizers import l2
 tf.config.optimizer.set_jit(True)
 gpus = tf.config.list_physical_devices('GPU')
 for g in gpus:
@@ -34,7 +35,7 @@ from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
 def conv_block(x, filters, kernel_size=3, pool=True, dropout=0.0, activation='relu', bn=True):
     """Reusable convolutional block."""
-    x = Conv2D(filters, kernel_size, padding='same')(x)
+    x = Conv2D(filters, kernel_size, padding='same',  kernel_regularizer=l2(1e-5))(x)
     if bn:
         x = BatchNormalization()(x)
     x = Activation(activation)(x)
@@ -94,9 +95,9 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
-    batch_size = 32
+    batch_size = 64
     model_name="SurfaceTensionENF4"
-    image_size = (1000, 800)
+    image_size = (384, 384)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_SurfaceTensinoENFv10.keras",
     monitor="val_loss",
@@ -109,9 +110,10 @@ def main():
                                   
 
     train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size)
+    train_gen = train_pipeline.get_dataset()
     val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
     test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
-    train_gen = train_pipeline.get_dataset()
+    
 
     # Save normalization stats
     stats = {
