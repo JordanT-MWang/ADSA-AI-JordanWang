@@ -65,7 +65,7 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     x = conv_block(img_input, 8, dropout=0.15)
     x = conv_block(x, 16, dropout=0.25)
     x = conv_block(x, 32, dropout=0.5)
-   
+    x = conv_block(x, 32, dropout=0.5)
     x = GlobalAveragePooling2D()(x)
     x = Dense(32, activation='relu')(x)
     # --- Combine with numeric parameters ---
@@ -76,7 +76,7 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(1e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
