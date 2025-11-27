@@ -66,15 +66,21 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     x = conv_block(x, 32, kernel_size=5, pool=True, dropout=0.15)
     x = conv_block(x, 64, kernel_size=3, pool=True, dropout=0.25)
     x = conv_block(x, 128, kernel_size=3, pool=True, dropout=0.3)
-    x = conv_block(x, 128, kernel_size=3, pool=False, dropout=0.3)
+    x = conv_block(x, 128, kernel_size=3, pool=False, dropout=0.4)
     x = GlobalAveragePooling2D()(x)
     x = Dense(64, activation='relu')(x)
     x = Dense(32, activation='relu')(x)
     # --- Combine with numeric parameters ---
     combined = Concatenate()([x, param_input])
-    z = Dense(16, activation='relu')(combined)
-    z = Dropout(0.05)(z)
-    z = Dense(8, activation='relu')(z)
+    z = Dense(64, activation='relu')(combined)
+    z = BatchNormalization()(z)                  # stabilize training
+    z = Dropout(0.1)(z)
+
+    z = Dense(32, activation='relu')(z)
+    z = BatchNormalization()(z)                  # stabilize training
+    z = Dropout(0.1)(z)
+    
+    z = Dense(16,activation='relu')(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -99,7 +105,7 @@ def main():
     output_training = "Surface Tension (mN/m)"
     batch_size = 32
     model_name="SurfaceTensionENF4"
-    image_size = (384, 384)
+    image_size = (640, 640)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_SurfaceTensinoENFv10.keras",
     monitor="val_loss",
