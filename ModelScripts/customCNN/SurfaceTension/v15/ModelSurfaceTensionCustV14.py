@@ -66,8 +66,8 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     x = conv_block(img_input, 16, kernel_size=5, pool=False, dropout=0.1)
     x = conv_block(x, 32, kernel_size=5, pool=True, dropout=0.15)
     x = conv_block(x, 64, kernel_size=3, pool=True, dropout=0.25)
-    x = conv_block(x, 128, kernel_size=3, pool=True, dropout=0.35)
-    x = conv_block(x, 128, kernel_size=3, pool=False, dropout=0.45)
+    x = conv_block(x, 128, kernel_size=3, pool=True, dropout=0.3)
+    x = conv_block(x, 128, kernel_size=3, pool=False, dropout=0.3)
     x = GlobalAveragePooling2D()(x)
     x = Dense(64, activation='relu')(x)
     x = Dense(32, activation='relu')(x)
@@ -75,17 +75,17 @@ def create_custom_cnn(input_image_shape=(512, 640, 1), input_param_size=2):
     combined = Concatenate()([x, param_input])
     z = Dense(64, activation='relu')(combined)
     z = BatchNormalization()(z)                  # stabilize training
-    z = Dropout(0.1)(z)
+    z = Dropout(0.25)(z)
 
     z = Dense(32, activation='relu')(z)
     z = BatchNormalization()(z)                  # stabilize training
-    z = Dropout(0.1)(z)
+    z = Dropout(0.5)(z)
     
     z = Dense(16,activation='relu')(z)
     output = Dense(1, activation='linear')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(5e-4), loss='mse', metrics=['mae'])
     return model
 
 def main():
@@ -126,7 +126,7 @@ def main():
     print(f"Output CSV path: {os.path.join(dataset_path, 'output_params.csv')}")
                                   
 
-    train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size)
+    train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size, )
     train_gen = train_pipeline.get_dataset()
     val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
     test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
