@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=SurfTensionEFTv17    # Job name
+#SBATCH --job-name=SurfTensionEFTv18    # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-06:30:00           # Max runtime (HH:MM:SS)

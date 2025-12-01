@@ -68,12 +68,11 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2):
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze everything
+    # Freeze only the stem
     for layer in base_model.layers:
-        layer.trainable = False
-
-    # Unfreeze final blocks
-    for layer in base_model.layers:
-        if "block6" in layer.name or "block7" in layer.name:
+        if "stem" in layer.name:
+            layer.trainable = False
+        else:
             layer.trainable = True
 
     x = base_model(x_input, training=True)
