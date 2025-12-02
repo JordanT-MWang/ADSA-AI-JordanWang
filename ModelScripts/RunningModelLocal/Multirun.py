@@ -38,33 +38,21 @@ def run_on_all_subfolders(model_path, model_type, parent_dir):
             print(f"❌ Error in {folder}: {str(e)}")
 
 def preprocess_image(img_path, target_size=(512, 640)):
-    """Resize + pad + convert to 3 channels."""
-    #for grey
-    #img = Image.open(img_path).convert("L")
-    #for rgb
-    img = Image.open(img_path).convert("RGB")
-    img = img_to_array(img)
+    img = tf.io.read_file(img_path)
+    img = tf.image.decode_png(img, channels=1)
+    img = tf.image.convert_image_dtype(img, tf.float32)
 
-    target_h, target_w = target_size
-    h, w = img.shape[:2]
-    scale = min(target_w / w, target_h / h)
-    new_w, new_h = int(w * scale), int(h * scale)
-    img = cv2.resize(img, (new_w, new_h))
+    original_h = tf.cast(tf.shape(img)[0], tf.float32)
+    original_w = tf.cast(tf.shape(img)[1], tf.float32)
+    scale_h = tf.cast(target_size[0], tf.float32 )/ original_h
+    scale_w = tf.cast(target_size[1], tf.float32 )/ original_w
+    scale = min(scale_h, scale_w)
+    img = tf.image.resize_with_pad(img, target_size[0], target_size[1])
 
-    pad_top = (target_h - new_h) // 2
-    pad_bottom = target_h - new_h - pad_top
-    pad_left = (target_w - new_w) // 2
-    pad_right = target_w - new_w - pad_left
 
-    img = cv2.copyMakeBorder(img, pad_top, pad_bottom, pad_left, pad_right,
-                             cv2.BORDER_CONSTANT, value=0)
-    img = img / 255.0
-    #for grey
-    #img = np.expand_dims(img, axis=-1)
-    #img = np.repeat(img, 3, axis=-1)
-    #img = np.expand_dims(img, axis=0)
-    #for rgb
-    img = np.expand_dims(img, axis=0)  # shape (1, H, W, 3)
+
+    img = np.expand_dims(img, axis=0)
+
     return img.astype(np.float32), scale
 
 # -------------------------
@@ -123,18 +111,12 @@ def main(model_path, model_type, image_folder):
 
     # Determine parameters per image
     param_file = os.path.join(image_folder, "params.txt")
-    input_csv_path = os.path.join(image_folder, "input_params.csv")
     per_image_params = {}
-    # Determine parameters for each image
-    if os.path.exists(input_csv_path):
-        # per-image params from CSV
-        raw_param_map = read_params_csv(input_csv_path)
-        per_image_params = raw_param_map
-        use_global_params = False
-    elif os.path.exists(param_file):
+    
+    if os.path.exists(param_file):
         # single params.txt for all images
         global_params = read_params_txt(param_file)
-        use_global_params = True
+        
     else:
         raise FileNotFoundError("Missing params.txt or input_params.csv")
     # Process images
@@ -151,19 +133,9 @@ def main(model_path, model_type, image_folder):
     for img_name in img_files:
         img_path = os.path.join(edges_folder, img_name)
         img, scale = preprocess_image(img_path, target_size=image_size)
-
-        if use_global_params:
-            params = global_params.copy()
-        else:
-            params = per_image_params.get(img_name)
-            if params is None:
-                print(f"⚠️ {img_name} missing from input_params.csv, using global mean")
-                params = global_params.copy()
-
+        params = global_params.copy()
         params[1] = params[1] / scale
         params = (params - param_mean) / param_std
-       
-
         params = np.expand_dims(params, axis=0)
         pred = model.predict([img, params], verbose=0)
         predictions.append(pred[0][0])

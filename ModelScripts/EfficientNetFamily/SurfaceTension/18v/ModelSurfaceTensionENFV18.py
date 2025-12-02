@@ -75,7 +75,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2):
         else:
             layer.trainable = True
 
-    x = base_model(x_input, training=True)
+    x = base_model(x_input, training=false)
     x = GlobalAveragePooling2D()(x)
 
     # Custom trainable layers
