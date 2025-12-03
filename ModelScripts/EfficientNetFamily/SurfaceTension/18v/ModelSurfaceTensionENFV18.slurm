@@ -25,7 +25,7 @@ conda activate ADSAenv
 export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
 
 #copy data set locally
-HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV3Theory"
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/combinedDirV3Theory"
 LOCAL_DATA="$TMPDIR/DataSetCombined"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/

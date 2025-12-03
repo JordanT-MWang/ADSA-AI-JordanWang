@@ -8,10 +8,14 @@ from PIL import Image
 import argparse
 import json
 import pandas as pd
-
+import csv
+import re
 # -------------------------
 # Preprocessing function
 # -------------------------
+def natural_key(s):
+    return [int(text) if text.isdigit() else text.lower()
+            for text in re.split(r'(\d+)', s)]
 def find_image_folders(parent_dir):
     """Return all subdirectories that contain an Edges/ folder."""
     runs = []
@@ -38,23 +42,26 @@ def run_on_all_subfolders(model_path, model_type, parent_dir):
             print(f"❌ Error in {folder}: {str(e)}")
 
 def preprocess_image(img_path, target_size=(512, 640)):
+    # Read grayscale image (same as training)
     img = tf.io.read_file(img_path)
-    img = tf.image.decode_png(img, channels=1)
+    img = tf.image.decode_png(img, channels=3)
     img = tf.image.convert_image_dtype(img, tf.float32)
 
+    # Compute scale factor exactly like training
     original_h = tf.cast(tf.shape(img)[0], tf.float32)
     original_w = tf.cast(tf.shape(img)[1], tf.float32)
-    scale_h = tf.cast(target_size[0], tf.float32 )/ original_h
-    scale_w = tf.cast(target_size[1], tf.float32 )/ original_w
-    scale = min(scale_h, scale_w)
+    scale_h = target_size[0] / original_h
+    scale_w = target_size[1] / original_w
+    scale = tf.minimum(scale_h, scale_w)
+
+    # TF resize with pad (same as training)
     img = tf.image.resize_with_pad(img, target_size[0], target_size[1])
 
+    # Add batch dimension and convert to numpy
+    img = tf.expand_dims(img, axis=0)
+    img = img.numpy().astype(np.float32)
 
-
-    img = np.expand_dims(img, axis=0)
-
-    return img.astype(np.float32), scale
-
+    return img, float(scale.numpy())
 # -------------------------
 # Read params.txt
 # -------------------------
@@ -128,27 +135,43 @@ def main(model_path, model_type, image_folder):
     if not img_files:
         raise FileNotFoundError("No PNG images found in Edges folder")
     img_files.sort()
-
-    predictions = []
-    for img_name in img_files:
-        img_path = os.path.join(edges_folder, img_name)
-        img, scale = preprocess_image(img_path, target_size=image_size)
-        params = global_params.copy()
-        params[1] = params[1] / scale
-        params = (params - param_mean) / param_std
-        params = np.expand_dims(params, axis=0)
-        pred = model.predict([img, params], verbose=0)
-        predictions.append(pred[0][0])
-
     # Save .dat file
     os.makedirs(image_folder, exist_ok=True)
     # Sanitize the model_type to remove characters that break Windows filenames
     safe_model_type = model_type.replace(' ', '_').replace('(', '').replace(')', '').replace('/', '_')
-    dat_filename = f"{safe_model_type}_Predictions.dat"
+    dat_filename = f"{safe_model_type}_Predictions.csv"
     dat_path = os.path.join(image_folder, dat_filename)
+    predictions = []
+    with open(dat_path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["imageName", "predication"])
+        for img_name in sorted(img_files, key=natural_key):
+            
+            img_path = os.path.join(edges_folder, img_name)
+            img, scale = preprocess_image(img_path, target_size=image_size)
+            
+            params = global_params.copy()
+            print("IMG SHAPE:", img.shape, "PARAMS  before:", params)
+            params[1] = params[1] / scale
+            params = (params - param_mean) / param_std
+            #EPS = 1e-3  # minimum standard deviation to avoid dividing by tiny numbers
+            #safe_std = np.maximum(param_std, EPS)
+            #params_normalized = (params - param_mean) / safe_std
+            params = np.expand_dims(params, axis=0)
+            print("IMG SHAPE:", img.shape, "PARAMS after:", params)
+            pred = model.predict([img, params], verbose=0)
+            predictions.append(pred[0][0])
+            writer.writerow([img_name,float(pred[0][0])])
+
+    # Save .dat file
+    #os.makedirs(image_folder, exist_ok=True)
+    # Sanitize the model_type to remove characters that break Windows filenames
+    #safe_model_type = model_type.replace(' ', '_').replace('(', '').replace(')', '').replace('/', '_')
+    #dat_filename = f"{safe_model_type}_Predictions.dat"
+    #dat_path = os.path.join(image_folder, dat_filename)
 
 
-    np.savetxt(dat_path, predictions, fmt="%.6f")
+    #np.savetxt(dat_path, predictions, fmt="%.6f")
     print(f"[INFO] Predictions saved to {dat_path}")
 
 # -------------------------

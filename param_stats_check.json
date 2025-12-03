@@ -1,0 +1,26 @@
+{
+    "raw_mean": [
+        0.99333,
+        0.0005031614649870694
+    ],
+    "raw_std": [
+        0.0,
+        1.7582751361922304e-05
+    ],
+    "constant_parameter_mask": [
+        true,
+        false
+    ],
+    "safe_mean": [
+        0.99333,
+        0.0005031614649870694
+    ],
+    "safe_std": [
+        1.0,
+        1.7582751361922304e-05
+    ],
+    "notes": {
+        "constant_parameters_have_std_replaced_with_1.0": true,
+        "threshold_used": 1e-06
+    }
+}

@@ -29,6 +29,7 @@ def analyze_distribution(csv_path, input_csv_path=None, bin_sizes=None):
     # Default bin sizes
     if bin_sizes is None:
         bin_sizes = {
+            "Density"
             "Surface Tension (mN/m)": 5,
             "Curvature (1/cm)": 0.5,
             "Area (cm^2)": 0.05,
@@ -63,7 +64,16 @@ def analyze_distribution(csv_path, input_csv_path=None, bin_sizes=None):
             )
         else:
             print("⚠️  Missing 'Scale Factor (cm/pixel)' column in input CSV.")
-
+        # Delta Rho histogram (reuses existing code)
+        if "Delta Rho (g/ml)" in df_in.columns:
+            _plot_distribution(
+                df_in["Delta Rho (g/ml)"],
+                "Delta Rho (g/ml)",
+                bin_sizes.get("Delta Rho (g/ml)", 0.01),
+                out_dir
+            )
+        else:
+            print("⚠️ Missing 'Delta Rho (g/ml)' column in input CSV.")
         # Resolution → parse width/height
         if "Resolution" in df_in.columns:
             df_in["Width"], df_in["Height"] = zip(*df_in["Resolution"].apply(_parse_resolution))
