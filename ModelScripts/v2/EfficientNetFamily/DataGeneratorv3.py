@@ -64,41 +64,41 @@ class ADSADataPipeline:
             np.savez(os.path.join(dataset_path, "param_stats.npz"),
                      mean=self.param_mean, std=self.param_std)
 
-def _parse_function(self, path, param, y):
+    def _parse_function(self, path, param, y):
 
-    # 1. Load raw image (uint8)
-    image = tf.io.read_file(path)
-    image = tf.image.decode_png(image, channels=1)
+        # 1. Load raw image (uint8)
+        image = tf.io.read_file(path)
+        image = tf.image.decode_png(image, channels=1)
 
-    original_h = tf.cast(tf.shape(image)[0], tf.float32)
-    original_w = tf.cast(tf.shape(image)[1], tf.float32)
+        original_h = tf.cast(tf.shape(image)[0], tf.float32)
+        original_w = tf.cast(tf.shape(image)[1], tf.float32)
 
-    # 2. Compute scale used by resize_with_pad
-    target_h, target_w = self.image_size
-    scale_h = target_h / original_h
-    scale_w = target_w / original_w
-    resize_scale = tf.minimum(scale_h, scale_w)
+        # 2. Compute scale used by resize_with_pad
+        target_h, target_w = self.image_size
+        scale_h = target_h / original_h
+        scale_w = target_w / original_w
+        resize_scale = tf.minimum(scale_h, scale_w)
 
-    # 3. Resize + pad (still uint8 at this point)
-    image = tf.image.resize_with_pad(image, target_h, target_w)
+        # 3. Resize + pad (still uint8 at this point)
+        image = tf.image.resize_with_pad(image, target_h, target_w)
 
-    # 4. Apply augmentations BEFORE float normalization
-    if self.split == 'train':
-        image = self._augment(image)
+        # 4. Apply augmentations BEFORE float normalization
+        if self.split == 'train':
+            image = self._augment(image)
 
-    # 5. Convert to float AFTER all geometry transforms
-    image = tf.cast(image, tf.float32) / 255.0
+        # 5. Convert to float AFTER all geometry transforms
+        image = tf.cast(image, tf.float32) / 255.0
 
-    # 6. Fix scale factor correctly
-    # param[0] = cm/pixel_original
-    # new cm/pixel = old / resize_scale
-    corrected_param = param[0] / resize_scale
+        # 6. Fix scale factor correctly
+        # param[0] = cm/pixel_original
+        # new cm/pixel = old / resize_scale
+        corrected_param = param[0] / resize_scale
 
-    # 7. Normalize parameters
-    corrected_param = (corrected_param - self.param_mean) / self.param_std
-    corrected_param = tf.expand_dims(corrected_param, 0)
+        # 7. Normalize parameters
+        corrected_param = (corrected_param - self.param_mean) / self.param_std
+        corrected_param = tf.expand_dims(corrected_param, 0)
 
-    return (image, corrected_param), y
+        return (image, corrected_param), y
 
     def _augment(self, image):
         # Lightweight TensorFlow augmentations
