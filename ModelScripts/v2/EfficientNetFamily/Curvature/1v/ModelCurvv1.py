@@ -88,7 +88,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Curvature (1/cm)"
-    batch_size = 64
+    batch_size = 128
     model_name="SurfaceTensionENF4"
     image_size = (320, 320)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
