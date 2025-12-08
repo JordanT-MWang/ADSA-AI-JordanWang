@@ -54,7 +54,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     for i, layer in enumerate(base_model.layers):
         layer.trainable = i >= freeze_until
 
-    x = base_model(img_input, training=True)
+    x = base_model(img_input, training=False)
     x = GlobalAveragePooling2D()(x)
 
     # Custom trainable layers
@@ -118,7 +118,7 @@ def main():
 
 
     # Model now expects 1 for channel for custom and 3 for mobilenet
-    model = create_model(input_image_shape=(image_size[0], image_size[1], 3), input_param_size=2)
+    model = create_model(input_image_shape=(image_size[0], image_size[1], 3), input_param_size=1)
 
 
 
