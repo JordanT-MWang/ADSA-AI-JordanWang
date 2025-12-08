@@ -90,7 +90,7 @@ def main():
     output_training = "Curvature (1/cm)"
     batch_size = 128
     model_name="SurfaceTensionENF4"
-    image_size = (320, 320)
+    image_size = (640, 640)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     "best_CurvENFv1.keras",
     monitor="val_loss",
