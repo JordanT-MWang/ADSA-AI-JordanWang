@@ -24,7 +24,7 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 #copy data set locally
-HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV4cleaned"
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV4"
 LOCAL_DATA="$TMPDIR/DataSetCombined"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/
