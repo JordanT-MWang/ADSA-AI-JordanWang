@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=Areav1    # Job name
+#SBATCH --job-name=tensionv1    # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-06:30:00           # Max runtime (HH:MM:SS)
@@ -24,7 +24,7 @@ eval "$(conda shell.bash hook)"
 conda activate ADSAenv
 
 #copy data set locally
-HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV4"
+HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/DataSetCombinedV4cleaned"
 LOCAL_DATA="$TMPDIR/DataSetCombined"
 mkdir -p $LOCAL_DATA
 cp -r $HOME_DATA/Edges $LOCAL_DATA/
