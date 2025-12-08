@@ -2,7 +2,10 @@ import os
 import csv
 import cv2
 import argparse
-
+import re
+def natural_key(s):
+    return [int(text) if text.isdigit() else text.lower()
+            for text in re.split(r'(\d+)', s)]
 def read_params(params_path):
     """Read Scale Factor and Density from params.txt"""
     scale_factor = None
@@ -37,13 +40,15 @@ def generate_csv(edges_folder, delta_rho, scale_factor):
         print(f"❌ Missing parameters for {edges_folder}, skipping.")
         return
 
-    file_list = os.listdir(edges_folder)
+    file_list = sorted(os.listdir(edges_folder), key=natural_key)
     valid_extensions = {'.tif', '.tiff', '.bmp', '.png', '.jpg', '.jpeg'}
 
     # save CSV in the parent folder (where params.txt is)
     parent_folder = os.path.dirname(edges_folder)
     output_path = os.path.join(parent_folder, "input_params.csv")
-
+    # Notify if overwriting
+    if os.path.exists(output_path):
+        print(f"⚠️ Overwriting existing file: {output_path}")
     with open(output_path, mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Image Name', 'Delta Rho (g/ml)', 'Scale Factor (cm/pixel)', 'Resolution'])

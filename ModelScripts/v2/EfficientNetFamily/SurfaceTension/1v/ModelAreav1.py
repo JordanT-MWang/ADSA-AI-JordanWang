@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=175):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -87,12 +87,12 @@ def main():
     dataset_path = args.dataset_path  # Use whatever was passed in
     
     output_csv = "ST_Model_Predictions.csv"
-    output_training = "Volume (ul)"
-    batch_size = 32
+    output_training = "Surface Tension (mN/m)"
+    batch_size = 64
     model_name="SurfaceTensionENF4"
-    image_size = (640, 640)
+    image_size = (320, 320)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    "best_VolumeENFv2.keras",
+    "best_TensionENFv1.keras",
     monitor="val_loss",
     save_best_only=True,
     save_weights_only=False,
@@ -113,7 +113,7 @@ def main():
         "param_std": train_pipeline.param_std.tolist(),
         "image_size": list(image_size)  # Save as list to be JSON serializable
     }
-    with open("Volume_Model_Large_ENF_V2_stats.json", "w") as f:
+    with open("SurfaceTension_Model_Large_ENF_V1_stats.json", "w") as f:
         json.dump(stats, f)
 
 
@@ -129,7 +129,7 @@ def main():
                         checkpoint_cb])
 
     # Save model
-    model.save("VolumeV2ENF.keras")
+    model.save("TensionV1ENF.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -150,7 +150,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves_ST.png")
+    plt.savefig("training_curves_Area.png")
     plt.show()
 
     all_true = []
@@ -199,12 +199,12 @@ def main():
     plt.scatter(all_true, all_pred, alpha=0.6)
     if len(all_true) > 1:
         plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], 'r--')
-    plt.xlabel("True Volume")
-    plt.ylabel("Predicted Volume")
-    plt.title("Predicted vs True Values")
+    plt.xlabel("True Surface Tension (mN/m)")
+    plt.ylabel("Predicted Surface Tension (mN/m)")
+    plt.title("Predicted vs True Values Surface Tension (mN/m)")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig("pred_vs_true_Vol.png")
+    plt.savefig("pred_vs_true_Tension.png")
     plt.show()
 
 

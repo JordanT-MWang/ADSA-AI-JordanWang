@@ -1,7 +1,10 @@
 import os
 import pandas as pd
 import argparse
-
+import re
+def natural_key(s):
+    return [int(text) if text.isdigit() else text.lower()
+            for text in re.split(r'(\d+)', s)]
 """
 To run:
     python output.py -d /path/to/parent_folder
@@ -25,8 +28,8 @@ def generate_output_params(folder_path):
         print(f"⚠️ Skipping {folder_path} — Edges folder not found.")
         return
     if os.path.exists(output_csv):
-        print(f"⚠️ Skipping {folder_path} — output exhists")
-        return
+        print(f"⚠️ overwriting {folder_path} — output exhists")
+        
     # --- Step 2: Read the data file ---
     with open(data_path, "r") as f:
         lines = f.readlines()
@@ -53,8 +56,10 @@ def generate_output_params(folder_path):
     # --- Step 3: Match to image names ---
     image_files = sorted([
         f for f in os.listdir(image_folder)
-        if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff'))
-    ])
+        if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff'))]
+        ,
+        key = natural_key
+    )
 
     if len(image_files) != len(df):
         print(f"⚠️ {folder_path}: {len(image_files)} images vs {len(df)} data rows (mismatch)")

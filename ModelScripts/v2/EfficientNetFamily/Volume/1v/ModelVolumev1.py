@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv3 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=175):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
     """
     MobileNetV2 for regression with numeric inputs.
     """
@@ -88,11 +88,11 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Volume (ul)"
-    batch_size = 32
+    batch_size = 64
     model_name="SurfaceTensionENF4"
-    image_size = (640, 640)
+    image_size = (320, 320)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    "best_VolumeENFv2.keras",
+    "best_VolumeENFv1.keras",
     monitor="val_loss",
     save_best_only=True,
     save_weights_only=False,
@@ -113,7 +113,7 @@ def main():
         "param_std": train_pipeline.param_std.tolist(),
         "image_size": list(image_size)  # Save as list to be JSON serializable
     }
-    with open("Volume_Model_Large_ENF_V2_stats.json", "w") as f:
+    with open("Volume_Model_Large_ENF_V1_stats.json", "w") as f:
         json.dump(stats, f)
 
 
@@ -129,7 +129,7 @@ def main():
                         checkpoint_cb])
 
     # Save model
-    model.save("VolumeV2ENF.keras")
+    model.save("VolumeV1ENF.keras")
 
     # Evaluate on test set
     test_loss, test_mae = model.evaluate(test_gen)
@@ -150,7 +150,7 @@ def main():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("training_curves_ST.png")
+    plt.savefig("training_curves_vol.png")
     plt.show()
 
     all_true = []
@@ -201,7 +201,7 @@ def main():
         plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], 'r--')
     plt.xlabel("True Volume")
     plt.ylabel("Predicted Volume")
-    plt.title("Predicted vs True Values")
+    plt.title("Predicted vs True Values Volume")
     plt.grid(True)
     plt.tight_layout()
     plt.savefig("pred_vs_true_Vol.png")
