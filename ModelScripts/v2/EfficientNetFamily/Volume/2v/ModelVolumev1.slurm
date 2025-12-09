@@ -15,14 +15,14 @@
 #SBATCH --mail-user=jordanw7@hawaii.edu  # Your email
 
 ## All options and environment variables found on schedMD site: http://slurm.schedmd.com/sbatch.html
-
+export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
 module load lang/Anaconda3/2024.02-1
 module load tools/git/2.42.0-GCCcore-13.2.0
 module load system/CUDA/12.2.0
 # Activate your environment the robust way
 eval "$(conda shell.bash hook)"
 conda activate ADSAenv
-XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
+
 
 #copy data set locally
 HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/combinedDir"
