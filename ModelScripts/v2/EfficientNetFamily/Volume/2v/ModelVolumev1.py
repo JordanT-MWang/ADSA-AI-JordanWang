@@ -88,7 +88,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Volume (ul)"
-    batch_size = 128
+    batch_size = 64
     model_name="SurfaceTensionENF4"
     image_size = (640, 640)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
@@ -103,9 +103,10 @@ def main():
 
     
     train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size)
+    train_gen = train_pipeline.get_dataset()
     val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
     test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
-    train_gen = train_pipeline.get_dataset()
+    
 
     # Save normalization stats
     stats = {
