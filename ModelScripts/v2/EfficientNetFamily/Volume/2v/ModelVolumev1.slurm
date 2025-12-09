@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=tensionv1    # Job name
+#SBATCH --job-name=VolumeEFTv1    # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
 #SBATCH --time=0-06:30:00           # Max runtime (HH:MM:SS)
@@ -36,4 +36,4 @@ ssh-add ~/.ssh/id_ed25519
 
 git pull 
 
-python ModelAreav1.py --dataset_path $LOCAL_DATA
+python ModelVolumev1.py --dataset_path $LOCAL_DATA
