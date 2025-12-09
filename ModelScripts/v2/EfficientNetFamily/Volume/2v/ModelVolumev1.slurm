@@ -22,6 +22,7 @@ module load system/CUDA/12.2.0
 # Activate your environment the robust way
 eval "$(conda shell.bash hook)"
 conda activate ADSAenv
+XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
 
 #copy data set locally
 HOME_DATA="/home/jordanw7/koa_scratch/ADSA-AI/combinedDir"
