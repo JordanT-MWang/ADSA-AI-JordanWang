@@ -112,7 +112,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Volume (ul)"
-    batch_size = 128
+    batch_size = 64
     model_name="SurfaceTensionENF4"
     image_size = (640, 640)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
