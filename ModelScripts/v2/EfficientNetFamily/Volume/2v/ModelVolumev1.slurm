@@ -14,7 +14,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL  # Email notifications
 #SBATCH --mail-user=jordanw7@hawaii.edu  # Your email
 #SBATCH --requeue
-#SBATCH --no-requeue-bad-nodes
+
 ## All options and environment variables found on schedMD site: http://slurm.schedmd.com/sbatch.html
 
 module load lang/Anaconda3/2024.02-1
