@@ -25,6 +25,30 @@ import os # Import os module
 import sys
 import json
 import argparse
+import subprocess
+import sys
+
+def gpu_is_bad():
+    try:
+        out = subprocess.check_output(["nvidia-smi", "-q", "-d", "ECC"], text=True)
+        if "Single Bit ECC" in out and "SBEC" in out:
+            return True  # ECC errors exist
+    except:
+        return True  # If we can't even run nvidia-smi, the node is bad
+
+    # Try a quick GPU operation
+    import tensorflow as tf
+    try:
+        tf.random.normal([2048, 2048])  # trigger GPU memory allocation
+    except:
+        return True
+
+    return False
+
+if gpu_is_bad():
+    print("⚠️ BAD GPU NODE DETECTED — EXITING EARLY SO SLURM CAN RESCHEDULE")
+    sys.exit(1)
+
 
 # === Path handling for DataGenerator ===
 script_dir = os.path.dirname(__file__)
