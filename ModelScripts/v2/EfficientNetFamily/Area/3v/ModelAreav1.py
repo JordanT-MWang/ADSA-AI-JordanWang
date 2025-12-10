@@ -6,6 +6,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
+from tensorflow.keras.losses import Huber
 from tensorflow.keras import mixed_precision
 tf.config.optimizer.set_jit(True)
 gpus = tf.config.list_physical_devices('GPU')
