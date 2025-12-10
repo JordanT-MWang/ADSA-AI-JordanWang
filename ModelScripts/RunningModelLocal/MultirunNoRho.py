@@ -10,6 +10,7 @@ import json
 import pandas as pd
 import csv
 import re
+from tqdm import tqdm
 # -------------------------
 # Preprocessing function
 # -------------------------
@@ -145,20 +146,21 @@ def main(model_path, model_type, image_folder):
     with open(dat_path, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["imageName", "predication"])
-        for img_name in sorted(img_files, key=natural_key):
+        for img_name in tqdm(sorted(img_files, key=natural_key)):
             
             img_path = os.path.join(edges_folder, img_name)
             img, scale = preprocess_image(img_path, target_size=image_size)
             
             params = global_params.copy()
-            print("IMG SHAPE:", img.shape, "PARAMS  before:", params)
+            #print("IMG SHAPE:", img.shape, "PARAMS  before:", params)
             params[0] = params[0] / scale
             params = (params - param_mean) / param_std
             #EPS = 1e-3  # minimum standard deviation to avoid dividing by tiny numbers
             #safe_std = np.maximum(param_std, EPS)
             #params_normalized = (params - param_mean) / safe_std
             params = np.expand_dims(params, axis=0)
-            print("IMG SHAPE:", img.shape, "PARAMS after:", params)
+            params[0] = 40
+            #print("IMG SHAPE:", img.shape, "PARAMS after:", params)
             pred = model.predict([img, params], verbose=0)
             predictions.append(pred[0][0])
             writer.writerow([img_name,float(pred[0][0])])
