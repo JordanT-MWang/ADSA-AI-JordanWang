@@ -95,7 +95,7 @@ class ADSADataPipeline:
         corrected_param = param[0] / resize_scale
 
         # 7. Normalize parameters
-        corrected_param = corrected_param self.param_mean
+        corrected_param = corrected_param / self.param_mean
         corrected_param = tf.expand_dims(corrected_param, 0)
 
         return (image, corrected_param), y
