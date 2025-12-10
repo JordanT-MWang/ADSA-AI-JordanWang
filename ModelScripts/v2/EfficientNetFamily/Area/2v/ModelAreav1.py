@@ -6,6 +6,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError
 from tensorflow.keras.losses import MeanSquaredError
+from tensorflow.keras.losses import Huber
 from tensorflow.keras import mixed_precision
 tf.config.optimizer.set_jit(True)
 gpus = tf.config.list_physical_devices('GPU')
@@ -69,7 +70,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=1e-4), loss=Huber(delta=0.01), metrics=['mae'])
     return model
 
 def main():
