@@ -64,12 +64,13 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 
     # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
-    z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.2)(z)
+    z = Dense(64, activation='relu')(combined)
+    z = Dropout(0.25)(z)
+    z = Dense(32, activation='relu')(z)
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=5e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
@@ -162,33 +163,47 @@ def main():
 
     start_total = time.time()
 
-    for (X_batch, param_batch), y_batch, name_batch in test_gen:
+
+
+    
+    image_paths = test_gen.image_paths  # List of strings
+
+    for batch_idx, ((X_batch, params_batch), y_batch) in enumerate(test_gen):
+        batch_size_actual = len(y_batch)
+
         start_batch = time.time()
-        preds = model.predict([X_batch, param_batch], verbose=0)
-        elapsed = time.time() - start_batch
+        preds_batch = model.predict([X_batch, params_batch], verbose=0)
+        elapsed_batch = time.time() - start_batch
 
-        # Store values
-        all_true.extend(y_batch.numpy().flatten())
-        all_pred.extend(preds.flatten())
+        # --- Convert tensors to clean Python scalars ---
+        true_vals = [float(v) for v in y_batch.numpy().flatten()]
+        pred_vals = [float(v) for v in preds_batch.flatten()]
+        time_vals = [float(elapsed_batch / batch_size_actual)] * batch_size_actual
 
-        decoded_names = [n.decode("utf-8") for n in name_batch.numpy()]
-        all_names.extend(decoded_names)
+        all_true.extend(true_vals)
+        all_pred.extend(pred_vals)
+        all_times.extend(time_vals)
 
-        all_times.extend([elapsed / len(y_batch)] * len(y_batch))
+        # Map batch → filenames
+        start_idx = batch_idx * test_gen.batch_size
+        end_idx = start_idx + batch_size_actual
+        batch_names = image_paths[start_idx:end_idx]
 
-    total_elapsed = time.time() - start_total
+        all_names.extend(batch_names)
 
+    end_total = time.time()
+    total_elapsed_time = end_total - start_total
 
-    # Save CSV
-    df = pd.DataFrame({
+    # Create DataFrame
+    results_df = pd.DataFrame({
         "image_name": all_names,
         "True_Value": all_true,
         "Predicted_Value": all_pred,
         "Prediction_Time_s": all_times
     })
-    df.to_csv(output_csv, index=False)
 
-    print(f"[INFO] Saved predictions to {output_csv}")
+    results_df.to_csv(output_csv, index=False)
+    print(f"[INFO] Results saved to {output_csv}")
 
     # Optional: predicted vs true plot
     plt.figure(figsize=(6,6))
