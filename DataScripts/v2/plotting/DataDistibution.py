@@ -114,7 +114,7 @@ def _parse_resolution(res_str):
     return np.nan, np.nan
 
 
-def _plot_distribution(values, label, bin_size=None, out_dir=None, min_bins=20):
+def _plot_distribution(values, label, bin_size=None, out_dir=None, min_bins=50):
     """
     Plot a histogram or bar chart for numeric or categorical data.
     Automatically detects type:

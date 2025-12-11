@@ -30,7 +30,7 @@ import argparse
 script_dir = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from DataGeneratorv3 import ADSADataPipeline # your custom generator
+from DataGeneratorv4 import ADSADataPipeline # your custom generator
 
 def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=25):
     """
@@ -103,8 +103,8 @@ def main():
 
     
     train_pipeline = ADSADataPipeline(dataset_path, split='train',image_size=image_size, output_type=output_training, batch_size=batch_size)
-    val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
-    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size).get_dataset()
+    val_gen = ADSADataPipeline(dataset_path, split='val',image_size=image_size, output_type=output_training, batch_size=batch_size, shuffle=False).get_dataset()
+    test_gen = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size,shuffle=False).get_dataset()
     train_gen = train_pipeline.get_dataset()
 
     # Save normalization stats
@@ -162,37 +162,33 @@ def main():
 
     start_total = time.time()
 
-    # Keep track of index manually using the pipeline
-    test_pipeline = ADSADataPipeline(dataset_path, split='test',image_size=image_size, output_type=output_training, batch_size=batch_size)
-    test_gen = test_pipeline.get_dataset()
-    image_paths = test_pipeline.image_paths  # Original list of image paths
-
-    for batch_idx, ((X_batch, params_batch), y_batch) in enumerate(test_gen):
+    for (X_batch, param_batch), y_batch, name_batch in test_gen:
         start_batch = time.time()
-        preds_batch = model.predict([X_batch, params_batch], verbose=0)
-        elapsed_batch = time.time() - start_batch
+        preds = model.predict([X_batch, param_batch], verbose=0)
+        elapsed = time.time() - start_batch
 
+        # Store values
         all_true.extend(y_batch.numpy().flatten())
-        all_pred.extend(preds_batch.flatten())
-        all_times.extend([elapsed_batch / len(y_batch)] * len(y_batch))
+        all_pred.extend(preds.flatten())
 
-        # Use the batch index to get correct image names
-        start_idx = batch_idx * batch_size
-        end_idx = start_idx + len(y_batch)
-        all_names.extend(image_paths[start_idx:end_idx])
+        decoded_names = [n.decode("utf-8") for n in name_batch.numpy()]
+        all_names.extend(decoded_names)
 
-    end_total = time.time()
-    total_elapsed_time = end_total - start_total
+        all_times.extend([elapsed / len(y_batch)] * len(y_batch))
 
-    # Save results
-    results_df = pd.DataFrame({
+    total_elapsed = time.time() - start_total
+
+
+    # Save CSV
+    df = pd.DataFrame({
         "image_name": all_names,
         "True_Value": all_true,
         "Predicted_Value": all_pred,
         "Prediction_Time_s": all_times
     })
-    results_df.to_csv(output_csv, index=False)
-    print(f"[INFO] Results saved to {output_csv}")
+    df.to_csv(output_csv, index=False)
+
+    print(f"[INFO] Saved predictions to {output_csv}")
 
     # Optional: predicted vs true plot
     plt.figure(figsize=(6,6))
