@@ -32,7 +32,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from DataGeneratorv4 import ADSADataPipeline # your custom generator
 
-def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=50):
+def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_until=100):
     """
     MobileNetV2 for regression with numeric inputs.
     """
