@@ -185,7 +185,7 @@ def main():
         all_times.extend(time_vals)
 
         # Map batch → filenames
-        start_idx = batch_idx * test_gen.batch_size
+        start_idx = batch_idx * train_pipeline.batch_size
         end_idx = start_idx + batch_size_actual
         batch_names = image_paths[start_idx:end_idx]
 

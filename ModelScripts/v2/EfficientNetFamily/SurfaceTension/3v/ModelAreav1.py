@@ -51,22 +51,24 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze first N layers
-    for i, layer in enumerate(base_model.layers):
-        layer.trainable = i >= freeze_until
+    for layer in base_model.layers[:freeze_until]:
+        layer.trainable = False
 
-    x = base_model(x_input, training=False)
+    x = base_model(x_input)
     x = GlobalAveragePooling2D()(x)
 
     # Custom trainable layers
     x = Dense(128, activation='relu')(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.15)(x)
     x = Dense(64, activation='relu')(x)
 
     # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
-    z = Dense(128, activation='relu')(combined)
-    z = Dropout(0.35)(z)
     z = Dense(64, activation='relu')(combined)
+    z = Dropout(0.15)(z)
+    z = Dense(32, activation='relu')(z)
+    z = Dropout(0.2)(z)
+    z = Dense(16, activation='relu')(z)
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -185,7 +187,7 @@ def main():
         all_times.extend(time_vals)
 
         # Map batch → filenames
-        start_idx = batch_idx * test_gen.batch_size
+        start_idx = batch_idx * train_pipeline.batch_size
         end_idx = start_idx + batch_size_actual
         batch_names = image_paths[start_idx:end_idx]
 
