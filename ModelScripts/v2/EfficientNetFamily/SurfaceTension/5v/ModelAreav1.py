@@ -59,14 +59,16 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 
     # Custom trainable layers
     x = Dense(128, activation='relu')(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.15)(x)
     x = Dense(64, activation='relu')(x)
 
     # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
-    z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.4)(z)
-    z = Dense(64, activation='relu')(z)
+    z = Dense(64, activation='relu')(combined)
+    z = Dropout(0.15)(z)
+    z = Dense(32, activation='relu')(z)
+    z = Dropout(0.15)(z)
+    z = Dense(16, activation='relu')(z)
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
