@@ -159,9 +159,15 @@ def main(model_path, model_type, image_folder):
             #safe_std = np.maximum(param_std, EPS)
             #params_normalized = (params - param_mean) / safe_std
             params = np.expand_dims(params, axis=0)
-            params[0] = 40
+            #volume
+            
             #print("IMG SHAPE:", img.shape, "PARAMS after:", params)
+            #round 12
+            #params[0] = 277 
+            #surface tension
+            params[0] = 5 
             pred = model.predict([img, params], verbose=0)
+            print(pred)
             predictions.append(pred[0][0])
             writer.writerow([img_name,float(pred[0][0])])
 
