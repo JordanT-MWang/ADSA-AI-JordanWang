@@ -166,7 +166,7 @@ def main():
 
 
     
-    image_paths = test_gen.image_paths  # List of strings
+    image_paths = train_pipeline.image_paths  # List of strings
 
     for batch_idx, ((X_batch, params_batch), y_batch) in enumerate(test_gen):
         batch_size_actual = len(y_batch)

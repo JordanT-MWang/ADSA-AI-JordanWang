@@ -64,9 +64,9 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
 
     # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
+    z = Dense(128, activation='relu')(combined)
+    z = Dropout(0.35)(z)
     z = Dense(64, activation='relu')(combined)
-    z = Dropout(0.25)(z)
-    z = Dense(32, activation='relu')(combined)
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -166,7 +166,7 @@ def main():
 
 
     
-    image_paths = test_gen.image_paths  # List of strings
+    image_paths = train_pipeline.image_paths  # List of strings
 
     for batch_idx, ((X_batch, params_batch), y_batch) in enumerate(test_gen):
         batch_size_actual = len(y_batch)
