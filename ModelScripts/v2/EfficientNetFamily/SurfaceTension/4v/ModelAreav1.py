@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras.applications import EfficientNetB5
+from tensorflow.keras.applications import EfficientNetB4
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Concatenate, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Lambda
 from tensorflow.keras.optimizers import Adam
@@ -47,7 +47,7 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
         x_input = img_input
     # Load pretrained MobileNetV2
     
-    base_model = EfficientNetB5(input_shape=(input_image_shape[0], input_image_shape[1], 3), include_top=False, weights='imagenet')
+    base_model = EfficientNetB4(input_shape=(input_image_shape[0], input_image_shape[1], 3), include_top=False, weights='imagenet')
    
     print("Base model input shape:", base_model.input_shape)
     # Freeze first N layers
