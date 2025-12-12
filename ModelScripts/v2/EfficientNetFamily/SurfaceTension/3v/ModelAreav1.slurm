@@ -2,7 +2,7 @@
 #SBATCH --job-name=tensionv3    # Job name
 #SBATCH --partition=gpu             # Use GPU partition
 #SBATCH --gres=gpu:1                # Request 1 GPU
-#SBATCH --time=0-06:30:00           # Max runtime (HH:MM:SS)
+#SBATCH --time=0-012:30:00           # Max runtime (HH:MM:SS)
 #SBATCH --cpus-per-task=4           # CPU cores for data loading
 
 #SBATCH --mem=64G ## max amount of memory per node you require

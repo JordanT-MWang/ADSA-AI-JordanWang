@@ -58,21 +58,20 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     x = GlobalAveragePooling2D()(x)
 
     # Custom trainable layers
-    x = Dense(128, activation='relu')(x)
-    x = Dropout(0.15)(x)
     x = Dense(64, activation='relu')(x)
-
+    x = Dropout(0.15)(x)
+    x = Dense(32, activation='relu')(x)
+    x = Dropout(0.15)(x)
     # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
-    z = Dense(64, activation='relu')(combined)
-    z = Dropout(0.15)(z)
-    z = Dense(32, activation='relu')(z)
+    z = Dense(32, activation='relu')(combined)
+
     z = Dropout(0.2)(z)
-    z = Dense(16, activation='relu')(z)
+    
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-4), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=1e-5), loss='mse', metrics=['mae'])
     return model
 
 def main():
@@ -127,7 +126,7 @@ def main():
 
     history = model.fit(train_gen,
                         validation_data=val_gen,
-                        epochs=50,
+                        epochs=100,
                         callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True),
                         checkpoint_cb])
 
