@@ -65,7 +65,8 @@ def create_model(input_image_shape=(512, 640, 3), input_param_size=2, freeze_unt
     # Concatenate with numeric input
     combined = Concatenate()([x, param_input])
     z = Dense(32, activation='relu')(combined)
-    z = Dropout(0.2)(z)
+    z = Dropout(0.4)(z)
+    z = Dense(64, activation='relu')(z)
     output = Dense(1, activation='linear',dtype='float32')(z)
 
     model = Model(inputs=[img_input, param_input], outputs=output)
@@ -88,7 +89,7 @@ def main():
     
     output_csv = "ST_Model_Predictions.csv"
     output_training = "Surface Tension (mN/m)"
-    batch_size = 64
+    batch_size = 128
     model_name="SurfaceTensionENF4"
     image_size = (640, 640)
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
