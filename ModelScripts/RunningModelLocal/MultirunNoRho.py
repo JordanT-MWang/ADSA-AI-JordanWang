@@ -164,8 +164,10 @@ def main(model_path, model_type, image_folder):
             #print("IMG SHAPE:", img.shape, "PARAMS after:", params)
             #round 12
             #params[0] = 277 
-            #surface tension
-            params[0] = 5 
+            #image set 3-curve, volume, surf
+            #params[0] = 300
+            params[0] = 60
+            #params[0] = 
             pred = model.predict([img, params], verbose=0)
             print(pred)
             predictions.append(pred[0][0])
