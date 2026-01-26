@@ -19,7 +19,8 @@ Results:
 * Created 4 models that had ~98% accuracy and 10 ms prediction time. 
 
 
-
-
-
+<img width="600" height="600" alt="pred_vs_true_Vol" src="https://github.com/user-attachments/assets/62a3934f-a49d-4a15-af4b-fae571e2275a" />
+<img width="600" height="600" alt="pred_vs_true_Area" src="https://github.com/user-attachments/assets/ac60a52b-2b13-43cb-872a-be9dad2b38cc" />
+<img width="600" height="600" alt="pred_vs_true_Tension" src="https://github.com/user-attachments/assets/241aaef7-ace8-4855-a265-b02321dd3cb4" />
+<img width="600" height="600" alt="pred_vs_true_curv" src="https://github.com/user-attachments/assets/fcf24a76-84c4-4225-b52f-7c2aaec2adc0" />
 
