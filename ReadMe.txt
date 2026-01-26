@@ -12,7 +12,9 @@ Why?
 * Machine learning was implemented as a faster way to determine these properties.
 
 Results:
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4a66eadd-3313-467c-9d6f-19f139b618ac" width="600">
+</p>
 
 
 
