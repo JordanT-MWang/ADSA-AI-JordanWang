@@ -1,6 +1,21 @@
-# ADSA AI 2025 Fall Internship ML Porject
+
+# ADSA AI 2025 Fall Internship ML Project
 This Repo contains two main folders.  
+The first folder, DataScripts contain all the scripts used to create and manage the dataset used to train the CNN model.  
+The second folder ModelScripts contains all the scripts used to create and train the CNN model using keras, tensorflow and slurm scripts(super computer job manager).
 
-The first folder DataScripts contain all the scripts used to create and manage the dataset used to train the CNN model.  
+What? 
+* Developed a CNN model that was able to determine 4 physical properties of a droplet from its outline.
 
-The second folder ModelScripts contail all the scripts used to create and train the CNN model using keras, tensorflow and slurm scripts(super computer job manager).
+Why? 
+* Current Axisymmetric Drop Shape Analysis (ADSA) takes about 50ms to determine these properties. 
+* Machine learning was implemented as a faster way to determine these properties.
+
+Results:
+
+
+
+
+
+
+
